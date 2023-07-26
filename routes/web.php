@@ -11,6 +11,8 @@ use \App\Http\Controllers\AdminController\HomeController;
 use \App\Http\Controllers\AdminController\Admin\LoginController;
 use \App\Http\Controllers\AdminController\Admin\ForgotPasswordController;
 use \App\Http\Controllers\AdminController\AdminController;
+use \App\Http\Controllers\AdminController\SettingController;
+use \App\Http\Controllers\AdminController\CityController;
 
 /**
  * end admin controllers
@@ -70,8 +72,14 @@ Route::prefix('admin')->group(function () {
             Route::get('/settings', 'setting')->name('settings.index');
             Route::post('/settings', 'store_setting')->name('store_setting');
         });
+        // city routes
+        Route::resource('/cities' , CityController::class);
+        Route::get('/cities/delete/{id}' , [CityController::class , 'destroy']);
+
     });
 });
 /**
  * End @admin Routes
  */
+
+

@@ -69,6 +69,18 @@
                 </li>
 
                 <li class="nav-item">
+                    <a href="{{route('cities.index')}}"
+                       class="nav-link {{ strpos(URL::current(), '/admin/cities') !== false ? 'active' : '' }}">
+                        <i class="fa fa-building"></i>
+                        <span class="badge badge-info right">
+                            {{\App\Models\School\City::count()}}
+                        </span>
+                        <p>
+                            @lang('messages.cities')
+                        </p>
+                    </a>
+                </li>
+                <li class="nav-item">
                     <a href="{{route('settings.index')}}"
                        class="nav-link {{ strpos(URL::current(), '/admin/settings') !== false ? 'active' : '' }}">
                         <i class="fa fa-cog"></i>

@@ -51,10 +51,10 @@
         </div><!-- /.container-fluid -->
     </section>
     <!-- Main content -->
+    @include('flash::message')
     <section class="content">
         <div class="container-fluid">
             <div class="row">
-                @include('flash::message')
                 <!-- left column -->
                 <div class="col-md-6">
                 <!-- general form elements -->

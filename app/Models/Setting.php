@@ -16,5 +16,7 @@ class Setting extends Model
         'online_token',
         'bearer_token',
         'sender_name',
+        'school_subscribe_price',
+        'teacher_subscribe_price',
     ];
 }

@@ -130,6 +130,35 @@
                                         </div>
                                     </div>
                                 </div>
+                                <h3 class="text-center"> سعر الاشتراك للمدارس والمعلمين </h3>
+                                <div class="form-group">
+                                    <label class="control-label"> @lang('messages.school_subscribe_price') </label>
+                                    <div class="row">
+                                        <div class="col-sm-10">
+                                            <input name="school_subscribe_price" type="number" class="form-control" value="{{$setting->school_subscribe_price}}" placeholder="@lang('messages.school_subscribe_price')">
+                                            @if ($errors->has('school_subscribe_price'))
+                                                <span class="help-block">
+                                            <strong style="color: red;">{{ $errors->first('school_subscribe_price') }}</strong>
+                                        </span>
+                                            @endif
+                                        </div>
+                                        <div class="col-sm-2">@lang('messages.SR')</div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label"> @lang('messages.teacher_subscribe_price') </label>
+                                    <div class="row">
+                                        <div class="col-sm-10">
+                                            <input name="teacher_subscribe_price" type="number" class="form-control" value="{{$setting->teacher_subscribe_price}}" placeholder="@lang('messages.teacher_subscribe_price')">
+                                            @if ($errors->has('teacher_subscribe_price'))
+                                                <span class="help-block">
+                                            <strong style="color: red;">{{ $errors->first('teacher_subscribe_price') }}</strong>
+                                        </span>
+                                            @endif
+                                        </div>
+                                        <div class="col-sm-2">@lang('messages.SR')</div>
+                                    </div>
+                                </div>
                             </div>
                             <!-- /.card-body -->
                             <div class="card-footer">
