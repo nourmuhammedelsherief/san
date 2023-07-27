@@ -81,6 +81,18 @@
                     </a>
                 </li>
                 <li class="nav-item">
+                    <a href="{{route('subjects.index')}}"
+                       class="nav-link {{ strpos(URL::current(), '/admin/subjects') !== false ? 'active' : '' }}">
+                        <i class="fa fa-book-open"></i>
+                        <span class="badge badge-info right">
+                            {{\App\Models\Subject::count()}}
+                        </span>
+                        <p>
+                            @lang('messages.subjects')
+                        </p>
+                    </a>
+                </li>
+                <li class="nav-item">
                     <a href="{{route('settings.index')}}"
                        class="nav-link {{ strpos(URL::current(), '/admin/settings') !== false ? 'active' : '' }}">
                         <i class="fa fa-cog"></i>

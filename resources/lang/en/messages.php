@@ -122,4 +122,5 @@ return [
     'school_subscribe_price' => 'Schools Subscription Price',
     'teacher_subscribe_price' => 'Teachers Subscription Price',
     'cities' => 'Cities',
+    'subjects' => 'Subjects',
 ];

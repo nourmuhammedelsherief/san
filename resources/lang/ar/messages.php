@@ -104,5 +104,6 @@ return [
     'school_subscribe_price' => 'سعر الاشتراك للمدارس',
     'teacher_subscribe_price' => 'سعر الاشتراك للمعلمين',
     'cities' => 'المدن',
+    'subjects' => 'المواد',
 
 ];
