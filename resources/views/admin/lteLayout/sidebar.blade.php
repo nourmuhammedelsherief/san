@@ -93,6 +93,18 @@
                     </a>
                 </li>
                 <li class="nav-item">
+                    <a href="{{route('seller_codes.index')}}"
+                       class="nav-link {{ strpos(URL::current(), '/admin/seller_codes') !== false ? 'active' : '' }}">
+                        <i class="fa fa-code"></i>
+                        <span class="badge badge-info right">
+                            {{\App\Models\SellerCode::count()}}
+                        </span>
+                        <p>
+                            @lang('messages.seller_codes')
+                        </p>
+                    </a>
+                </li>
+                <li class="nav-item">
                     <a href="{{route('settings.index')}}"
                        class="nav-link {{ strpos(URL::current(), '/admin/settings') !== false ? 'active' : '' }}">
                         <i class="fa fa-cog"></i>

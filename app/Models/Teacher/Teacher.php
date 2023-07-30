@@ -26,6 +26,8 @@ class Teacher extends Authenticatable
         'type',
         'password',
         'api_token',
+        'phone_number',
+        'active',
 
     ];
     protected $hidden = [
@@ -35,5 +37,9 @@ class Teacher extends Authenticatable
     public function city()
     {
         return $this->belongsTo(City::class , 'city_id');
+    }
+    public function subscription()
+    {
+        return $this->hasOne(TeacherSubscription::class , 'teacher_id');
     }
 }

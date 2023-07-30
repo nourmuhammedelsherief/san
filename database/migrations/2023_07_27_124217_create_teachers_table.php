@@ -26,6 +26,7 @@ return new class extends Migration
             $table->enum('type' , ['free' , 'school'])->default('free');
             $table->string('integration_code')->nullable();
             $table->string('photo')->nullable();
+            $table->string('phone_number')->nullable();
             $table->string('api_token')->nullable();
             $table->timestamps();
         });

@@ -197,6 +197,7 @@ return [
         'description_ar' => 'Description In Arabic',
         'description_en' => 'Description In English',
         'lang' => 'Lang',
+        'subjects' => 'Subjects',
     ],
 
 ];

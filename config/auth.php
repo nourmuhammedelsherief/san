@@ -48,6 +48,11 @@ return [
             'driver' => 'session',
             'provider' => 'teachers',
         ],
+        'teacher-api' => [
+            'driver' => 'token',
+            'provider' => 'teachers',
+            'hash' => false,
+        ],
     ],
 
     /*
@@ -78,7 +83,7 @@ return [
         ],
         'teachers' => [
             'driver' => 'eloquent',
-            'model' => App\Models\Teacher::class,
+            'model' => \App\Models\Teacher\Teacher::class,
         ],
 
         // 'users' => [

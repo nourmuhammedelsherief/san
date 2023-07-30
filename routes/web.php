@@ -14,6 +14,8 @@ use \App\Http\Controllers\AdminController\AdminController;
 use \App\Http\Controllers\AdminController\SettingController;
 use \App\Http\Controllers\AdminController\CityController;
 use \App\Http\Controllers\AdminController\SubjectController;
+use \App\Http\Controllers\AdminController\SellerCodeController;
+use \App\Http\Controllers\AdminController\TransferController;
 
 /**
  * end admin controllers
@@ -79,7 +81,14 @@ Route::prefix('admin')->group(function () {
         // subject routes
         Route::resource('/subjects' , SubjectController::class);
         Route::get('/subjects/delete/{id}' , [SubjectController::class , 'destroy']);
-
+        // seller_codes routes
+        Route::resource('/seller_codes' , SellerCodeController::class);
+        Route::get('/seller_codes/delete/{id}' , [SellerCodeController::class , 'destroy']);
+        // transfers routes
+        Route::controller(TransferController::class)->group(function () {
+            Route::get('/teacher_transfers', 'teacher_transfers')->name('teacher_transfers');
+            Route::get('/teacher_transfer/{id}/{status}', 'teacher_transfer_submit')->name('teacher_transfers.submit');
+        });
     });
 });
 /**
