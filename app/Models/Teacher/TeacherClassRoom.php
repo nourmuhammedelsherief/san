@@ -14,10 +14,15 @@ class TeacherClassRoom extends Model
         'teacher_id',
         'main_teacher_id',
         'pulled',
+        'archive',
     ];
 
     public function teacher()
     {
         return $this->belongsTo(Teacher::class , 'teacher_id');
+    }
+    public function subjects()
+    {
+        return $this->hasMany(ClassRoomSubject::class , 'class_room_id');
     }
 }

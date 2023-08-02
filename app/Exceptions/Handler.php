@@ -40,8 +40,13 @@ class Handler extends ExceptionHandler
             case 'admin':
                 $login = 'admin.login';
                 break;
-            case 'teacher':
-                $login = 'teacher.login';
+            case 'teacher-api':
+                $errors = [
+                    'message'=>trans('messages.token_is_required'),
+                ];
+
+                http_response_code(401);  // set the code
+                return response()->json($errors)->setStatusCode(401);
                 break;
             case 'web':
                 $login = 'users.login';

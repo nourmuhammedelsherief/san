@@ -198,6 +198,8 @@ return [
         'description_en' => 'Description In English',
         'lang' => 'Lang',
         'subjects' => 'Subjects',
+        'current_password' => 'Current Password',
+        'new_password' => 'New Password',
     ],
 
 ];

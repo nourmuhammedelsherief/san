@@ -25,6 +25,11 @@ class TeacherSubscription extends Model
         'end_at',
     ];
 
+    protected $casts = [
+        'paid_at' => 'datetime',
+        'end_at' => 'datetime',
+    ];
+
     public function teacher()
     {
         return $this->belongsTo(Teacher::class , 'teacher_id');

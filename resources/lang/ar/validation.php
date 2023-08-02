@@ -298,5 +298,8 @@ return [
         'description_en' => 'الوصف بالانجليزي',
         'lang' => 'اللغة',
         'subjects' => 'المواد',
+        'current_password' => 'كلمة المرور الحالية',
+        'new_password' => 'كلمة المرور الجديدة',
+        'birth_date' => 'تاريخ الميلاد',
     ],
 ];

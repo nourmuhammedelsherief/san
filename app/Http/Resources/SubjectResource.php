@@ -14,9 +14,17 @@ class SubjectResource extends JsonResource
      */
     public function toArray(Request $request): array
     {
-        return [
-            'id'    => $this->id,
-            'name'  => app()->getLocale() == 'ar' ? $this->name_ar : $this->name_en,
-        ];
+        if ($this->subject != null)
+        {
+            return [
+                'id'    => $this->subject->id,
+                'name'  => app()->getLocale() == 'ar' ? $this->subject->name_ar : $this->subject->name_en,
+            ];
+        }else{
+            return [
+                'id'    => $this->id,
+                'name'  => app()->getLocale() == 'ar' ? $this->name_ar : $this->name_en,
+            ];
+        }
     }
 }

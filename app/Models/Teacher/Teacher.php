@@ -28,6 +28,8 @@ class Teacher extends Authenticatable
         'api_token',
         'phone_number',
         'active',
+        'verification_code',
+        'whatsapp',
 
     ];
     protected $hidden = [
@@ -41,5 +43,9 @@ class Teacher extends Authenticatable
     public function subscription()
     {
         return $this->hasOne(TeacherSubscription::class , 'teacher_id');
+    }
+    public function subjects()
+    {
+        return $this->hasMany(TeacherSubject::class , 'teacher_id');
     }
 }

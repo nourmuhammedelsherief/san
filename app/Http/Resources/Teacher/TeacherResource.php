@@ -3,6 +3,7 @@
 namespace App\Http\Resources\Teacher;
 
 use App\Http\Resources\CityResource;
+use App\Http\Resources\SubjectResource;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
@@ -26,7 +27,10 @@ class TeacherResource extends JsonResource
             'school'   => $this->school,
             'type'     => $this->type,
             'api_token' => $this->api_token,
+            'whatsapp'  => $this->whatsapp,
             'phone_number' => $this->phone_number,
+            'subjects'  => SubjectResource::collection($this->subjects),
+            'subscription' => new SubscriptionResource($this->subscription),
         ];
     }
 }
