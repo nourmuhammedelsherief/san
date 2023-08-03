@@ -151,4 +151,6 @@ return [
     'password_changed_successfully' => 'Password Changed Successfully',
     'not_found' => 'Not Found',
     'birth_date' => 'Birth Date',
+    'ItemCannotDeleted' => 'You Can Not Delete Item It is Used',
+    'rated_successfully' => 'Rate Done Successfully',
 ];

@@ -6,6 +6,8 @@ use App\Http\Controllers\Api\TeacherController\TeacherController;
 use App\Http\Controllers\Api\TeacherController\SettingController;
 use App\Http\Controllers\Api\TeacherController\TClassRoomController;
 use App\Http\Controllers\Api\TeacherController\StudentController;
+use \App\Http\Controllers\Api\TeacherController\TeacherRateController;
+use \App\Http\Controllers\Api\TeacherController\StudentRateController;
 use \App\Http\Controllers\Api\PublicController;
 
 /*
@@ -69,7 +71,16 @@ Route::group(['middleware' => ['auth:teacher-api', 'cors', 'localization-api']],
             Route::post('/classroom/students/{id}/edit', 'edit');
             Route::get('/classroom/students/{id}/show', 'show');
             Route::get('/classroom/students/{id}/delete', 'destroy');
-
+        });
+        Route::controller(TeacherRateController::class)->group(function () {
+            Route::post('/rates', 'index');
+            Route::post('/rates/create', 'create');
+            Route::post('/rates/{id}/edit', 'edit');
+            Route::get('/rates/{id}/show', 'show');
+            Route::get('/rates/{id}/delete', 'destroy');
+        });
+        Route::controller(StudentRateController::class)->group(function () {
+            Route::post('/teacher_add_student_rate', 'rate');
         });
 
     });

@@ -134,4 +134,6 @@ return [
     'error_old_password' => 'كلمة المرور القديمة خطأ',
     'password_changed_successfully' => 'تم تغيير كلمة المرور بنجاح',
     'not_found' => 'غير موجود',
+    'ItemCannotDeleted' => 'لا يمكنك مسح العنصر لأنه مستخدم',
+    'rated_successfully' => 'تم التقييم بنجاح',
 ];

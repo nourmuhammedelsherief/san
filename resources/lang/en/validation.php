@@ -200,6 +200,8 @@ return [
         'subjects' => 'Subjects',
         'current_password' => 'Current Password',
         'new_password' => 'New Password',
+        'rate_name' => 'Rate Name',
+        'points' => 'Points',
     ],
 
 ];

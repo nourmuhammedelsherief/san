@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources\Teacher;
 
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
@@ -21,6 +22,9 @@ class StudentResource extends JsonResource
             'gender'   => $this->gender,
             'photo'    => $this->photo == null ? null : asset('/uploads/students/' . $this->photo),
             'birth_date' => $this->birth_date->format('Y-m-d'),
+            'age'      => \Carbon\Carbon::parse($this->birth_date)->diff(\Carbon\Carbon::now())->format('%y'),
+            'points'  => $this->points,
+            'rates'   => TeacherRateResource::collection($this->rates)
         ];
     }
 }

@@ -301,5 +301,7 @@ return [
         'current_password' => 'كلمة المرور الحالية',
         'new_password' => 'كلمة المرور الجديدة',
         'birth_date' => 'تاريخ الميلاد',
+        'rate_name' => 'اسم السلوك',
+        'points' => 'النقاط',
     ],
 ];
