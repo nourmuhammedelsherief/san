@@ -159,7 +159,22 @@
                                         <div class="col-sm-2">@lang('messages.SR')</div>
                                     </div>
                                 </div>
+                                <div class="form-group">
+                                    <label class="control-label"> @lang('messages.invitation_code_discount') </label>
+                                    <div class="row">
+                                        <div class="col-sm-10">
+                                            <input name="invitation_code_discount" type="number" class="form-control" value="{{$setting->invitation_code_discount}}" placeholder="@lang('messages.invitation_code_discount')">
+                                            @if ($errors->has('invitation_code_discount'))
+                                                <span class="help-block">
+                                            <strong style="color: red;">{{ $errors->first('invitation_code_discount') }}</strong>
+                                        </span>
+                                            @endif
+                                        </div>
+                                        <div class="col-sm-2">%</div>
+                                    </div>
+                                </div>
                             </div>
+
                             <!-- /.card-body -->
                             <div class="card-footer">
                                 <button type="submit" class="btn btn-primary">@lang('messages.save')</button>

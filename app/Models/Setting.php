@@ -18,5 +18,6 @@ class Setting extends Model
         'sender_name',
         'school_subscribe_price',
         'teacher_subscribe_price',
+        'invitation_code_discount',
     ];
 }

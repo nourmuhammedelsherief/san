@@ -31,6 +31,8 @@ class TeacherResource extends JsonResource
             'phone_number' => $this->phone_number,
             'subjects'  => SubjectResource::collection($this->subjects),
             'subscription' => new SubscriptionResource($this->subscription),
+            'invitation_code' => $this->invitation_code,
+            'balance'   => $this->balance
         ];
     }
 }

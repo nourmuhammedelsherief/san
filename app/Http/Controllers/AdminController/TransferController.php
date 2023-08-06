@@ -33,6 +33,12 @@ class TransferController extends Controller
             $subscription->teacher->update([
                 'active'  => 'true',
             ]);
+            if ($subscription->invitation_code_id != null)
+            {
+                $subscription->invitation_code->update([
+                    'balance' => $subscription->invitation_code->balance + $subscription->invitation_discount
+                ]);
+            }
             // add operation to History
             History::create([
                 'teacher_id'  => $subscription->teacher->id,

@@ -25,6 +25,7 @@ class SubscriptionResource extends JsonResource
             'payment'         => $this->payment,
             'paid_at'         => $this->paid_at == null ? null : $this->paid_at->format('Y-m-d'),
             'end_at'          => $this->end_at == null ? null : $this->end_at->format('Y-m-d'),
+            'balance'         => $this->teacher->balance,
         ];
     }
 }

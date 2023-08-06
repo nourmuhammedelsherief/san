@@ -153,4 +153,5 @@ return [
     'birth_date' => 'Birth Date',
     'ItemCannotDeleted' => 'You Can Not Delete Item It is Used',
     'rated_successfully' => 'Rate Done Successfully',
+    'invitation_code_discount' => 'Discount For Teachers Invitation Discount',
 ];

@@ -136,4 +136,5 @@ return [
     'not_found' => 'غير موجود',
     'ItemCannotDeleted' => 'لا يمكنك مسح العنصر لأنه مستخدم',
     'rated_successfully' => 'تم التقييم بنجاح',
+    'invitation_code_discount' => 'قيمة الخصم ل أكواد دعوه المعلمين',
 ];

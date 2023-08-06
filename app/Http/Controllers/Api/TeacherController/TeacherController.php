@@ -37,7 +37,8 @@ class TeacherController extends Controller
             'payment_type' => 'required|in:online,bank',
             'transfer_photo' => 'required_if:payment_type,bank|mimes:jpg,jpeg,png,gif,tif,psd,pmp,webp|max:5000',
             'seller_code' => 'sometimes|exists:seller_codes,code',
-            'online_type' => 'required_if:payment_type,online|in:visa,mada,apple_pay'
+            'online_type' => 'required_if:payment_type,online|in:visa,mada,apple_pay',
+            'invitation_code' => 'sometimes|exists:teachers,invitation_code',
         ];
         $validator = Validator::make($request->all(), $rules);
         if ($validator->fails())
@@ -45,6 +46,7 @@ class TeacherController extends Controller
 
         // create new Teacher
         $integration_code = mt_rand(10000000000, 99999999999);
+        $invitation_code = mt_rand(10000000, 99999999);
         $teacher = Teacher::create([
             'city_id' => $request->city_id,
             'name' => $request->name,
@@ -54,6 +56,7 @@ class TeacherController extends Controller
             'type' => 'free',
             'active' => 'false',
             'integration_code' => $integration_code,
+            'invitation_code' => $invitation_code,
             'password' => Hash::make($request->password),
         ]);
         // add teacher subjects
@@ -66,9 +69,12 @@ class TeacherController extends Controller
                 ]);
             }
         }
+        // first apply and check seller code
         $setting = Setting::first();
         $seller_code = null;
+        $invitation_code_owner = null;
         $discount = 0;
+        $invitation_discount = 0;
         $amount = $setting->teacher_subscribe_price;
         if ($request->seller_code != null) {
             // apply the seller code discount
@@ -78,6 +84,16 @@ class TeacherController extends Controller
                 $amount = $amount - $discount;
             }
         }
+        // second check and apply invitation code
+
+        if ($request->invitation_code != null)
+        {
+            $invitation_discount = ($amount * $setting->invitation_code_discount) / 100;
+            $amount = $amount - $invitation_discount;
+            $discount+=$invitation_discount;
+            $invitation_code_owner = Teacher::where('invitation_code' , $request->invitation_code)->first();
+        }
+
         if ($request->payment_type == 'bank') {
             // create teacher subscription with bank
             TeacherSubscription::create([
@@ -89,6 +105,8 @@ class TeacherController extends Controller
                 'transfer_photo' => $request->file('transfer_photo') == null ? null : UploadImage($request->file('transfer_photo'), 'transfer', '/uploads/teacher_transfers'),
                 'payment_type' => 'bank',
                 'payment' => 'false',
+                'invitation_code_id' => $invitation_code_owner?->id,
+                'invitation_discount' => $invitation_discount,
             ]);
             $success = [
                 'message' => trans('messages.register_and_wait_active')
@@ -151,6 +169,8 @@ class TeacherController extends Controller
                     'invoice_id' => $result->Data->InvoiceId,
                     'payment_type' => 'online',
                     'payment' => 'false',
+                    'invitation_code_id' => $invitation_code_owner?->id,
+                    'invitation_discount' => $invitation_discount,
                 ]);
                 $success = [
                     'payment_url' => $result->Data->PaymentURL
@@ -234,6 +254,12 @@ class TeacherController extends Controller
             $subscription->teacher->update([
                 'active' => 'true',
             ]);
+            if ($subscription->invitation_code_id != null)
+            {
+                $subscription->invitation_code->update([
+                    'balance' => $subscription->invitation_code->balance + $subscription->invitation_discount
+                ]);
+            }
             // add operation to History
             History::create([
                 'teacher_id' => $subscription->teacher->id,

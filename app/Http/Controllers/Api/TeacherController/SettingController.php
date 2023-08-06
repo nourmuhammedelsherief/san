@@ -61,6 +61,19 @@ class SettingController extends Controller
                     $amount = $amount - $discount;
                 }
             }
+            if ($teacher->balance > 0 and $teacher->balance < $amount)
+            {
+                $amount = $amount - $teacher->balance;
+                $teacher->update([
+                    'balance'  => 0
+                ]);
+            }elseif ($teacher->balance > 0 and $teacher->balance < $amount)
+            {
+                $teacher->update([
+                    'balance'  => $teacher->balance - $amount,
+                ]);
+                $amount = 0;
+            }
             if ($request->payment_type == 'bank') {
                 $subscription = $teacher->subscription;
                 TeacherSubscription::updateOrCreate([

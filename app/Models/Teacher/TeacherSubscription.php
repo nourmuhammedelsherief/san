@@ -14,8 +14,10 @@ class TeacherSubscription extends Model
     protected $fillable = [
         'teacher_id',
         'seller_code_id',
+        'invitation_code_id',
         'paid_amount',
         'discount',
+        'invitation_discount',
         'status',
         'transfer_photo',
         'invoice_id',
@@ -33,6 +35,10 @@ class TeacherSubscription extends Model
     public function teacher()
     {
         return $this->belongsTo(Teacher::class , 'teacher_id');
+    }
+    public function invitation_code()
+    {
+        return $this->belongsTo(Teacher::class , 'invitation_code_id');
     }
     public function seller_code()
     {

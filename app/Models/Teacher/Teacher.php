@@ -29,6 +29,8 @@ class Teacher extends Authenticatable
         'phone_number',
         'active',
         'verification_code',
+        'invitation_code',
+        'balance',
         'whatsapp',
 
     ];
