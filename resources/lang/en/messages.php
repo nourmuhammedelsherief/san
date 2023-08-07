@@ -154,4 +154,7 @@ return [
     'ItemCannotDeleted' => 'You Can Not Delete Item It is Used',
     'rated_successfully' => 'Rate Done Successfully',
     'invitation_code_discount' => 'Discount For Teachers Invitation Discount',
+    'stdNotHaveEnoughPoints' => 'Student Not Have Enough Points To Add This Behaviour',
+    'rewardAddedToStdSuccessfully' => 'Reward Added To Student Successfully',
+    'rewarded_successfully' => 'Reward Added To Students Successfully',
 ];

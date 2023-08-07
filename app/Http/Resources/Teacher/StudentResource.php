@@ -24,7 +24,8 @@ class StudentResource extends JsonResource
             'birth_date' => $this->birth_date->format('Y-m-d'),
             'age'      => \Carbon\Carbon::parse($this->birth_date)->diff(\Carbon\Carbon::now())->format('%y'),
             'points'  => $this->points,
-            'rates'   => TeacherRateResource::collection($this->rates)
+            'rates'   => TeacherRateResource::collection($this->rates),
+            'rewards' => RewardResource::collection($this->rewards),
         ];
     }
 }

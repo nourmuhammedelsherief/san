@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Models\Teacher\StudentRate;
+use App\Models\Teacher\StudentReward;
 use App\Models\Teacher\TeacherClassRoom;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -29,5 +30,9 @@ class Student extends Model
     public function rates()
     {
         return $this->hasMany(StudentRate::class , 'student_id');
+    }
+    public function rewards()
+    {
+        return $this->hasMany(StudentReward::class , 'student_id');
     }
 }

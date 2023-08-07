@@ -202,6 +202,8 @@ return [
         'new_password' => 'New Password',
         'rate_name' => 'Rate Name',
         'points' => 'Points',
+        'student_id' => 'Student',
+        'reward_id' => 'Reward',
     ],
 
 ];

@@ -8,6 +8,8 @@ use App\Http\Controllers\Api\TeacherController\TClassRoomController;
 use App\Http\Controllers\Api\TeacherController\StudentController;
 use \App\Http\Controllers\Api\TeacherController\TeacherRateController;
 use \App\Http\Controllers\Api\TeacherController\StudentRateController;
+use \App\Http\Controllers\Api\TeacherController\RewardController;
+use \App\Http\Controllers\Api\TeacherController\StdRewardController;
 use \App\Http\Controllers\Api\PublicController;
 
 /*
@@ -82,6 +84,22 @@ Route::group(['middleware' => ['auth:teacher-api', 'cors', 'localization-api']],
         Route::controller(StudentRateController::class)->group(function () {
             Route::post('/teacher_add_student_rate', 'rate');
         });
+        // rewards routes
+        Route::controller(RewardController::class)->group(function () {
+            Route::get('/rewards', 'index');
+            Route::post('/rewards/create', 'create');
+            Route::post('/rewards/{id}/edit', 'edit');
+            Route::get('/rewards/{id}/show', 'show');
+            Route::get('/rewards/{id}/delete', 'destroy');
+        });
+        Route::controller(StdRewardController::class)->group(function () {
+            Route::get('/rewards_to_student/{std_id}', 'rewards_to_student');
+            Route::post('/add_reward_to_student', 'add_reward_to_student');
+            Route::get('/get_students_to_reward/{reward_id}', 'get_students_to_reward');
+            Route::post('/add_reward_to_students', 'add_reward_to_students');
+
+        });
+
 
     });
 });

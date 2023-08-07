@@ -303,5 +303,7 @@ return [
         'birth_date' => 'تاريخ الميلاد',
         'rate_name' => 'اسم السلوك',
         'points' => 'النقاط',
+        'student_id' => 'الطالب',
+        'reward_id' => 'السلوك',
     ],
 ];
