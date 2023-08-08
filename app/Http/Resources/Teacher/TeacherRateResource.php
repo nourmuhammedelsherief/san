@@ -21,7 +21,8 @@ class TeacherRateResource extends JsonResource
                 'teacher_id'   => $this->rate->teacher_id,
                 'rate_name'    => $this->rate->rate_name,
                 'points'       => $this->rate->points,
-                'type'         => $this->rate->type
+                'type'         => $this->rate->type,
+                'created_at'   => $this->rate->created_at->format('Y-m-d H:i:s')
             ];
         }else{
             return [
@@ -29,7 +30,8 @@ class TeacherRateResource extends JsonResource
                 'teacher_id'   => $this->teacher_id,
                 'rate_name'    => $this->rate_name,
                 'points'       => $this->points,
-                'type'         => $this->type
+                'type'         => $this->type,
+                'created_at'   => $this->created_at->format('Y-m-d H:i:s')
             ];
         }
     }

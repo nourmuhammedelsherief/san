@@ -157,4 +157,7 @@ return [
     'stdNotHaveEnoughPoints' => 'Student Not Have Enough Points To Add This Behaviour',
     'rewardAddedToStdSuccessfully' => 'Reward Added To Student Successfully',
     'rewarded_successfully' => 'Reward Added To Students Successfully',
+    'IntegrationRequestedSuccessfully' => 'Integration Request Sent To Teacher Successfully',
+    'operationDoneSuccessfully' => 'Integration Operation Done Successfully',
+    'operationCanceledSuccessfully' => 'Integration Operation Canceled Successfully',
 ];

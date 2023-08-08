@@ -204,6 +204,7 @@ return [
         'points' => 'Points',
         'student_id' => 'Student',
         'reward_id' => 'Reward',
+        'integration_code' => 'Integration Code With Another Teacher',
     ],
 
 ];

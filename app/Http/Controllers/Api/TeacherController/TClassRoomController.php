@@ -6,6 +6,7 @@ use App\Http\Controllers\Api\ApiController;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\SubjectResource;
 use App\Http\Resources\Teacher\ClassRoomResource;
+use App\Models\Classroom;
 use App\Models\Teacher\ClassRoomSubject;
 use App\Models\Teacher\TeacherClassRoom;
 use App\Models\Teacher\TeacherSubject;
@@ -52,7 +53,11 @@ class TClassRoomController extends Controller
             return ApiController::respondWithErrorObject(validateRules($validator->errors(), $rules));
 
         // create new classroom
-        $classroom = TeacherClassRoom::create([
+        $classroom = Classroom::create([
+            'name'  => $request->name
+        ]);
+        $teacher_classroom = TeacherClassRoom::create([
+            'classroom_id' => $classroom->id,
             'name'        => $request->name,
             'teacher_id'  => $teacher->id,
             'main_teacher_id' => $teacher->id,
@@ -63,18 +68,18 @@ class TClassRoomController extends Controller
             foreach ($request->subjects as $subject) {
                 // create teacher subject
                 ClassRoomSubject::create([
-                    'class_room_id' => $classroom->id,
+                    'class_room_id' => $teacher_classroom->id,
                     'subject_id'    => $subject,
                 ]);
             }
         }
-        return ApiController::respondWithSuccess(new ClassRoomResource($classroom));
+        return ApiController::respondWithSuccess(new ClassRoomResource($teacher_classroom));
     }
     public function edit(Request $request , $id)
     {
         $teacher = $request->user();
         $classroom = TeacherClassRoom::find($id);
-        if ($classroom){
+        if ($classroom and $classroom->pulled == 'false'){
             $rules = [
                 'name'         => 'sometimes|string|max:191',
                 'subjects'     => 'nullable',
@@ -87,6 +92,9 @@ class TClassRoomController extends Controller
                 return ApiController::respondWithErrorObject(validateRules($validator->errors(), $rules));
 
             $classroom->update([
+                'name'        => $request->name == null ? $classroom->name : $request->name,
+            ]);
+            $classroom->classroom->update([
                 'name'        => $request->name == null ? $classroom->name : $request->name,
             ]);
             if ($request->subjects != null) {
@@ -119,7 +127,7 @@ class TClassRoomController extends Controller
     public function destroy($id)
     {
         $classroom = TeacherClassRoom::find($id);
-        if ($classroom){
+        if ($classroom and $classroom->main_teacher_id == $classroom->teacher_id){
             $classroom->delete();
             $success = [
                 'message' => trans('messages.deleted')

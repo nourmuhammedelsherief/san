@@ -305,5 +305,6 @@ return [
         'points' => 'النقاط',
         'student_id' => 'الطالب',
         'reward_id' => 'السلوك',
+        'integration_code' => 'كود الربط مع معلم اخر',
     ],
 ];

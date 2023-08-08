@@ -140,4 +140,7 @@ return [
     'stdNotHaveEnoughPoints' => 'لا يوجد نقاط كافيه لأضافه المكافأة للطالب',
     'rewardAddedToStdSuccessfully' => 'تم إضافة السلوك الي الطالب بنجاح',
     'rewarded_successfully' => 'تم إضافة  السلوك الي الطلاب بنجاح',
+    'IntegrationRequestedSuccessfully' => 'تم إرسال طلب التكامل الي المعلم بنجاح',
+    'operationDoneSuccessfully' => 'تمت عمليه الربط مع المعلم بنجاح',
+    'operationCanceledSuccessfully' => 'تم إلغاء عمليه  الربط مع المعلم بنجاح',
 ];

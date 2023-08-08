@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api\TeacherController;
 use App\Http\Controllers\Api\ApiController;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\Teacher\StudentResource;
+use App\Models\Classroom;
 use App\Models\Student;
 use App\Models\Teacher\TeacherClassRoom;
 use Illuminate\Http\Request;
@@ -12,14 +13,25 @@ use Validator;
 
 class StudentController extends Controller
 {
-    public function index($id)
+    public function index(Request $request , $id)
     {
-        $students = Student::whereClassroomId($id)->get();
-        return ApiController::respondWithSuccess(StudentResource::collection($students));
+        $classroom = Classroom::find($id);
+        // check if the teacher related with this class
+        $check = TeacherClassRoom::whereClassroomId($id)
+            ->whereteacherId($request->user()->id)
+            ->first();
+        if ($classroom and $check)
+        {
+            $students = Student::whereClassroomId($id)->get();
+            return ApiController::respondWithSuccess(StudentResource::collection($students));
+        }else{
+            $error = ['message' => trans('messages.not_found')];
+            return ApiController::respondWithErrorNOTFoundObject($error);
+        }
     }
     public function create(Request $request , $id)
     {
-        $classroom = TeacherClassRoom::find($id);
+        $classroom = Classroom::find($id);
         if ($classroom)
         {
             $rules = [

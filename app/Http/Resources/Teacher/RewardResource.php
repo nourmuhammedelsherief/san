@@ -22,6 +22,7 @@ class RewardResource extends JsonResource
                 'name'    => $this->reward->name,
                 'points'  => $this->reward->points,
                 'photo'   => $this->reward->photo == null ? null : asset('/uploads/rewards/' . $this->reward->photo),
+                'created_at' => $this->reward->created_at->format('Y-m-d H:i:s')
             ];
         }else{
             return [
@@ -30,7 +31,10 @@ class RewardResource extends JsonResource
                 'name'    => $this->name,
                 'points'  => $this->points,
                 'photo'   => $this->photo == null ? null : asset('/uploads/rewards/' . $this->photo),
+                'created_at' => $this->created_at->format('Y-m-d H:i:s')
             ];
         }
     }
 }
+
+

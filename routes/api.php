@@ -10,6 +10,7 @@ use \App\Http\Controllers\Api\TeacherController\TeacherRateController;
 use \App\Http\Controllers\Api\TeacherController\StudentRateController;
 use \App\Http\Controllers\Api\TeacherController\RewardController;
 use \App\Http\Controllers\Api\TeacherController\StdRewardController;
+use \App\Http\Controllers\Api\TeacherController\TeacherClassIntegrationController;
 use \App\Http\Controllers\Api\PublicController;
 
 /*
@@ -97,9 +98,15 @@ Route::group(['middleware' => ['auth:teacher-api', 'cors', 'localization-api']],
             Route::post('/add_reward_to_student', 'add_reward_to_student');
             Route::get('/get_students_to_reward/{reward_id}', 'get_students_to_reward');
             Route::post('/add_reward_to_students', 'add_reward_to_students');
-
         });
 
+        // teachers integration with another teachers routes
+        Route::controller(TeacherClassIntegrationController::class)->group(function () {
+            Route::post('/integrate_with_another_teacher_request', 'integrate_with_another_teacher_request');
+            Route::get('/integration_requests', 'integration_requests');
+            Route::post('/teacher_apply_integration_request', 'teacher_apply_integration_request');
+            Route::get('/my_integrations', 'my_integrations');
+        });
 
     });
 });

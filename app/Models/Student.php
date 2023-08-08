@@ -25,7 +25,7 @@ class Student extends Model
 
     public function classroom()
     {
-        return $this->belongsTo(TeacherClassRoom::class , 'classroom_id');
+        return $this->belongsTo(Classroom::class , 'classroom_id');
     }
     public function rates()
     {
