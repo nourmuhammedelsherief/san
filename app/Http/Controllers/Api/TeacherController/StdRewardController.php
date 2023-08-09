@@ -66,22 +66,23 @@ class StdRewardController extends Controller
         }
     }
 
-    public function get_students_to_reward(Request $request , $id)
+    public function get_students_to_reward(Request $request)
     {
-        $reward = Reward::find($id);
-        if ($reward)
-        {
-            $students = Student::with('classroom')
-                ->whereHas('classroom' , function ($q) use ($request){
-                    $q->whereTeacherId($request->user()->id);
-                })
-                ->where('points' , '>' , $reward->points)
-                ->get();
-            return ApiController::respondWithSuccess(StudentResource::collection($students));
-        }else{
-            $error = ['message' => trans('messages.not_found')];
-            return ApiController::respondWithErrorNOTFoundObject($error);
-        }
+        $rules = [
+            'classroom_id' => 'required|exists:classrooms,id',
+            'reward_id'  => 'required|exists:rewards,id',
+        ];
+
+        $validator = Validator::make($request->all(), $rules);
+
+        if ($validator->fails())
+            return ApiController::respondWithErrorObject(validateRules($validator->errors(), $rules));
+
+        $reward = Reward::find($request->reward_id);
+        $students = Student::whereClassroomId($request->classroom_id)
+            ->where('points' , '>' , $reward->points)
+            ->get();
+        return ApiController::respondWithSuccess(StudentResource::collection($students));
     }
 
     public function add_reward_to_students(Request $request)

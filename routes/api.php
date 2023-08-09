@@ -96,7 +96,7 @@ Route::group(['middleware' => ['auth:teacher-api', 'cors', 'localization-api']],
         Route::controller(StdRewardController::class)->group(function () {
             Route::get('/rewards_to_student/{std_id}', 'rewards_to_student');
             Route::post('/add_reward_to_student', 'add_reward_to_student');
-            Route::get('/get_students_to_reward/{reward_id}', 'get_students_to_reward');
+            Route::post('/get_students_to_reward', 'get_students_to_reward');
             Route::post('/add_reward_to_students', 'add_reward_to_students');
         });
 
