@@ -37,6 +37,14 @@ class TeacherClassIntegrationController extends Controller
         [
             'status'            => 'requested'
         ]);
+
+        // send notification to teacher
+        $message = [
+            'title' => 'ldldldl',
+            'body'  => 'dddddddddd',
+        ];
+        sendNotification('ddddddddddddddddddddd',$message);
+
         $success = [
             'message'  => trans('messages.IntegrationRequestedSuccessfully')
         ];

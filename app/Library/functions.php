@@ -190,3 +190,87 @@ function taqnyatSms($msgBody, $reciver)
     $message = $taqnyt->sendMsg($body, $recipients, $sender);
     return $message;
 }
+
+function sendNotification($device_token, $message)
+{
+    $SERVER_API_KEY = 'AAAAssJXQIk:APA91bEyYjJw0WI1rL56GfJvcW5iCYQf544zwh8CZG92l6mBcWjAtmCPpy0rDhFhhHgcRAXo865l_q0tDp9-ydtB_Y9ip4N9KPsPP4rIJK8IDlPAN-PDfx67HQxzcfY3aGghlbhi3ij0';
+
+    // payload data, it will vary according to requirement
+    $data = [
+        "to" => $device_token, // for single device id
+        "data" => $message
+    ];
+    $dataString = json_encode($data);
+
+    $headers = [
+        'Authorization: key=' . $SERVER_API_KEY,
+        'Content-Type: application/json',
+    ];
+
+    $ch = curl_init();
+
+    curl_setopt($ch, CURLOPT_URL, 'https://fcm.googleapis.com/fcm/send');
+    curl_setopt($ch, CURLOPT_POST, true);
+    curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
+    curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+    curl_setopt($ch, CURLOPT_POSTFIELDS, $dataString);
+
+    $response = curl_exec($ch);
+    curl_close($ch);
+    return $response;
+}
+
+//function sendMultiNotification($notificationTitle, $notificationBody, $devicesTokens , $type = null , $order_id = null)
+//{
+//
+//    $optionBuilder = new OptionsBuilder();
+//    $optionBuilder->setTimeToLive(60 * 20);
+//
+//    $notificationBuilder = new PayloadNotificationBuilder($notificationTitle);
+//    $notificationBuilder->setBody($notificationBody)
+//        ->setSound('default');
+//
+//    $dataBuilder = new PayloadDataBuilder();
+//    $dataBuilder->addData(['type' => $type , 'order_id' => $order_id]);
+//
+//    $option = $optionBuilder->build();
+//    $notification = $notificationBuilder->build();
+//    $data = $dataBuilder->build();
+//
+//// You must change it to get your tokens
+//    $tokens = $devicesTokens;
+//
+//    $downstreamResponse = FCM::sendTo($tokens, $option, $notification, $data);
+//
+//    $downstreamResponse->numberSuccess();
+//    $downstreamResponse->numberFailure();
+//    $downstreamResponse->numberModification();
+//
+////return Array - you must remove all this tokens in your database
+//    $downstreamResponse->tokensToDelete();
+//
+////return Array (key : oldToken, value : new token - you must change the token in your database )
+//    $downstreamResponse->tokensToModify();
+//
+////return Array - you should try to resend the message to the tokens in the array
+//    $downstreamResponse->tokensToRetry();
+//
+//// return Array (key:token, value:errror) - in production you should remove from your database the tokens present in this array
+//    $downstreamResponse->tokensWithError();
+//
+//    return ['success' => $downstreamResponse->numberSuccess(), 'fail' => $downstreamResponse->numberFailure()];
+//}
+//
+//function saveNotification($userId, $title, $message, $type, $order_id = null)
+//{
+//    $created = \App\Notification::create([
+//        'user_id' => $userId,
+//        'title' => $title,
+//        'type' => $type,
+//        'message' => $message,
+//        'order_id' => $order_id,
+//    ]);
+//    return $created;
+//}
+

@@ -39,6 +39,7 @@ class TeacherController extends Controller
             'seller_code' => 'sometimes|exists:seller_codes,code',
             'online_type' => 'required_if:payment_type,online|in:visa,mada,apple_pay',
             'invitation_code' => 'sometimes|exists:teachers,invitation_code',
+            'device_token' => 'required|string|max:191',
         ];
         $validator = Validator::make($request->all(), $rules);
         if ($validator->fails())
@@ -69,6 +70,10 @@ class TeacherController extends Controller
                 ]);
             }
         }
+
+        // create teacher device token
+        $created = ApiController::createTeacherDeviceToken($teacher->id, $request->device_token);
+
         // first apply and check seller code
         $setting = Setting::first();
         $seller_code = null;
@@ -191,6 +196,7 @@ class TeacherController extends Controller
         $rules = [
             'email' => 'required|email',
             'password' => 'required',
+            'device_token' => 'required|string|max:191',
         ];
         $validator = Validator::make($request->all(), $rules);
 
@@ -202,6 +208,8 @@ class TeacherController extends Controller
             $teacher->update([
                 'api_token' => generateApiToken($teacher->id, 50),
             ]);
+            // create teacher device token
+            $created = ApiController::createTeacherDeviceToken($teacher->id, $request->device_token);
             return ApiController::respondWithSuccess(new TeacherResource($teacher));
         } else {
             if ($teacher == null) {

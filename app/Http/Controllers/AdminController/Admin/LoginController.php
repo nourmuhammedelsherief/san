@@ -40,7 +40,6 @@ class LoginController extends Controller
     public function login(Request $request)
     {
         App::setLocale('ar');
-        
         $this->validate($request, [
             'email' => 'required|email',
             'password' => 'required|min:6',
@@ -50,7 +49,7 @@ class LoginController extends Controller
             'email' => $request->email,
             'password' => $request->password
         ];
-        
+
         if (Auth::guard('admin')->attempt($credential, $request->remember)) {
             return redirect()->route('admin.home');
         }
