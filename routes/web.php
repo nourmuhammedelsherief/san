@@ -37,8 +37,6 @@ Route::get('locale/{locale}', function ($locale) {
     session(['locale' => $locale]);
     App::setLocale($locale);
     return redirect()->back();
-    ///////////////////////////////////
-    ///////////////////////////////////
 })->name('language');
 
 Route::get('/error', function () {
