@@ -29,9 +29,21 @@ class SettingController extends Controller
             'online_token'    => 'sometimes',
             'bearer_token'    => 'sometimes',
             'sender_name'     => 'sometimes',
+            'logo'            => 'sometimes|mimes:jpg,jpeg,png,gif,tif,psd,pmp|max:5000',
         ]);
         $setting = Setting::find(1);
-        $setting->update($request->all());
+        $setting->update([
+            'bank_name'       => $request->bank_name,
+            'account_number' => $request->account_number,
+            'Iban_number' => $request->Iban_number,
+            'online_token' => $request->online_token,
+            'bearer_token' => $request->bearer_token,
+            'sender_name' => $request->sender_name,
+            'school_subscribe_price' => $request->school_subscribe_price,
+            'teacher_subscribe_price' => $request->teacher_subscribe_price,
+            'invitation_code_discount' => $request->invitation_code_discount,
+            'logo' => $request->file('logo') == null ? $setting->logo : UploadImageEdit($request->file('logo') , 'logo' , '/uploads' , $setting->logo)
+        ]);
         flash(trans('messages.updated'))->success();
         return redirect()->back();
     }

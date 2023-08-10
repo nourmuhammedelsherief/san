@@ -4,9 +4,12 @@
     @lang('messages.settings')
 @endsection
 
-@section('styles')
-
+@section('style')
+    <link rel="stylesheet" href="{{ URL::asset('css/select2.min.css') }}">
+    <link rel="stylesheet" href="{{ URL::asset('css/select2-bootstrap.min.css') }}">
+    <link rel="stylesheet" href="{{ URL::asset('css/bootstrap-fileinput.css') }}">
 @endsection
+
 
 @section('content')
     <section class="content-header">
@@ -173,6 +176,37 @@
                                         <div class="col-sm-2">%</div>
                                     </div>
                                 </div>
+
+                                <hr>
+                                <div class="form-group ">
+                                    <label class="control-label col-md-3"> @lang('messages.logo') </label>
+                                    <div class="col-md-9">
+                                        <div class="fileinput fileinput-new" data-provides="fileinput">
+                                            <div class="fileinput-preview thumbnail" data-trigger="fileinput"
+                                                 style="width: 200px; height: 150px; border: 1px solid black;">
+                                                @if($setting->logo != null)
+                                                    <img src="{{asset('/uploads/' . $setting->logo)}}">
+                                                @endif
+                                            </div>
+                                            <div>
+                                                <span class="btn red btn-outline btn-file">
+                                                    <span
+                                                        class="fileinput-new btn btn-info"> @lang('messages.choose_photo') </span>
+                                                    <span
+                                                        class="fileinput-exists btn btn-primary"> @lang('messages.change') </span>
+                                                    <input type="file" name="logo"> </span>
+                                                <a href="javascript:;" class="btn btn-danger fileinput-exists"
+                                                   data-dismiss="fileinput"> @lang('messages.remove') </a>
+                                            </div>
+                                        </div>
+                                        @if ($errors->has('photo'))
+                                            <span class="help-block">
+                                                <strong style="color: red;">{{ $errors->first('photo') }}</strong>
+                                            </span>
+                                        @endif
+                                    </div>
+
+                                </div>
                             </div>
 
                             <!-- /.card-body -->
@@ -190,6 +224,9 @@
     </section>
 @endsection
 @section('scripts')
+    <script src="{{ URL::asset('js/select2.full.min.js') }}"></script>
+    <script src="{{ URL::asset('js/components-select2.min.js') }}"></script>
+    <script src="{{ URL::asset('js/bootstrap-fileinput.js') }}"></script>
     <script>
         $(document).ready(function() {
             $(document).on('submit', 'form', function() {

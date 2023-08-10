@@ -143,4 +143,5 @@ return [
     'IntegrationRequestedSuccessfully' => 'تم إرسال طلب التكامل الي المعلم بنجاح',
     'operationDoneSuccessfully' => 'تمت عمليه الربط مع المعلم بنجاح',
     'operationCanceledSuccessfully' => 'تم إلغاء عمليه  الربط مع المعلم بنجاح',
+    'logo'  => 'لوجو الموقع',
 ];

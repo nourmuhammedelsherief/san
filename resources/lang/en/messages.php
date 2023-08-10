@@ -160,4 +160,5 @@ return [
     'IntegrationRequestedSuccessfully' => 'Integration Request Sent To Teacher Successfully',
     'operationDoneSuccessfully' => 'Integration Operation Done Successfully',
     'operationCanceledSuccessfully' => 'Integration Operation Canceled Successfully',
+    'logo'  => 'Logo',
 ];

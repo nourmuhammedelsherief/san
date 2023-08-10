@@ -4,7 +4,7 @@
 
     <!-- Brand Logo -->
     <a href="{{url('/admin/home')}}" class="brand-link">
-        <img src="{{asset('/uploads/Logo.png')}}" alt="AdminLTE Logo" class="brand-image img-circle elevation-3"
+        <img src="{{asset('/uploads/' . \App\Models\Setting::first()->logo)}}" alt="AdminLTE Logo" class="brand-image img-circle elevation-3"
              style="opacity: .8">
         <span class="brand-text font-weight-light">@lang('messages.control_panel')</span>
     </a>
