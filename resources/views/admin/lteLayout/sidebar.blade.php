@@ -105,6 +105,18 @@
                     </a>
                 </li>
                 <li class="nav-item">
+                    <a href="{{route('sliders.index')}}"
+                       class="nav-link {{ strpos(URL::current(), '/admin/sliders') !== false ? 'active' : '' }}">
+                        <i class="fa fa-images"></i>
+                        <span class="badge badge-info right">
+                            {{\App\Models\Slider::count()}}
+                        </span>
+                        <p>
+                            @lang('messages.sliders')
+                        </p>
+                    </a>
+                </li>
+                <li class="nav-item">
                     <a href="{{route('settings.index')}}"
                        class="nav-link {{ strpos(URL::current(), '/admin/settings') !== false ? 'active' : '' }}">
                         <i class="fa fa-cog"></i>

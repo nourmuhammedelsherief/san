@@ -9,6 +9,7 @@ use App\Models\Classroom;
 use App\Models\Student;
 use App\Models\Teacher\TeacherClassRoom;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 use Validator;
 
 class StudentController extends Controller
@@ -47,12 +48,18 @@ class StudentController extends Controller
                 return ApiController::respondWithErrorObject(validateRules($validator->errors(), $rules));
 
             // create new student
+            $identity_id = mt_rand(10000000, 99999999);
+            $password = mt_rand(10000000, 99999999);
             $student = Student::create([
                 'classroom_id'  => $classroom->id,
                 'name'          => $request->name,
                 'gender'        => $request->gender,
                 'photo'         => $request->file('photo') == null ? null : UploadImage($request->file('photo') , 'photo' , '/uploads/students'),
                 'birth_date'    => $request->birth_date,
+                'points'        => 0,
+                'identity_id'   => $identity_id,
+                'password'      => $password,
+                'hashed_password' => Hash::make($password),
             ]);
             return ApiController::respondWithSuccess(new StudentResource($student));
         }else{

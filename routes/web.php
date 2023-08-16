@@ -16,6 +16,7 @@ use \App\Http\Controllers\AdminController\CityController;
 use \App\Http\Controllers\AdminController\SubjectController;
 use \App\Http\Controllers\AdminController\SellerCodeController;
 use \App\Http\Controllers\AdminController\TransferController;
+use \App\Http\Controllers\AdminController\SliderController;
 
 /**
  * end admin controllers
@@ -78,6 +79,9 @@ Route::prefix('admin')->group(function () {
         // city routes
         Route::resource('/cities' , CityController::class);
         Route::get('/cities/delete/{id}' , [CityController::class , 'destroy']);
+        // slider routes
+        Route::resource('/sliders' , SliderController::class);
+        Route::get('/sliders/delete/{id}' , [SliderController::class , 'destroy']);
         // subject routes
         Route::resource('/subjects' , SubjectController::class);
         Route::get('/subjects/delete/{id}' , [SubjectController::class , 'destroy']);
@@ -94,8 +98,3 @@ Route::prefix('admin')->group(function () {
 /**
  * End @admin Routes
  */
-
-// المعلم بيختار اكتر  من ماده  في التسجيل
-// اسم عربي وانجلش للمواد
-// اكواد خصم للاشتراك للمدارس  والمعلمين
-// الفصول عربي انجلش ومواد خاصه بالفصل

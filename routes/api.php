@@ -30,7 +30,7 @@ Route::middleware(['cors', 'localization-api'])->group(function () {
     Route::controller(PublicController::class)->group(function () {
         Route::get('/cities', 'cities');
         Route::get('/subjects', 'subjects');
-        Route::get('/cities', 'cities');
+        Route::get('/sliders', 'sliders');
     });
     Route::prefix('teachers')->group(function () {
         Route::controller(TeacherController::class)->group(function () {
@@ -67,6 +67,7 @@ Route::group(['middleware' => ['auth:teacher-api', 'cors', 'localization-api']],
             Route::get('/my_class_rooms/{id}/show', 'show');
             Route::get('/my_class_rooms/{id}/delete', 'destroy');
             Route::post('/my_class_rooms/{id}/archive', 'archive');
+            Route::post('/my_class_rooms/{id}/copy', 'copy'); /// wait ramy Question
         });
         Route::controller(StudentController::class)->group(function () {
             Route::get('/classroom/{id}/students', 'index');

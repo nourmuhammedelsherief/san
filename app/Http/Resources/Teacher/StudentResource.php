@@ -26,6 +26,8 @@ class StudentResource extends JsonResource
             'points'  => $this->points,
             'rates'   => TeacherRateResource::collection($this->rates),
             'rewards' => RewardResource::collection($this->rewards),
+            'identity_id' => $this->identity_id,
+            'password'  => $this->password,
         ];
     }
 }

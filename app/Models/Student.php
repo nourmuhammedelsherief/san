@@ -19,6 +19,9 @@ class Student extends Model
         'photo',
         'birth_date',
         'points',
+        'identity_id',
+        'password',
+        'hashed_password',
     ];
 
     protected $casts = ['birth_date' => 'datetime'];
