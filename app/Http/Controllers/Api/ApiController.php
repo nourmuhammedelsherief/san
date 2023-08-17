@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Resources\NotificationResource;
 use App\Models\Notification;
+use App\Models\StudentDeviceToken;
 use App\Models\Teacher\TeacherDeviceToken;
 use App\Models\UserDevice;
 use Illuminate\Http\Request;
@@ -66,6 +67,13 @@ class ApiController extends Controller
 
         $created = TeacherDeviceToken::updateOrCreate(
             ['teacher_id' => $userId]
+            ,['device_token' => $deviceToken]);
+        return $created;
+    }
+    public static function createStudentDeviceToken($userId, $deviceToken) {
+
+        $created = StudentDeviceToken::updateOrCreate(
+            ['student_id' => $userId]
             ,['device_token' => $deviceToken]);
         return $created;
     }

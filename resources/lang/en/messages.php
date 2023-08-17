@@ -161,4 +161,5 @@ return [
     'operationDoneSuccessfully' => 'Integration Operation Done Successfully',
     'operationCanceledSuccessfully' => 'Integration Operation Canceled Successfully',
     'logo'  => 'Logo',
+    'wrong_identity_id' => 'Wrong Identity Id',
 ];

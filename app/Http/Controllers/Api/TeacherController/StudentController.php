@@ -58,8 +58,8 @@ class StudentController extends Controller
                 'birth_date'    => $request->birth_date,
                 'points'        => 0,
                 'identity_id'   => $identity_id,
-                'password'      => $password,
-                'hashed_password' => Hash::make($password),
+                'password'      => Hash::make($password),
+                'un_hashed_password' => $password,
             ]);
             return ApiController::respondWithSuccess(new StudentResource($student));
         }else{

@@ -144,4 +144,5 @@ return [
     'operationDoneSuccessfully' => 'تمت عمليه الربط مع المعلم بنجاح',
     'operationCanceledSuccessfully' => 'تم إلغاء عمليه  الربط مع المعلم بنجاح',
     'logo'  => 'لوجو الموقع',
+    'wrong_identity_id' => 'الرقم التعريفي خطأ',
 ];

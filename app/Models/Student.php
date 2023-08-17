@@ -7,10 +7,12 @@ use App\Models\Teacher\StudentReward;
 use App\Models\Teacher\TeacherClassRoom;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Foundation\Auth\User as Authenticatable;
 
-class Student extends Model
+class Student extends Authenticatable
 {
     use HasFactory;
+    protected $guard = 'student';
     protected $table = 'students';
     protected $fillable = [
         'classroom_id',
@@ -21,7 +23,8 @@ class Student extends Model
         'points',
         'identity_id',
         'password',
-        'hashed_password',
+        'un_hashed_password',
+        'api_token',
     ];
 
     protected $casts = ['birth_date' => 'datetime'];

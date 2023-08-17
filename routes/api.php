@@ -13,6 +13,9 @@ use \App\Http\Controllers\Api\TeacherController\StdRewardController;
 use \App\Http\Controllers\Api\TeacherController\TeacherClassIntegrationController;
 use \App\Http\Controllers\Api\PublicController;
 
+// students controllers
+use \App\Http\Controllers\StudentController\AuthStudentController;
+
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -40,13 +43,22 @@ Route::middleware(['cors', 'localization-api'])->group(function () {
             Route::post('/confirm_reset_code', 'confirmResetCode');
             Route::post('/reset_password', 'resetPassword');
         });
+
         Route::controller(SettingController::class)->group(function () {
             Route::get('/bank_info', 'bank_info');
             Route::get('/teacher_annual_subscription_value', 'teacher_annual_subscription_value');
             Route::post('/pay_annual_subscription', 'pay_annual_subscription');
         });
     });
+    Route::prefix('students')->group(function () {
+        Route::controller(AuthStudentController::class)->group(function () {
+            Route::post('/login', 'login');
+        });
+    });
 });
+/**
+ *  Start Teacher Routes
+*/
 Route::group(['middleware' => ['auth:teacher-api', 'cors', 'localization-api']], function () {
     Route::prefix('teachers')->group(function () {
         Route::controller(TeacherController::class)->group(function () {
@@ -111,3 +123,25 @@ Route::group(['middleware' => ['auth:teacher-api', 'cors', 'localization-api']],
 
     });
 });
+/**
+ *  End Teacher Routes
+ */
+
+/**
+ *  Start Student Routes
+ */
+Route::group(['middleware' => ['auth:student-api', 'cors', 'localization-api']], function () {
+    Route::prefix('students')->group(function () {
+        Route::controller(AuthStudentController::class)->group(function () {
+            Route::get('/profile', 'profile');
+            Route::get('/my_subscription', 'my_subscription');
+            Route::post('/change_password', 'changePassword');
+            Route::post('/edit_account', 'edit_account');
+            Route::post('/edit_whats_info', 'edit_whats_info');
+            Route::post('/logout', 'logout');
+        });
+    });
+});
+/**
+ *  End Student Routes
+ */

@@ -48,6 +48,14 @@ class Handler extends ExceptionHandler
                 http_response_code(401);  // set the code
                 return response()->json($errors)->setStatusCode(401);
                 break;
+            case 'student-api':
+                $errors = [
+                    'message'=>trans('messages.token_is_required'),
+                ];
+
+                http_response_code(401);  // set the code
+                return response()->json($errors)->setStatusCode(401);
+                break;
             case 'web':
                 $login = 'users.login';
                 break;
