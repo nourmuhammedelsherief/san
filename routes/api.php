@@ -79,7 +79,7 @@ Route::group(['middleware' => ['auth:teacher-api', 'cors', 'localization-api']],
             Route::get('/my_class_rooms/{id}/show', 'show');
             Route::get('/my_class_rooms/{id}/delete', 'destroy');
             Route::post('/my_class_rooms/{id}/archive', 'archive');
-            Route::post('/my_class_rooms/{id}/copy', 'copy'); /// wait ramy Question
+            Route::post('/my_class_rooms/{id}/copy', 'copy');
         });
         Route::controller(StudentController::class)->group(function () {
             Route::get('/classroom/{id}/students', 'index');

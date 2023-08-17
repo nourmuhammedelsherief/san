@@ -7,7 +7,10 @@ use App\Http\Controllers\Controller;
 use App\Http\Resources\SubjectResource;
 use App\Http\Resources\Teacher\ClassRoomResource;
 use App\Models\Classroom;
+use App\Models\Student;
 use App\Models\Teacher\ClassRoomSubject;
+use App\Models\Teacher\StudentRate;
+use App\Models\Teacher\StudentReward;
 use App\Models\Teacher\TeacherClassRoom;
 use App\Models\Teacher\TeacherSubject;
 use Illuminate\Http\Request;
@@ -183,9 +186,40 @@ class TClassRoomController extends Controller
             $classroom = Classroom::create([
                 'name'  => $request->name == null ? $Tclassroom->classroom->name : $request->name,
             ]);
-            // cr
-
-            return ApiController::respondWithSuccess(new ClassRoomResource($classroom));
+            // add classroom to teacher
+            $teacher_classroom = TeacherClassRoom::create([
+                'classroom_id' => $classroom->id,
+                'name'         => $classroom->name,
+                'teacher_id'   => $request->user()->id,
+                'main_teacher_id' => $request->user()->id,
+                'pulled'     => 'false',
+                'archive'    => 'false',
+            ]);
+            // add subjects to classroom
+            $classroom_subjects = ClassRoomSubject::whereClassRoomId($Tclassroom->id)->get();
+            if ($classroom_subjects->count() > 0)
+            {
+                foreach ($classroom_subjects as $classroom_subject)
+                {
+                    $classroom_subject->update([
+                        'class_room_id' => $teacher_classroom->id,
+                    ]);
+                }
+            }
+            // add students to new classroom
+            $old_students = Student::whereClassroomId($Tclassroom->classroom_id)->get();
+            foreach ($old_students as $old_student)
+            {
+                $old_student->update([
+                    'classroom_id' => $classroom->id,
+                    'points'       => 0,
+                ]);
+                // delete student rewards
+                StudentReward::whereStudentId($old_student->id)->delete();
+                // delete student rates
+                StudentRate::whereStudentId($old_student->id)->delete();
+            }
+            return ApiController::respondWithSuccess(new ClassRoomResource($teacher_classroom));
         }else{
             $error = ['message' => trans('messages.not_found')];
             return ApiController::respondWithErrorNOTFoundObject($error);
