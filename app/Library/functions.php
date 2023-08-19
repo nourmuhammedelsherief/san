@@ -1,6 +1,7 @@
 <?php
 
 use App\Models\RestaurantSensitivity;
+use App\Models\Teacher\StudentRate;
 use LaravelFCM\Message\OptionsBuilder;
 use LaravelFCM\Message\PayloadDataBuilder;
 use LaravelFCM\Message\PayloadNotificationBuilder;
@@ -219,6 +220,14 @@ function sendNotification($device_token, $message)
     $response = curl_exec($ch);
     curl_close($ch);
     return $response;
+}
+
+function getStudentArrange($subjectId , $studentId , $points)
+{
+    return StudentRate::where('student_id' , '!=' , $studentId)
+        ->whereSubjectId($subjectId)
+        ->where('points' , '>' , $points)
+        ->count();
 }
 
 //function sendMultiNotification($notificationTitle, $notificationBody, $devicesTokens , $type = null , $order_id = null)

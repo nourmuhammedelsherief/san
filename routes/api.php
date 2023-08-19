@@ -1,20 +1,21 @@
 <?php
 
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\Api\TeacherController\TeacherController;
+use App\Http\Controllers\Api\PublicController;
+use App\Http\Controllers\Api\TeacherController\RewardController;
 use App\Http\Controllers\Api\TeacherController\SettingController;
-use App\Http\Controllers\Api\TeacherController\TClassRoomController;
+use App\Http\Controllers\Api\TeacherController\StdRewardController;
 use App\Http\Controllers\Api\TeacherController\StudentController;
-use \App\Http\Controllers\Api\TeacherController\TeacherRateController;
-use \App\Http\Controllers\Api\TeacherController\StudentRateController;
-use \App\Http\Controllers\Api\TeacherController\RewardController;
-use \App\Http\Controllers\Api\TeacherController\StdRewardController;
-use \App\Http\Controllers\Api\TeacherController\TeacherClassIntegrationController;
-use \App\Http\Controllers\Api\PublicController;
+use App\Http\Controllers\Api\TeacherController\StudentRateController;
+use App\Http\Controllers\Api\TeacherController\TClassRoomController;
+use App\Http\Controllers\Api\TeacherController\TeacherClassIntegrationController;
+use App\Http\Controllers\Api\TeacherController\TeacherController;
+use App\Http\Controllers\Api\TeacherController\TeacherRateController;
+use Illuminate\Support\Facades\Route;
 
 // students controllers
-use \App\Http\Controllers\StudentController\AuthStudentController;
+use App\Http\Controllers\Api\StudentController\AuthStudentController;
+use App\Http\Controllers\Api\StudentController\RateController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -133,12 +134,14 @@ Route::group(['middleware' => ['auth:student-api', 'cors', 'localization-api']],
     Route::prefix('students')->group(function () {
         Route::controller(AuthStudentController::class)->group(function () {
             Route::get('/profile', 'profile');
-            Route::get('/my_subscription', 'my_subscription');
-            Route::post('/change_password', 'changePassword');
-            Route::post('/edit_account', 'edit_account');
-            Route::post('/edit_whats_info', 'edit_whats_info');
             Route::post('/logout', 'logout');
         });
+        Route::controller(RateController::class)->group(function () {
+            Route::post('/my_rates', 'my_rates');
+            Route::post('/my_rewards', 'my_rewards');
+            Route::get('/my_arrange', 'my_arrange');
+        });
+
     });
 });
 /**

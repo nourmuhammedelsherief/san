@@ -41,4 +41,8 @@ class Student extends Authenticatable
     {
         return $this->hasMany(StudentReward::class , 'student_id');
     }
+    public function device_token()
+    {
+        return $this->hasMany(StudentDeviceToken::class , 'student_id');
+    }
 }

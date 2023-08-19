@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\StudentController;
+namespace App\Http\Controllers\Api\StudentController;
 
 use App\Http\Controllers\Api\ApiController;
 use App\Http\Controllers\Controller;
@@ -8,6 +8,10 @@ use App\Http\Resources\Teacher\StudentResource;
 use App\Models\Student;
 use Illuminate\Http\Request;
 use Validator;
+use function auth;
+use function generateApiToken;
+use function trans;
+use function validateRules;
 
 class AuthStudentController extends Controller
 {
@@ -45,5 +49,17 @@ class AuthStudentController extends Controller
             }
         }
 
+    }
+    public function logout(Request $request)
+    {
+        $student = Student::find($request->user()->id);
+        $student->update([
+            'api_token' => null
+        ]);
+        $student->device_token()->delete();
+        $success = [
+            'message' => trans('messages.logout_successfully')
+        ];
+        return ApiController::respondWithSuccess($success);
     }
 }

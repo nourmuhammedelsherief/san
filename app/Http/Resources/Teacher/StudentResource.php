@@ -21,6 +21,7 @@ class StudentResource extends JsonResource
         return [
             'id'    => $this->id,
             'classroom_id'  => $this->classroom_id,
+            'classroom'    => $this->classroom->name,
             'name'     => $this->name,
             'gender'   => $this->gender,
             'photo'    => $this->photo == null ? null : asset('/uploads/students/' . $this->photo),

@@ -238,6 +238,7 @@ class TeacherController extends Controller
         $teacher->update([
             'api_token' => null
         ]);
+        $teacher->device_token()->delete();
         $success = [
             'message' => trans('messages.logout_successfully')
         ];
