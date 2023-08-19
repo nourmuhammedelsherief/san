@@ -17,6 +17,7 @@ class StudentRateController extends Controller
         $teacher = $request->user();
         $rules = [
             'rate'      => 'required',
+            'subject_id' => 'required|exists:subjects,id'
         ];
 
         $validator = Validator::make($request->all(), $rules);
@@ -34,6 +35,7 @@ class StudentRateController extends Controller
                     'rate_id'    => $rate->id,
                     'student_id' => $student->id,
                     'points'     => $rate->points,
+                    'subject_id' => $request->subject_id,
                 ]);
                 $student->update([
                     'points'  => $rate->type == 'positive' ? ($student->points + $rate->points) : ($student->points - $rate->points),

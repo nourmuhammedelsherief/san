@@ -120,7 +120,6 @@ Route::group(['middleware' => ['auth:teacher-api', 'cors', 'localization-api']],
             Route::post('/teacher_apply_integration_request', 'teacher_apply_integration_request');
             Route::get('/my_integrations', 'my_integrations');
         });
-
     });
 });
 /**

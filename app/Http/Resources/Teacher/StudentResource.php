@@ -2,6 +2,9 @@
 
 namespace App\Http\Resources\Teacher;
 
+use App\Http\Resources\Student\StudentRateResource;
+use App\Http\Resources\Student\StudentRewardResource;
+use App\Models\Teacher\StudentReward;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
@@ -24,8 +27,8 @@ class StudentResource extends JsonResource
             'birth_date' => $this->birth_date->format('Y-m-d'),
             'age'      => \Carbon\Carbon::parse($this->birth_date)->diff(\Carbon\Carbon::now())->format('%y'),
             'points'  => $this->points,
-            'rates'   => TeacherRateResource::collection($this->rates),
-            'rewards' => RewardResource::collection($this->rewards),
+            'rates'   => StudentRateResource::collection($this->rates),
+            'rewards' => StudentRewardResource::collection($this->rewards),
             'identity_id' => $this->identity_id,
             'password'  => $this->un_hashed_password,
             'api_token'  => $this->api_token,

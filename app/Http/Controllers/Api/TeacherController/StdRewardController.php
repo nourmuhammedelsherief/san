@@ -34,6 +34,7 @@ class StdRewardController extends Controller
         $rules = [
             'student_id' => 'required|exists:students,id',
             'reward_id'  => 'required|exists:rewards,id',
+            'subject_id' => 'required|exists:subjects,id'
         ];
 
         $validator = Validator::make($request->all(), $rules);
@@ -49,7 +50,8 @@ class StdRewardController extends Controller
             StudentReward::create([
                 'student_id' => $std->id,
                 'reward_id'  => $reward->id,
-                'points'     => $reward->points
+                'points'     => $reward->points,
+                'subject_id' => $request->subject_id,
             ]);
             $std->update([
                 'points' => $std->points - $reward->points

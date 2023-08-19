@@ -3,6 +3,7 @@
 namespace App\Models\Teacher;
 
 use App\Models\Student;
+use App\Models\Subject;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -13,7 +14,8 @@ class StudentReward extends Model
     protected $fillable = [
         'student_id',
         'reward_id',
-        'points'
+        'points',
+        'subject_id',
     ];
 
     public function student()
@@ -23,6 +25,10 @@ class StudentReward extends Model
     public function reward()
     {
         return $this->belongsTo(Reward::class , 'reward_id');
+    }
+    public function subject()
+    {
+        return $this->belongsTo(Subject::class , 'subject_id');
     }
 
 }
