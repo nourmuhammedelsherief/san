@@ -145,4 +145,7 @@ return [
     'operationCanceledSuccessfully' => 'تم إلغاء عمليه  الربط مع المعلم بنجاح',
     'logo'  => 'لوجو الموقع',
     'wrong_identity_id' => 'الرقم التعريفي خطأ',
+    'about_us' => 'من نحن',
+    'about_ar' => 'من نحن بالعربي',
+    'about_en' => 'من نحن بالأنجلش',
 ];

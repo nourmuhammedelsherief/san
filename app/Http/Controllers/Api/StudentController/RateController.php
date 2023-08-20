@@ -8,9 +8,11 @@ use App\Http\Resources\Student\StudentRateResource;
 use App\Http\Resources\Student\StudentRewardResource;
 use App\Http\Resources\SubjectResource;
 use App\Http\Resources\Teacher\StudentResource;
+use App\Http\Resources\Teacher\TeacherResource;
 use App\Models\Teacher\ClassRoomSubject;
 use App\Models\Teacher\StudentRate;
 use App\Models\Teacher\StudentReward;
+use App\Models\Teacher\TeacherClassRoom;
 use Illuminate\Http\Request;
 use Validator;
 
@@ -87,5 +89,12 @@ class RateController extends Controller
             'arranges' => $arranges,
         ];
         return ApiController::respondWithSuccess($all);
+    }
+    public function my_teachers_list(Request $request)
+    {
+        $student = $request->user();
+        $classroom = $student->classroom;
+        $teachers  = TeacherClassRoom::whereClassroomId($classroom->id)->get();
+        return ApiController::respondWithSuccess(TeacherResource::collection($teachers));
     }
 }

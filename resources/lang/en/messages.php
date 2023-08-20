@@ -162,4 +162,7 @@ return [
     'operationCanceledSuccessfully' => 'Integration Operation Canceled Successfully',
     'logo'  => 'Logo',
     'wrong_identity_id' => 'Wrong Identity Id',
+    'about_us' => 'About Us',
+    'about_ar' => 'About Us In Arabic',
+    'about_en' => 'About Us In English',
 ];

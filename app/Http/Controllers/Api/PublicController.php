@@ -3,9 +3,11 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Http\Resources\AboutResource;
 use App\Http\Resources\CityResource;
 use App\Http\Resources\SliderResource;
 use App\Http\Resources\SubjectResource;
+use App\Models\AboutUs;
 use App\Models\School\City;
 use App\Models\Slider;
 use App\Models\Subject;
@@ -29,5 +31,10 @@ class PublicController extends Controller
     {
         $sliders = Slider::all();
         return ApiController::respondWithSuccess(SliderResource::collection($sliders));
+    }
+    public function about_us()
+    {
+        $about = AboutUs::first();
+        return ApiController::respondWithSuccess(new AboutResource($about));
     }
 }

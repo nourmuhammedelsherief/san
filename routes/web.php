@@ -75,6 +75,8 @@ Route::prefix('admin')->group(function () {
         Route::controller(SettingController::class)->group(function () {
             Route::get('/settings', 'setting')->name('settings.index');
             Route::post('/settings', 'store_setting')->name('store_setting');
+            Route::get('/about_us', 'about')->name('about');
+            Route::post('/update_about', 'update_about')->name('update_about');
         });
         // city routes
         Route::resource('/cities' , CityController::class);

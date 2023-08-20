@@ -35,6 +35,7 @@ Route::middleware(['cors', 'localization-api'])->group(function () {
         Route::get('/cities', 'cities');
         Route::get('/subjects', 'subjects');
         Route::get('/sliders', 'sliders');
+        Route::get('/about_us', 'about_us');
     });
     Route::prefix('teachers')->group(function () {
         Route::controller(TeacherController::class)->group(function () {
@@ -140,6 +141,7 @@ Route::group(['middleware' => ['auth:student-api', 'cors', 'localization-api']],
             Route::post('/my_rates', 'my_rates');
             Route::post('/my_rewards', 'my_rewards');
             Route::get('/my_arrange', 'my_arrange');
+            Route::get('/my_teachers_list', 'my_teachers_list');
         });
 
     });

@@ -109,4 +109,15 @@ class SettingController extends Controller
         $about = AboutUs::firstOrfail();
         return view('admin.settings.about' , compact('about'));
     }
+    public function update_about(Request $request)
+    {
+        $about = AboutUs::firstOrfail();
+        $this->validate($request , [
+            'about_ar' => 'sometimes',
+            'about_en' => 'sometimes',
+        ]);
+        $about->update($request->all());
+        flash(trans('messages.updated'))->success();
+        return redirect()->back();
+    }
 }
