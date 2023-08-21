@@ -41,7 +41,7 @@ class AuthParentController extends Controller
         $created = ApiController::createFatherDeviceToken($father->id, $request->device_token);
         // send email to father
         $msg = trans('messages.verification_code_at_sanaidi_is') . $code;
-//        Mail::to($father->email)->send(new NotifyMail($msg));
+        Mail::to($father->email)->send(new NotifyMail($msg));
         return  ApiController::respondWithSuccess(new FatherResource($father));
     }
 
@@ -144,7 +144,7 @@ class AuthParentController extends Controller
         if ($father != null) {
             $code = mt_rand(1000, 9999);
             $msg = trans('messages.verification_code_at_sanaidi_is') . $code;
-//            Mail::to($father->email)->send(new NotifyMail($msg));
+            Mail::to($father->email)->send(new NotifyMail($msg));
 
             $father->update([
                 'verification_code' => $code,
