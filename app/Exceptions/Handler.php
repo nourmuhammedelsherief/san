@@ -22,11 +22,11 @@ class Handler extends ExceptionHandler
 
     protected function unauthenticated($request, AuthenticationException $exception)
     {
-        if ($request->expectsJson()){
+        if ($request->expectsJson()) {
 //            return response()->json(['error' => 'Unauthenticated.'], 401);
             $errors = [
-                'key'=>'token',
-                'value'=>trans('messages.token_is_required'),
+                'key' => 'token',
+                'value' => trans('messages.token_is_required'),
             ];
 
             http_response_code(401);  // set the code
@@ -36,13 +36,13 @@ class Handler extends ExceptionHandler
 //        $guard = array_get($exception->guards(),0);
         $guard = Arr::get($exception->guards(), 0);
 
-        switch ($guard){
+        switch ($guard) {
             case 'admin':
                 $login = 'admin.login';
                 break;
             case 'teacher-api':
                 $errors = [
-                    'message'=>trans('messages.token_is_required'),
+                    'message' => trans('messages.token_is_required'),
                 ];
 
                 http_response_code(401);  // set the code
@@ -50,7 +50,15 @@ class Handler extends ExceptionHandler
                 break;
             case 'student-api':
                 $errors = [
-                    'message'=>trans('messages.token_is_required'),
+                    'message' => trans('messages.token_is_required'),
+                ];
+
+                http_response_code(401);  // set the code
+                return response()->json($errors)->setStatusCode(401);
+                break;
+            case 'father-api':
+                $errors = [
+                    'message' => trans('messages.token_is_required'),
                 ];
 
                 http_response_code(401);  // set the code
@@ -64,6 +72,7 @@ class Handler extends ExceptionHandler
         }
         return redirect()->guest(route($login))->with('error', trans('messages.You_should_login_first'));
     }
+
     /**
      * Register the exception handling callbacks for the application.
      */

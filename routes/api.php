@@ -16,6 +16,8 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\StudentController\AuthStudentController;
 use App\Http\Controllers\Api\StudentController\RateController;
 
+// parent routes
+use App\Http\Controllers\Api\ParentController\AuthParentController;
 
 /*
 |--------------------------------------------------------------------------
@@ -55,6 +57,16 @@ Route::middleware(['cors', 'localization-api'])->group(function () {
     Route::prefix('students')->group(function () {
         Route::controller(AuthStudentController::class)->group(function () {
             Route::post('/login', 'login');
+        });
+    });
+    Route::prefix('parents')->group(function () {
+        Route::controller(AuthParentController::class)->group(function () {
+            Route::post('/login', 'login');
+            Route::post('/register', 'register');
+            Route::post('/verify_email', 'verify_email');
+            Route::post('/forget_password', 'forgetPassword');
+            Route::post('/confirm_reset_code', 'confirmResetCode');
+            Route::post('/reset_password', 'resetPassword');
         });
     });
 });
@@ -148,4 +160,25 @@ Route::group(['middleware' => ['auth:student-api', 'cors', 'localization-api']],
 });
 /**
  *  End Student Routes
+ */
+/**
+ *  Start Parent Routes
+ */
+Route::group(['middleware' => ['auth:father-api', 'cors', 'localization-api']], function () {
+    Route::prefix('parents')->group(function () {
+        Route::controller(AuthParentController::class)->group(function () {
+            Route::get('/profile', 'profile');
+            Route::post('/logout', 'logout');
+        });
+        Route::controller(RateController::class)->group(function () {
+            Route::post('/my_rates', 'my_rates');
+            Route::post('/my_rewards', 'my_rewards');
+            Route::get('/my_arrange', 'my_arrange');
+            Route::get('/my_teachers_list', 'my_teachers_list');
+        });
+
+    });
+});
+/**
+ *  End Parent Routes
  */

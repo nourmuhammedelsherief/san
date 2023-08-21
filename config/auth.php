@@ -62,6 +62,16 @@ return [
             'provider' => 'students',
             'hash' => false,
         ],
+        'father' => [
+            'driver' => 'session',
+            'provider' => 'fathers',
+        ],
+        'father-api' => [
+            'driver' => 'token',
+            'provider' => 'fathers',
+            'hash' => false,
+        ],
+
     ],
 
     /*
@@ -97,6 +107,10 @@ return [
         'students' => [
             'driver' => 'eloquent',
             'model' => \App\Models\Student::class,
+        ],
+        'fathers' => [
+            'driver' => 'eloquent',
+            'model' => \App\Models\Father\Father::class,
         ],
 
         // 'users' => [
@@ -145,6 +159,12 @@ return [
         ],
         'students' => [
             'provider' => 'students',
+            'table' => 'password_reset_tokens',
+            'expire' => 60,
+            'throttle' => 60,
+        ],
+        'fathers' => [
+            'provider' => 'fathers',
             'table' => 'password_reset_tokens',
             'expire' => 60,
             'throttle' => 60,

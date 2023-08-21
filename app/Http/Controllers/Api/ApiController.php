@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Resources\NotificationResource;
+use App\Models\Father\FatherDeviceToken;
 use App\Models\Notification;
 use App\Models\StudentDeviceToken;
 use App\Models\Teacher\TeacherDeviceToken;
@@ -77,20 +78,14 @@ class ApiController extends Controller
             ,['device_token' => $deviceToken]);
         return $created;
     }
-    public static function createUserDeviceToken($userId, $deviceToken) {
-
-        $created = UserDevice::updateOrCreate(
-            ['user_id' => $userId]
+    public static function createFatherDeviceToken($userId , $deviceToken)
+    {
+        $created = FatherDeviceToken::updateOrCreate(
+            ['father_id' => $userId]
             ,['device_token' => $deviceToken]);
         return $created;
     }
-    public static function createDeviceToken($deviceToken) {
 
-        $created = UserDevice::updateOrCreate([
-            'device_token' => $deviceToken
-        ]);
-        return $created;
-    }
     public static function respondWithSuccess($data) {
         http_response_code(200);
         return response()->json($data)->setStatusCode(200);
