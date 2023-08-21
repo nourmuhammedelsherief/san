@@ -279,11 +279,13 @@ class TeacherController extends Controller
                 'payment_type' => 'online'
             ]);
             $success = [
+                'code'    => 200,
                 'message' => trans('messages.payment_done_successfully'),
             ];
             return ApiController::respondWithSuccess($success);
         } else {
             $error = [
+                'code'    => 422,
                 'message' => trans('messages.errorPayment')
             ];
             return ApiController::respondWithErrorObject($error);
