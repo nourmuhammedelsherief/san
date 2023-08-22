@@ -236,4 +236,54 @@ class AuthParentController extends Controller
         return ApiController::respondWithSuccess(new FatherResource($father));
     }
 
+    public function edit_profile(Request $request)
+    {
+        $father = $request->user();
+        $rules = [
+            'email' => 'nullable|email|max:191',
+            'name'  => 'nullable|string|max:191',
+            'photo' => 'nullable|mimes:jpg,jpeg,png,gif,tif,psd,bmp|max:5000',
+        ];
+
+        $validator = Validator::make($request->all(), $rules);
+
+        if ($validator->fails())
+            return ApiController::respondWithErrorObject(validateRules($validator->errors(), $rules));
+
+        $father->update([
+            'name'    => $request->name == null ? $father->name : $request->name,
+            'email'   => $request->email == null ? $father->email : $request->email,
+            'photo'   => $request->file('photo') == null ? $father->photo : UploadImageEdit($request->file('photo') , 'photo' , '/uploads/fathers/' , $father->photo),
+        ]);
+        return ApiController::respondWithSuccess(new FatherResource($father));
+    }
+    public function changePassword(Request $request)
+    {
+        $rules = [
+            'current_password' => 'required',
+            'new_password' => 'required',
+            'password_confirmation' => 'required|same:new_password',
+        ];
+
+        $validator = Validator::make($request->all(), $rules);
+
+        if ($validator->fails())
+            return ApiController::respondWithErrorArray(validateRules($validator->errors(), $rules));
+
+        $error_old_password = [
+            'message' => trans('messages.error_old_password')
+        ];
+        if (!(Hash::check($request->current_password, $request->user()->password)))
+            return ApiController::respondWithErrorNOTFoundObject($error_old_password);
+
+        $updated = $request->user()->update(['password' => Hash::make($request->new_password)]);
+
+        $success_password = [
+            'message' => trans('messages.password_changed_successfully')
+        ];
+
+        return $updated
+            ? ApiController::respondWithSuccess($success_password)
+            : ApiController::respondWithServerErrorObject();
+    }
 }

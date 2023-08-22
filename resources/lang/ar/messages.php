@@ -148,4 +148,5 @@ return [
     'about_us' => 'من نحن',
     'about_ar' => 'من نحن بالعربي',
     'about_en' => 'من نحن بالأنجلش',
+    'childAddedSuccessfully' => 'تم إضافة الطفل الي حسابك بنجاح',
 ];

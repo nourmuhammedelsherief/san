@@ -165,4 +165,5 @@ return [
     'about_us' => 'About Us',
     'about_ar' => 'About Us In Arabic',
     'about_en' => 'About Us In English',
+    'childAddedSuccessfully' => 'Child Added To Your Account Successfully',
 ];

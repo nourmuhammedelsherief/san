@@ -18,6 +18,7 @@ use App\Http\Controllers\Api\StudentController\RateController;
 
 // parent routes
 use App\Http\Controllers\Api\ParentController\AuthParentController;
+use App\Http\Controllers\Api\ParentController\ParentChildController;
 
 /*
 |--------------------------------------------------------------------------
@@ -168,15 +169,18 @@ Route::group(['middleware' => ['auth:father-api', 'cors', 'localization-api']], 
     Route::prefix('parents')->group(function () {
         Route::controller(AuthParentController::class)->group(function () {
             Route::get('/profile', 'profile');
+            Route::post('/edit_profile', 'edit_profile');
+            Route::post('/change_password', 'changePassword');
             Route::post('/logout', 'logout');
         });
-        Route::controller(RateController::class)->group(function () {
-            Route::post('/my_rates', 'my_rates');
-            Route::post('/my_rewards', 'my_rewards');
-            Route::get('/my_arrange', 'my_arrange');
-            Route::get('/my_teachers_list', 'my_teachers_list');
+        Route::controller(ParentChildController::class)->group(function () {
+            Route::post('/add_child', 'add_child');
+            Route::post('/confirm_add_child', 'confirm_add_child');
+            Route::get('/my_children', 'my_children');
+            Route::get('/get_child/{id}', 'get_child');
+            Route::get('/my_child_arrange/{id}', 'my_child_arrange');
+            Route::get('/my_child_teachers_list/{id}', 'my_child_teachers_list');
         });
-
     });
 });
 /**

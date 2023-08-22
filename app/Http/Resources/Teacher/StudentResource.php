@@ -18,21 +18,41 @@ class StudentResource extends JsonResource
      */
     public function toArray(Request $request): array
     {
-        return [
-            'id'    => $this->id,
-            'classroom_id'  => $this->classroom_id,
-            'classroom'    => $this->classroom->name,
-            'name'     => $this->name,
-            'gender'   => $this->gender,
-            'photo'    => $this->photo == null ? null : asset('/uploads/students/' . $this->photo),
-            'birth_date' => $this->birth_date->format('Y-m-d'),
-            'age'      => \Carbon\Carbon::parse($this->birth_date)->diff(\Carbon\Carbon::now())->format('%y'),
-            'points'  => $this->points,
-            'rates'   => StudentRateResource::collection($this->rates),
-            'rewards' => StudentRewardResource::collection($this->rewards),
-            'identity_id' => $this->identity_id,
-            'password'  => $this->un_hashed_password,
-            'api_token'  => $this->api_token,
-        ];
+        if ($this->student)
+        {
+            return [
+                'id'    => $this->student->id,
+                'classroom_id'  => $this->student->classroom_id,
+                'classroom'    => $this->student->classroom->name,
+                'name'     => $this->student->name,
+                'gender'   => $this->student->gender,
+                'photo'    => $this->student->photo == null ? null : asset('/uploads/students/' . $this->student->photo),
+                'birth_date' => $this->student->birth_date->format('Y-m-d'),
+                'age'      => \Carbon\Carbon::parse($this->student->birth_date)->diff(\Carbon\Carbon::now())->format('%y'),
+                'points'  => $this->student->points,
+                'rates'   => StudentRateResource::collection($this->student->rates),
+                'rewards' => StudentRewardResource::collection($this->student->rewards),
+                'identity_id' => $this->student->identity_id,
+                'password'  => $this->student->un_hashed_password,
+                'api_token'  => $this->student->api_token,
+            ];
+        }else{
+            return [
+                'id'    => $this->id,
+                'classroom_id'  => $this->classroom_id,
+                'classroom'    => $this->classroom->name,
+                'name'     => $this->name,
+                'gender'   => $this->gender,
+                'photo'    => $this->photo == null ? null : asset('/uploads/students/' . $this->photo),
+                'birth_date' => $this->birth_date->format('Y-m-d'),
+                'age'      => \Carbon\Carbon::parse($this->birth_date)->diff(\Carbon\Carbon::now())->format('%y'),
+                'points'  => $this->points,
+                'rates'   => StudentRateResource::collection($this->rates),
+                'rewards' => StudentRewardResource::collection($this->rewards),
+                'identity_id' => $this->identity_id,
+                'password'  => $this->un_hashed_password,
+                'api_token'  => $this->api_token,
+            ];
+        }
     }
 }
