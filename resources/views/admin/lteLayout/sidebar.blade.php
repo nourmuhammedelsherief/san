@@ -4,7 +4,8 @@
 
     <!-- Brand Logo -->
     <a href="{{url('/admin/home')}}" class="brand-link">
-        <img src="{{asset('/uploads/' . \App\Models\Setting::first()->logo)}}" alt="AdminLTE Logo" class="brand-image img-circle elevation-3"
+        <img src="{{asset('/uploads/' . \App\Models\Setting::first()->logo)}}" alt="AdminLTE Logo"
+             class="brand-image img-circle elevation-3"
              style="opacity: .8">
         <span class="brand-text font-weight-light">@lang('messages.control_panel')</span>
     </a>
@@ -68,6 +69,69 @@
                     </ul>
                 </li>
 
+                <li class="nav-item has-treeview {{ strpos(URL::current(), 'teachers') !== false ? 'menu-open' : '' }}">
+                    <a href="#" class="nav-link {{ strpos(URL::current(), 'teachers') !== false ? 'active' : '' }}">
+                        <i class="nav-icon fas fa-users"></i>
+                        <p>
+                            @lang('messages.teachers')
+                            <i class="right fas fa-angle-left"></i>
+                        </p>
+                    </a>
+                    <ul class="nav nav-treeview">
+                        <li class="nav-item">
+                            <a href="{{ url('/admin/teachers/active') }}"
+                               class="nav-link {{ strpos(URL::current(), '/admin/teachers/active') !== false ? 'active' : '' }}">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>
+                                    @lang('messages.active')
+                                </p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{ url('/admin/teachers/not_active') }}"
+                               class="nav-link {{ strpos(URL::current(), '/admin/teachers/not_active') !== false ? 'active' : '' }}">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>
+                                    @lang('messages.not_active')
+                                </p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{ url('/admin/teachers/finished') }}"
+                               class="nav-link {{ strpos(URL::current(), '/admin/teachers/finished') !== false ? 'active' : '' }}">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>
+                                    @lang('messages.finished')
+                                </p>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+
+                <li class="nav-item">
+                    <a href="{{route('classrooms.index')}}"
+                       class="nav-link {{ strpos(URL::current(), '/admin/classrooms') !== false ? 'active' : '' }}">
+                        <i class="fa fa-graduation-cap"></i>
+                        <span class="badge badge-info right">
+                            {{\App\Models\Classroom::count()}}
+                        </span>
+                        <p>
+                            @lang('messages.classrooms')
+                        </p>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="{{route('parents.index')}}"
+                       class="nav-link {{ strpos(URL::current(), '/admin/parents') !== false ? 'active' : '' }}">
+                        <i class="fa fa-users"></i>
+                        <span class="badge badge-info right">
+                            {{\App\Models\Father\Father::count()}}
+                        </span>
+                        <p>
+                            @lang('messages.parents')
+                        </p>
+                    </a>
+                </li>
                 <li class="nav-item">
                     <a href="{{route('cities.index')}}"
                        class="nav-link {{ strpos(URL::current(), '/admin/cities') !== false ? 'active' : '' }}">
@@ -117,6 +181,21 @@
                     </a>
                 </li>
                 <li class="nav-item">
+                    <a href="{{route('teacher_transfers')}}"
+                       class="nav-link {{ strpos(URL::current(), '/admin/teacher_transfers') !== false ? 'active' : '' }}">
+                        <i class="fa fa-money-bill"></i>
+                        <span class="badge badge-info right">
+                            {{\App\Models\Teacher\TeacherSubscription::wherePaymentType('bank')
+                             ->wherePayment('false')
+                             ->where('transfer_photo' , '!=' , null)
+                             ->where('status' , 'not_active')->count()}}
+                        </span>
+                        <p>
+                            @lang('messages.bank_transfers')
+                        </p>
+                    </a>
+                </li>
+                <li class="nav-item">
                     <a href="{{route('settings.index')}}"
                        class="nav-link {{ strpos(URL::current(), '/admin/settings') !== false ? 'active' : '' }}">
                         <i class="fa fa-cog"></i>
@@ -125,15 +204,15 @@
                         </p>
                     </a>
                 </li>
-{{--                <li class="nav-item">--}}
-{{--                    <a href="{{route('about')}}"--}}
-{{--                       class="nav-link {{ strpos(URL::current(), '/admin/about_us') !== false ? 'active' : '' }}">--}}
-{{--                        <i class="fa fa-cog"></i>--}}
-{{--                        <p>--}}
-{{--                            @lang('messages.about_us')--}}
-{{--                        </p>--}}
-{{--                    </a>--}}
-{{--                </li>--}}
+                {{--                <li class="nav-item">--}}
+                {{--                    <a href="{{route('about')}}"--}}
+                {{--                       class="nav-link {{ strpos(URL::current(), '/admin/about_us') !== false ? 'active' : '' }}">--}}
+                {{--                        <i class="fa fa-cog"></i>--}}
+                {{--                        <p>--}}
+                {{--                            @lang('messages.about_us')--}}
+                {{--                        </p>--}}
+                {{--                    </a>--}}
+                {{--                </li>--}}
             </ul>
         </nav>
         <!-- /.sidebar-menu -->

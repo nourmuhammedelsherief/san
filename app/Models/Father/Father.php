@@ -27,4 +27,8 @@ class Father extends Authenticatable
     {
         return $this->hasMany(FatherDeviceToken::class , 'father_id');
     }
+    public function children()
+    {
+        return $this->hasMany(FatherChild::class , 'father_id');
+    }
 }

@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\Father\FatherChild;
 use App\Models\Teacher\StudentRate;
 use App\Models\Teacher\StudentReward;
 use App\Models\Teacher\TeacherClassRoom;
@@ -44,5 +45,9 @@ class Student extends Authenticatable
     public function device_token()
     {
         return $this->hasMany(StudentDeviceToken::class , 'student_id');
+    }
+    public function parents()
+    {
+        return $this->hasOne(FatherChild::class , 'student_id');
     }
 }

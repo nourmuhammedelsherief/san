@@ -20,5 +20,6 @@ class Setting extends Model
         'teacher_subscribe_price',
         'invitation_code_discount',
         'logo',
+        'contact_number',
     ];
 }

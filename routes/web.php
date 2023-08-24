@@ -17,6 +17,7 @@ use \App\Http\Controllers\AdminController\SubjectController;
 use \App\Http\Controllers\AdminController\SellerCodeController;
 use \App\Http\Controllers\AdminController\TransferController;
 use \App\Http\Controllers\AdminController\SliderController;
+use \App\Http\Controllers\AdminController\TeacherController;
 
 /**
  * end admin controllers
@@ -95,6 +96,20 @@ Route::prefix('admin')->group(function () {
             Route::get('/teacher_transfers', 'teacher_transfers')->name('teacher_transfers');
             Route::get('/teacher_transfer/{id}/{status}', 'teacher_transfer_submit')->name('teacher_transfers.submit');
         });
+
+        Route::controller(TeacherController::class)->group(function () {
+            Route::get('/teachers/{status}', 'index')->name('teachers.index');
+            Route::get('/classrooms', 'classrooms')->name('classrooms.index');
+            Route::get('/classrooms/delete/{id}', 'delete_classroom')->name('delete_classroom');
+            Route::get('/classroom_teachers/{id}', 'classroom_teachers')->name('classroom_teachers');
+            Route::get('/classroom_students/{id}', 'classroom_students')->name('classroom_students');
+            Route::get('/students/delete/{id}', 'delete_student')->name('delete_student');
+            Route::get('/teachers/delete/{id}', 'destroy')->name('teachers.delete');
+            Route::get('/parents', 'parents')->name('parents.index');
+            Route::get('/parent_children/{id}', 'father_children')->name('parent_children');
+            Route::get('/parents/delete/{id}', 'delete_parent')->name('delete_parent');
+        });
+
     });
 });
 /**

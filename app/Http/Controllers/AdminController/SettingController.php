@@ -30,6 +30,7 @@ class SettingController extends Controller
             'bearer_token'    => 'sometimes',
             'sender_name'     => 'sometimes',
             'logo'            => 'sometimes|mimes:jpg,jpeg,png,gif,tif,psd,pmp|max:5000',
+            'contact_number'  => 'sometimes',
         ]);
         $setting = Setting::find(1);
         $setting->update([
@@ -42,6 +43,7 @@ class SettingController extends Controller
             'school_subscribe_price' => $request->school_subscribe_price,
             'teacher_subscribe_price' => $request->teacher_subscribe_price,
             'invitation_code_discount' => $request->invitation_code_discount,
+            'contact_number' => $request->contact_number,
             'logo' => $request->file('logo') == null ? $setting->logo : UploadImageEdit($request->file('logo') , 'logo' , '/uploads' , $setting->logo)
         ]);
         flash(trans('messages.updated'))->success();

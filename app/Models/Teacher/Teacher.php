@@ -38,6 +38,10 @@ class Teacher extends Authenticatable
         'password',
     ];
 
+    public function teacher_classrooms()
+    {
+        return $this->hasMany(TeacherClassRoom::class , 'teacher_id');
+    }
     public function city()
     {
         return $this->belongsTo(City::class , 'city_id');

@@ -9,6 +9,7 @@ use App\Http\Resources\SliderResource;
 use App\Http\Resources\SubjectResource;
 use App\Models\AboutUs;
 use App\Models\School\City;
+use App\Models\Setting;
 use App\Models\Slider;
 use App\Models\Subject;
 use Illuminate\Http\Request;
@@ -36,5 +37,13 @@ class PublicController extends Controller
     {
         $about = AboutUs::first();
         return ApiController::respondWithSuccess(new AboutResource($about));
+    }
+    public function contact_number()
+    {
+        $setting = Setting::first();
+        $all = [
+            'contact_number' => $setting->contact_number,
+        ];
+        return ApiController::respondWithSuccess($all);
     }
 }

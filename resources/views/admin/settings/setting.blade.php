@@ -106,33 +106,47 @@
                                     </div>
                                 </div>
                                 <hr>
-                                <h3 class="text-center"> بيانات الرسائل النصية </h3>
+                                <h3 class="text-center"> رقم تواصل الدعم الفني </h3>
+
                                 <div class="form-group">
-                                    <label class="control-label"> @lang('messages.bearer_token') </label>
+                                    <label class="control-label"> رقم التواصل مع الدعم الفني </label>
                                     <div class="row">
                                         <div class="col-sm-10">
-                                            <input name="bearer_token" type="text" class="form-control" value="{{$setting->bearer_token}}" placeholder="@lang('messages.bearer_token')">
-                                            @if ($errors->has('bearer_token'))
+                                            <input name="contact_number" type="text" class="form-control" value="{{$setting->contact_number}}" placeholder="رقم التواصل مع الدعم الفني">
+                                            @if ($errors->has('contact_number'))
                                                 <span class="help-block">
-                                            <strong style="color: red;">{{ $errors->first('bearer_token') }}</strong>
+                                            <strong style="color: red;">{{ $errors->first('contact_number') }}</strong>
                                         </span>
                                             @endif
                                         </div>
                                     </div>
                                 </div>
-                                <div class="form-group">
-                                    <label class="control-label"> @lang('messages.sender_name') </label>
-                                    <div class="row">
-                                        <div class="col-sm-10">
-                                            <input name="sender_name" type="text" class="form-control" value="{{$setting->sender_name}}" placeholder="@lang('messages.sender_name')">
-                                            @if ($errors->has('sender_name'))
-                                                <span class="help-block">
-                                            <strong style="color: red;">{{ $errors->first('sender_name') }}</strong>
-                                        </span>
-                                            @endif
-                                        </div>
-                                    </div>
-                                </div>
+{{--                                <div class="form-group">--}}
+{{--                                    <label class="control-label"> @lang('messages.bearer_token') </label>--}}
+{{--                                    <div class="row">--}}
+{{--                                        <div class="col-sm-10">--}}
+{{--                                            <input name="bearer_token" type="text" class="form-control" value="{{$setting->bearer_token}}" placeholder="@lang('messages.bearer_token')">--}}
+{{--                                            @if ($errors->has('bearer_token'))--}}
+{{--                                                <span class="help-block">--}}
+{{--                                            <strong style="color: red;">{{ $errors->first('bearer_token') }}</strong>--}}
+{{--                                        </span>--}}
+{{--                                            @endif--}}
+{{--                                        </div>--}}
+{{--                                    </div>--}}
+{{--                                </div>--}}
+{{--                                <div class="form-group">--}}
+{{--                                    <label class="control-label"> @lang('messages.sender_name') </label>--}}
+{{--                                    <div class="row">--}}
+{{--                                        <div class="col-sm-10">--}}
+{{--                                            <input name="sender_name" type="text" class="form-control" value="{{$setting->sender_name}}" placeholder="@lang('messages.sender_name')">--}}
+{{--                                            @if ($errors->has('sender_name'))--}}
+{{--                                                <span class="help-block">--}}
+{{--                                            <strong style="color: red;">{{ $errors->first('sender_name') }}</strong>--}}
+{{--                                        </span>--}}
+{{--                                            @endif--}}
+{{--                                        </div>--}}
+{{--                                    </div>--}}
+{{--                                </div>--}}
                                 <h3 class="text-center"> سعر الاشتراك للمدارس والمعلمين </h3>
                                 <div class="form-group">
                                     <label class="control-label"> @lang('messages.school_subscribe_price') </label>
