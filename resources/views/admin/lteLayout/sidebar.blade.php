@@ -180,21 +180,50 @@
                         </p>
                     </a>
                 </li>
-                <li class="nav-item">
-                    <a href="{{route('teacher_transfers')}}"
-                       class="nav-link {{ strpos(URL::current(), '/admin/teacher_transfers') !== false ? 'active' : '' }}">
-                        <i class="fa fa-money-bill"></i>
-                        <span class="badge badge-info right">
-                            {{\App\Models\Teacher\TeacherSubscription::wherePaymentType('bank')
-                             ->wherePayment('false')
-                             ->where('transfer_photo' , '!=' , null)
-                             ->where('status' , 'not_active')->count()}}
-                        </span>
+
+                <li class="nav-item has-treeview {{ strpos(URL::current(), 'teacher_transfers') !== false ? 'menu-open' : '' }}">
+                    <a href="#" class="nav-link {{ strpos(URL::current(), 'teacher_transfers') !== false ? 'active' : '' }}">
+                        <i class="nav-icon fas fa-money-bill"></i>
                         <p>
                             @lang('messages.bank_transfers')
+                            <i class="right fas fa-angle-left"></i>
                         </p>
                     </a>
+                    <ul class="nav nav-treeview">
+                        <li class="nav-item">
+                            <a href="{{ url('/admin/teacher_transfers') }}"
+                               class="nav-link {{ strpos(URL::current(), '/admin/teacher_transfers') !== false ? 'active' : '' }}">
+                                <i class="far fa-circle nav-icon"></i>
+                                <span class="badge badge-info right">
+                                    {{\App\Models\Teacher\TeacherSubscription::wherePaymentType('bank')
+                                     ->wherePayment('false')
+                                     ->where('transfer_photo' , '!=' , null)
+                                     ->where('status' , 'not_active')->count()}}
+                                </span>
+                                <p>
+                                    @lang('messages.teachers')
+                                </p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{ url('/admin/school_transfers') }}"
+                               class="nav-link {{ strpos(URL::current(), '/admin/school_transfers') !== false ? 'active' : '' }}">
+                                <i class="far fa-circle nav-icon"></i>
+                                <span class="badge badge-info right">
+                                    {{\App\Models\School\SchoolSubscription::wherePaymentType('bank')
+                                     ->wherePayment('false')
+                                     ->where('transfer_photo' , '!=' , null)
+                                     ->where('status' , 'not_active')->count()}}
+                                </span>
+                                <p>
+                                    @lang('messages.schools')
+                                </p>
+                            </a>
+                        </li>
+                    </ul>
                 </li>
+
+
                 <li class="nav-item">
                     <a href="{{route('settings.index')}}"
                        class="nav-link {{ strpos(URL::current(), '/admin/settings') !== false ? 'active' : '' }}">

@@ -15,7 +15,7 @@
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1>@lang('messages.teacher_bank_transfers')</h1>
+                    <h1>@lang('messages.school_bank_transfers')</h1>
                 </div>
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
@@ -25,7 +25,7 @@
                             </a>
                         </li>
                         <li class="breadcrumb-item active">
-                            <a href="{{route('teacher_transfers')}}"></a>
+                            <a href="{{route('school_transfers')}}"></a>
                             @lang('messages.bank_transfers')
                         </li>
                     </ol>
@@ -53,7 +53,7 @@
                                     </label>
                                 </th>
                                 <th></th>
-                                <th> @lang('messages.teacher') </th>
+                                <th> @lang('messages.school') </th>
                                 <th> @lang('messages.seller_code') </th>
                                 <th> @lang('messages.discount') </th>
                                 <th> @lang('messages.price') </th>
@@ -74,7 +74,7 @@
                                     </td>
                                     <td><?php echo ++$i ?></td>
                                     <td>
-                                        {{$transfer->teacher->name}}
+                                        {{$transfer->school->name}}
                                     </td>
                                     <td> {{$transfer->seller_code_id == null ? '' : $transfer->seller_code->code}} </td>
                                     <td> {{$transfer->discount}} @lang('messages.SR')</td>
@@ -98,7 +98,7 @@
                                                     <div class="modal-body">
                                                         <p>
                                                             <img
-                                                                src="{{asset('/uploads/teacher_transfers/' . $transfer->transfer_photo)}}"
+                                                                src="{{asset('/uploads/school_transfers/' . $transfer->transfer_photo)}}"
                                                                 width="400" height="400">
                                                         </p>
                                                     </div>
@@ -116,12 +116,12 @@
                                     <td>
 
                                         <a class="btn btn-info"
-                                           href="{{route('teacher_transfers.submit' , [$transfer->id , 'done'])}}">
+                                           href="{{route('school_transfers.submit' , [$transfer->id , 'done'])}}">
                                             <i class="fa fa-user-edit"></i> @lang('messages.confirm')
                                         </a>
 
                                         <a class="btn btn-danger"
-                                           href="{{route('teacher_transfers.submit' , [$transfer->id , 'remove'])}}">
+                                           href="{{route('school_transfers.submit' , [$transfer->id , 'remove'])}}">
                                             <i class="fa fa-key"></i> @lang('messages.cancel')
                                         </a>
 

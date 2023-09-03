@@ -4,6 +4,7 @@ namespace App\Http\Controllers\AdminController;
 
 use App\Http\Controllers\Controller;
 use App\Models\History;
+use App\Models\School\SchoolSubscription;
 use App\Models\Teacher\TeacherSubscription;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -45,6 +46,51 @@ class TransferController extends Controller
                 'amount'      => $subscription->paid_amount,
                 'discount'    => $subscription->discount,
                 'type'        => 'teacher',
+                'transfer_photo' => $subscription->transfer_photo,
+                'payment_type' => 'bank'
+            ]);
+            flash(trans('messages.payment_done_successfully'))->success();
+            return redirect()->back();
+        }elseif ($status == 'remove')
+        {
+            $subscription->update([
+                'payment_type' => null,
+                'transfer_photo' => null,
+            ]);
+            flash(trans('messages.paymentCanceledSuccessfully'))->success();
+            return redirect()->back();
+        }
+    }
+
+    public function schools_transfers()
+    {
+        $transfers = SchoolSubscription::wherePaymentType('bank')
+            ->wherePayment('false')
+            ->where('transfer_photo' , '!=' , null)
+            ->where('status' , 'not_active')
+            ->get();
+        return view('admin.settings.school_transfers' , compact('transfers'));
+    }
+    public function schools_transfers_submit($id , $status)
+    {
+        $subscription = SchoolSubscription::findOrFail($id);
+        if ($status == 'done')
+        {
+            $subscription->update([
+                'status'  => 'active',
+                'payment' => 'true',
+                'paid_at' => Carbon::now(),
+                'end_at'  => Carbon::now()->addYear(),
+            ]);
+            $subscription->school->update([
+                'status'  => 'active',
+            ]);
+            // add operation to History
+            History::create([
+                'school_id'  => $subscription->school->id,
+                'amount'      => $subscription->paid_amount,
+                'discount'    => $subscription->discount,
+                'type'        => 'school',
                 'transfer_photo' => $subscription->transfer_photo,
                 'payment_type' => 'bank'
             ]);
