@@ -26,6 +26,8 @@ use \App\Http\Controllers\AdminController\TeacherController;
 // school controllers
 use \App\Http\Controllers\SchoolController\SchoolHomeController;
 use \App\Http\Controllers\SchoolController\School\SchoolLoginController;
+use \App\Http\Controllers\SchoolController\SchoolController;
+use \App\Http\Controllers\SchoolController\SubscriptionController;
 
 /*
 |--------------------------------------------------------------------------
@@ -48,7 +50,8 @@ Route::get('locale/{locale}', function ($locale) {
 Route::get('/error', function () {
     echo trans('messages.errorOccurred');
 });
-Route::get('/check-school-status/{id1?}/{id2?}', [SchoolLoginController::class , 'check_status'])->name('checkSchoolStatus');
+Route::get('/check-school-status/{id1?}/{id2?}', [SchoolLoginController::class, 'check_status'])->name('checkSchoolStatus');
+Route::get('/check-school-subscription-status/{id1?}/{id2?}', [SubscriptionController::class, 'check_status'])->name('checkSchoolStatus');
 
 /**
  * Start @admin Routes
@@ -85,17 +88,17 @@ Route::prefix('admin')->group(function () {
             Route::post('/update_about', 'update_about')->name('update_about');
         });
         // city routes
-        Route::resource('/cities' , CityController::class);
-        Route::get('/cities/delete/{id}' , [CityController::class , 'destroy']);
+        Route::resource('/cities', CityController::class);
+        Route::get('/cities/delete/{id}', [CityController::class, 'destroy']);
         // slider routes
-        Route::resource('/sliders' , SliderController::class);
-        Route::get('/sliders/delete/{id}' , [SliderController::class , 'destroy']);
+        Route::resource('/sliders', SliderController::class);
+        Route::get('/sliders/delete/{id}', [SliderController::class, 'destroy']);
         // subject routes
-        Route::resource('/subjects' , SubjectController::class);
-        Route::get('/subjects/delete/{id}' , [SubjectController::class , 'destroy']);
+        Route::resource('/subjects', SubjectController::class);
+        Route::get('/subjects/delete/{id}', [SubjectController::class, 'destroy']);
         // seller_codes routes
-        Route::resource('/seller_codes' , SellerCodeController::class);
-        Route::get('/seller_codes/delete/{id}' , [SellerCodeController::class , 'destroy']);
+        Route::resource('/seller_codes', SellerCodeController::class);
+        Route::get('/seller_codes/delete/{id}', [SellerCodeController::class, 'destroy']);
         // transfers routes
         Route::controller(TransferController::class)->group(function () {
             Route::get('/teacher_transfers', 'teacher_transfers')->name('teacher_transfers');
@@ -146,14 +149,18 @@ Route::prefix('school')->group(function () {
     });
 
     Route::group(['middleware' => ['web', 'auth:school']], function () {
-        // Admins Route
-//        Route::resource('admins', AdminController::class, []);
-        Route::controller(AdminController::class)->group(function () {
+
+        Route::controller(SchoolController::class)->group(function () {
             Route::get('/profile', 'my_profile');
             Route::post('/profileEdit', 'my_profile_edit');
             Route::get('/profileChangePass', 'change_pass');
             Route::post('/profileChangePass', 'change_pass_update');
-            Route::get('/admin_delete/{id}', 'admin_delete');
+        });
+        Route::controller(SubscriptionController::class)->group(function () {
+            Route::get('/my_subscription', 'my_subscription');
+            Route::get('/print_subscription_pdf', 'print_subscription_pdf');
+            Route::get('/pay_subscription/{id}', 'pay_subscription')->name('pay_subscription');
+            Route::post('/pay_subscription/{id}', 'submit_subscription')->name('submit_subscription');
         });
 
 //

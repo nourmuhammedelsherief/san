@@ -24,6 +24,8 @@ class SchoolSubscription extends Model
         'end_at',
     ];
 
+    protected $casts = ['paid_at' => 'datetime','end_at' => 'datetime'];
+
     public function school()
     {
         return $this->belongsTo(School::class , 'school_id');

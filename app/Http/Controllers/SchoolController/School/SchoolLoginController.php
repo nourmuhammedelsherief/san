@@ -143,7 +143,8 @@ class SchoolLoginController extends Controller
             $school->update(['status' => 'not_active']);
             flash(trans('messages.register_and_wait_active'))->success();
             return redirect()->route('school.login');
-        } elseif ($request->payment_method == 'online') {
+        }
+        elseif ($request->payment_method == 'online') {
             // online payment by my fatoourah
             $amount = $request->amount;
             $amount = number_format((float)$amount, 2, '.', '');

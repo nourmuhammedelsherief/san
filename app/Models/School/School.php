@@ -25,4 +25,13 @@ class School extends Authenticatable
     protected $hidden = [
         'password', 'remember_token',
     ];
+
+    public function subscription()
+    {
+        return $this->hasOne(SchoolSubscription::class , 'school_id');
+    }
+    public function city()
+    {
+        return $this->belongsTo(City::class , 'city_id');
+    }
 }

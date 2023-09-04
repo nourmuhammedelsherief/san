@@ -2,6 +2,7 @@
 
 namespace App\Console\Commands;
 
+use App\Models\School\SchoolSubscription;
 use Illuminate\Console\Command;
 
 class TeacherSubscription extends Command
@@ -29,7 +30,7 @@ class TeacherSubscription extends Command
         /**
          * handle tentative subscriptions
          */
-        \Log::info('check course user periods');
+        \Log::info('check schools and teachers subscription periods');
         $subscriptions = \App\Models\Teacher\TeacherSubscription::where('end_at' , '<' , $today)
             ->whereStatus('active')
             ->get();
@@ -43,6 +44,24 @@ class TeacherSubscription extends Command
                 ]);
                 $subscription->teacher->update([
                     'active'     => 'false',
+                ]);
+            }
+        }
+
+
+        $school_subscriptions = SchoolSubscription::where('end_at' , '<' , $today)
+            ->whereStatus('active')
+            ->get();
+        if ($school_subscriptions->count() > 0)
+        {
+            foreach ($school_subscriptions as $school_subscription)
+            {
+                $school_subscription->update([
+                    'status'     => 'finished',
+                    'payment'    => 'false',
+                ]);
+                $school_subscription->school->update([
+                    'status'     => 'finished',
                 ]);
             }
         }

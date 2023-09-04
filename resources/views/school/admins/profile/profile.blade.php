@@ -1,30 +1,28 @@
-@extends('admin.lteLayout.master')
+@extends('school.lteLayout.master')
 
 @section('title')
-    المشرفين
+    @lang('messages.profile')
 @endsection
-
-
 
 @section('page_header')
     <div class="page-bar">
         <ul class="page-breadcrumb">
             <li>
-                <a href="{{ url('admin/home') }}">لوحة التحكم</a>
+                <a href="{{ url('school/home') }}">@lang('messages.control_panel')</a>
                 <i class="fa fa-circle"></i>
             </li>
             <li>
-                <a href="{{ route('admins.index') }}">المشرفين</a>
+                <a href="{{ url('school/profile') }}">@lang('messages.profile')</a>
                 <i class="fa fa-circle"></i>
             </li>
             <li>
-                <span>عرض الصفحة الشخصية</span>
+                <span>@lang('messages.show')@lang('messages.profile')</span>
             </li>
         </ul>
     </div>
 
-    <h1 class="page-title">عرض الصفحة الشخصية
-        <small>تعديل الصفحة الشخصية</small>
+    <h1 class="page-title">@lang('messages.show')@lang('messages.profile')
+        <small>@lang('messages.edit')@lang('messages.profile')</small>
     </h1>
 @endsection
 
@@ -38,7 +36,7 @@
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
                         <li class="breadcrumb-item">
-                            <a href="{{url('/admin/home')}}">
+                            <a href="{{url('/school/home')}}">
                                 @lang('messages.control_panel')
                             </a>
                         </li>
@@ -60,18 +58,18 @@
                 <!-- general form elements -->
                     <div class="card card-primary">
                         <div class="card-header">
-                            <h3 class="card-title">البيانات الرئيسية</h3>
+                            <h3 class="card-title">@lang('messages.main_data')</h3>
                         </div>
                         <!-- /.card-header -->
                         <!-- form start -->
-                        <form role="form" method="post" action="{{ url('/admin/profileEdit') }}"
+                        <form role="form" method="post" action="{{ url('/school/profileEdit') }}"
                               enctype="multipart/form-data">
                             @csrf
                             <div class="card-body">
                                 <div class="form-group">
-                                    <label for="username">الاسم</label>
+                                    <label for="username">@lang('messages.name')</label>
                                     <input id="username" name="name" type="text" value="{{ $data->name }}"
-                                           class="form-control" placeholder="الاسم">
+                                           class="form-control" placeholder="@lang('messages.name')">
                                     @if ($errors->has('name'))
                                         <span class="help-block">
                                        <strong style="color: red;">{{ $errors->first('name') }}</strong>
@@ -81,9 +79,9 @@
                                 </div>
 
                                 <div class="form-group">
-                                    <label for="email">الايميل</label>
+                                    <label for="email">@lang('messages.email')</label>
                                     <input id="email" name="email" type="email" value="{{ $data->email }}"
-                                           class="form-control" placeholder="الايميل">
+                                           class="form-control" placeholder="@lang('messages.email')">
                                     @if ($errors->has('email'))
                                         <span class="help-block">
                                        <strong style="color: red;">{{ $errors->first('email') }}</strong>
@@ -93,12 +91,28 @@
                                 </div>
 
                                 <div class="form-group">
-                                    <label for="phone">الهاتف</label>
-                                    <input id="phone" name="phone" type="text" value="{{ $data->phone }}"
-                                           class="form-control" placeholder="الهاتف">
-                                    @if ($errors->has('phone'))
+                                    <label for="phone">@lang('messages.identity_code') @lang('messages.registerAtW')</label>
+                                    <input id="identity_code" name="identity_code" type="text" value="{{ $data->identity_code }}"
+                                           class="form-control" placeholder="@lang('messages.identity_code') @lang('messages.registerAtW')">
+                                    @if ($errors->has('identity_code'))
                                         <span class="help-block">
-                                       <strong style="color: red;">{{ $errors->first('phone') }}</strong>
+                                       <strong style="color: red;">{{ $errors->first('identity_code') }}</strong>
+                                    </span>
+                                    @endif
+                                </div>
+                                <div class="form-group">
+                                    <label for="phone">@lang('messages.city')</label>
+                                    <select name="city_id" class="form-control">
+                                        <option disabled selected> @lang('messages.choose_city') </option>
+                                        @foreach($cities as $city)
+                                            <option value="{{$city->id}}" {{$data->city_id == $city->id ? 'selected' : ''}}>
+                                                {{app()->getLocale() == 'ar' ? $city->name_ar : $city->name_en}}
+                                            </option>
+                                        @endforeach
+                                    </select>
+                                    @if ($errors->has('city_id'))
+                                        <span class="help-block">
+                                       <strong style="color: red;">{{ $errors->first('city_id') }}</strong>
                                     </span>
                                     @endif
                                 </div>
@@ -126,7 +140,7 @@
                         </div>
                         <!-- /.card-header -->
                         <!-- form start -->
-                        <form method="post" action="{{ url('/admin/profileChangePass') }}"
+                        <form method="post" action="{{ url('/school/profileChangePass') }}"
                               enctype="multipart/form-data">
                             {{ csrf_field() }}
 

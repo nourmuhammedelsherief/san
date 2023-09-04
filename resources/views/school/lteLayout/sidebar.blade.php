@@ -39,6 +39,15 @@
                         </p>
                     </a>
                 </li>
+                <li class="nav-item">
+                    <a href="{{url('/school/my_subscription')}}"
+                       class="nav-link {{ strpos(URL::current(), '/school/my_subscription') !== false ? 'active' : '' }}">
+                        <i class="nav-icon far fa-credit-card"></i>
+                        <p>
+                            @lang('messages.my_subscription')
+                        </p>
+                    </a>
+                </li>
 
 {{--                <li class="nav-item has-treeview {{ strpos(URL::current(), 'teachers') !== false ? 'menu-open' : '' }}">--}}
 {{--                    <a href="#" class="nav-link {{ strpos(URL::current(), 'teachers') !== false ? 'active' : '' }}">--}}
