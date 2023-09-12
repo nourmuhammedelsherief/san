@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\School\School;
 use App\Models\Teacher\TeacherClassRoom;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -12,7 +13,8 @@ class Classroom extends Model
 
     protected $table = 'classrooms';
     protected $fillable = [
-        'name'
+        'name',
+        'school_id',
     ];
 
     public function teachers()
@@ -22,5 +24,9 @@ class Classroom extends Model
     public function students()
     {
         return $this->hasMany(Student::class  , 'classroom_id');
+    }
+    public function school()
+    {
+        return $this->belongsTo(School::class , 'school_id');
     }
 }

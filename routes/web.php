@@ -28,6 +28,8 @@ use \App\Http\Controllers\SchoolController\SchoolHomeController;
 use \App\Http\Controllers\SchoolController\School\SchoolLoginController;
 use \App\Http\Controllers\SchoolController\SchoolController;
 use \App\Http\Controllers\SchoolController\SubscriptionController;
+use \App\Http\Controllers\SchoolController\ClassroomController;
+use \App\Http\Controllers\SchoolController\StudentController;
 
 /*
 |--------------------------------------------------------------------------
@@ -163,6 +165,10 @@ Route::prefix('school')->group(function () {
             Route::post('/pay_subscription/{id}', 'submit_subscription')->name('submit_subscription');
         });
 
+        Route::resource('/classrooms' , ClassroomController::class);
+        Route::get('/classrooms/delete/{id}' , [ClassroomController::class , 'destroy']);
+        Route::resource('/students' , StudentController::class);
+        Route::get('/students/delete/{id}' , [StudentController::class , 'destroy']);
 //
 //        Route::controller(TeacherController::class)->group(function () {
 //            Route::get('/teachers/{status}', 'index')->name('teachers.index');

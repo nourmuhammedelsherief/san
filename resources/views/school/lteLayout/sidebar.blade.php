@@ -1,6 +1,7 @@
 <!-- Main Sidebar Container -->
 <aside class="main-sidebar sidebar-dark-primary elevation-4" style="background-color: #0e3b68 !important;">
 
+    <?php $school = auth()->guard('school')->user(); ?>
 
     <!-- Brand Logo -->
     <a href="{{url('/school/home')}}" class="brand-link">
@@ -45,6 +46,33 @@
                         <i class="nav-icon far fa-credit-card"></i>
                         <p>
                             @lang('messages.my_subscription')
+                        </p>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="{{url('/school/classrooms')}}"
+                       class="nav-link {{ strpos(URL::current(), '/school/classrooms') !== false ? 'active' : '' }}">
+                        <i class="nav-icon fa fa-school"></i>
+                        <span class="badge badge-info right">
+                            {{\App\Models\Classroom::whereSchoolId($school->id)->count()}}
+                        </span>
+                        <p>
+                            @lang('messages.classrooms')
+                        </p>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="{{url('/school/students')}}"
+                       class="nav-link {{ strpos(URL::current(), '/school/students') !== false ? 'active' : '' }}">
+                        <i class="nav-icon fa fa-users"></i>
+                        <span class="badge badge-info right">
+                            {{\App\Models\Student::with('classroom')
+                                ->whereHas('classroom' , function ($q){
+                                    $q->whereSchoolId(auth()->guard('school')->user()->id);
+                                })->count()}}
+                        </span>
+                        <p>
+                            @lang('messages.students')
                         </p>
                     </a>
                 </li>

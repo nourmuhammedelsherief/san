@@ -158,7 +158,7 @@ return [
     'finished' => 'منتهي',
     'classrooms' => 'الفصول الدراسية',
     'students' => 'الطلاب',
-    'classroom' => 'الصف',
+    'classroom' => 'الفصل الدراسي',
     'points' => 'النقاط',
     'age' => 'العمر',
     'identity_id' => 'رقم الهوية',
@@ -194,4 +194,5 @@ return [
     'pay_subscription' => 'دفع الاشتراك',
     'subscription_end' => 'نهاية الاشتراك',
     'my_subscription' => 'اشتراكي',
+    'birth_date' => 'تاريخ الميلاد',
 ];

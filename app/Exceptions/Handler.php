@@ -40,6 +40,9 @@ class Handler extends ExceptionHandler
             case 'admin':
                 $login = 'admin.login';
                 break;
+            case 'school':
+                $login = 'school.login';
+                break;
             case 'teacher-api':
                 $errors = [
                     'message' => trans('messages.token_is_required'),
