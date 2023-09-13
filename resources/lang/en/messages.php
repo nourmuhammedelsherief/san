@@ -211,4 +211,7 @@ return [
     'pay_subscription' => 'Pay Subscription',
     'subscription_end' => 'Subscription End',
     'my_subscription' => 'My Subscription',
+    'yes' => 'Yes',
+    'no' => 'No',
+    'whatsapp_activation' => 'Whatsapp Activation',
 ];

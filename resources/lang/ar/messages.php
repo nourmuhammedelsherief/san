@@ -195,4 +195,7 @@ return [
     'subscription_end' => 'نهاية الاشتراك',
     'my_subscription' => 'اشتراكي',
     'birth_date' => 'تاريخ الميلاد',
+    'yes' => 'نعم',
+    'no' => 'لا',
+    'whatsapp_activation' => 'تفعيل الواتساب',
 ];

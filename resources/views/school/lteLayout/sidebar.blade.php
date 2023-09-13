@@ -76,6 +76,24 @@
                         </p>
                     </a>
                 </li>
+                <li class="nav-item">
+                    <a href="{{url('/school/teachers')}}"
+                       class="nav-link {{ strpos(URL::current(), '/school/teachers') !== false ? 'active' : '' }}">
+                        <i class="nav-icon fa fa-users"></i>
+                        <span class="badge badge-info right">
+                            {{\App\Models\Teacher\Teacher::with('teacher_classrooms')
+                                ->whereHas('teacher_classrooms', function ($q) {
+                                    $q->with('classroom');
+                                    $q->whereHas('classroom', function ($c) {
+                                        $c->whereSchoolId(auth()->guard('school')->user()->id);
+                                    });
+                                })->count()}}
+                        </span>
+                        <p>
+                            @lang('messages.teachers')
+                        </p>
+                    </a>
+                </li>
 
 {{--                <li class="nav-item has-treeview {{ strpos(URL::current(), 'teachers') !== false ? 'menu-open' : '' }}">--}}
 {{--                    <a href="#" class="nav-link {{ strpos(URL::current(), 'teachers') !== false ? 'active' : '' }}">--}}
