@@ -62,6 +62,30 @@
                     </a>
                 </li>
                 <li class="nav-item">
+                    <a href="{{url('/school/rates')}}"
+                       class="nav-link {{ strpos(URL::current(), '/school/rates') !== false ? 'active' : '' }}">
+                        <i class="nav-icon fa fa-star"></i>
+                        <span class="badge badge-info right">
+                            {{\App\Models\School\SchoolRate::whereSchoolId($school->id)->count()}}
+                        </span>
+                        <p>
+                            @lang('messages.rates')
+                        </p>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="{{url('/school/rewards')}}"
+                       class="nav-link {{ strpos(URL::current(), '/school/rewards') !== false ? 'active' : '' }}">
+                        <i class="nav-icon fa fa-gifts"></i>
+                        <span class="badge badge-info right">
+                            {{\App\Models\School\SchoolReward::whereSchoolId($school->id)->count()}}
+                        </span>
+                        <p>
+                            @lang('messages.rewards')
+                        </p>
+                    </a>
+                </li>
+                <li class="nav-item">
                     <a href="{{url('/school/students')}}"
                        class="nav-link {{ strpos(URL::current(), '/school/students') !== false ? 'active' : '' }}">
                         <i class="nav-icon fa fa-users"></i>

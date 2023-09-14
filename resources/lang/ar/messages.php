@@ -198,4 +198,9 @@ return [
     'yes' => 'نعم',
     'no' => 'لا',
     'whatsapp_activation' => 'تفعيل الواتساب',
+    'rates' => 'التقييمات',
+    'rate_name' => 'أسم التقييم',
+    'positive' => 'إيجابي',
+    'negative' => 'سلبي',
+    'rewards' => 'ألمكافآت',
 ];

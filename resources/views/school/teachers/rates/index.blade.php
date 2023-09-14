@@ -1,7 +1,7 @@
 @extends('school.lteLayout.master')
 
 @section('title')
-    @lang('messages.teachers')
+    @lang('messages.rates')
 @endsection
 
 @section('style')
@@ -15,7 +15,7 @@
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1>@lang('messages.teachers')</h1>
+                    <h1>@lang('messages.rates') ({{$teacher->name}})</h1>
                 </div>
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
@@ -25,8 +25,8 @@
                             </a>
                         </li>
                         <li class="breadcrumb-item active">
-                            <a href="{{route('teachers.index')}}"></a>
-                            @lang('messages.teachers')
+                            <a href="{{route('rates.index')}}"></a>
+                            @lang('messages.rates')
                         </li>
                     </ol>
                 </div>
@@ -39,7 +39,7 @@
         <div class="row">
             <div class="col-12">
                 <h3>
-                    <a href="{{route('teachers.create')}}" class="btn btn-info">
+                    <a href="{{route('createSchoolTeacherRate' , $teacher->id)}}" class="btn btn-info">
                         <i class="fa fa-plus"></i>
                         @lang('messages.add_new')
                     </a>
@@ -58,18 +58,15 @@
                                     </label>
                                 </th>
                                 <th></th>
-                                <th> @lang('messages.name') </th>
-                                <th> @lang('messages.email') </th>
-                                <th> @lang('messages.city') </th>
-                                <th> @lang('messages.activation') </th>
-                                <th> @lang('messages.rates') </th>
-                                <th> @lang('messages.rewards') </th>
+                                <th> @lang('messages.rate_name') </th>
+                                <th> @lang('messages.points') </th>
+                                <th> @lang('messages.type') </th>
                                 <th> @lang('messages.operations') </th>
                             </tr>
                             </thead>
                             <tbody>
                             <?php $i=0 ?>
-                            @foreach($teachers as $teacher)
+                            @foreach($rates as $rate)
                                 <tr class="odd gradeX">
                                     <td>
                                         <label class="mt-checkbox mt-checkbox-single mt-checkbox-outline">
@@ -78,33 +75,22 @@
                                         </label>
                                     </td>
                                     <td><?php echo ++$i ?></td>
-                                    <td>{{$teacher->name}}</td>
-                                    <td><a href="mailTo:{{$teacher->email}}">{{$teacher->email}}</a></td>
-                                    <td>{{app()->getLocale() == 'ar' ? $teacher->city->name_ar : $teacher->city->name_en}}</td>
+                                    <td>{{$rate->rate_name}}</td>
+                                    <td>{{$rate->points}}</td>
                                     <td>
-                                        @if($teacher->active == 'true')
-                                            @lang('messages.active')
+                                        @if($rate->type == 'positive')
+                                            @lang('messages.positive')
                                         @else
-                                            @lang('messages.not_active')
+                                            @lang('messages.negative')
                                         @endif
+                                    </td>
+                                    <td>
 
-                                    </td>
-                                    <td>
-                                        <a href="{{route('schoolTeacherRate' , $teacher->id)}}" class="btn btn-success">
-                                            {{$teacher->rates()->where('school_rate_id' , '!=' , null)->count()}}
-                                        </a>
-                                    </td>
-                                    <td>
-                                        <a href="{{route('schoolTeacherReward' , $teacher->id)}}" class="btn btn-primary">
-                                            {{$teacher->rewards()->where('school_reward_id' , '!=' , null)->count()}}
-                                        </a>
-                                    </td>
-                                    <td>
-                                        <a class="btn btn-info" href="{{route('teachers.edit' , $teacher->id)}}">
-                                            <i class="fa fa-user-edit"></i> @lang('messages.edit')
-                                        </a>
+{{--                                        <a class="btn btn-info" href="{{route('rates.edit' , $rate->id)}}">--}}
+{{--                                            <i class="fa fa-user-edit"></i> @lang('messages.edit')--}}
+{{--                                        </a>--}}
 
-                                        <a class="delete_data btn btn-danger" data="{{ $teacher->id }}" data_name="{{$teacher->name}}" >
+                                        <a class="delete_data btn btn-danger" data="{{ $rate->id }}" data_name="{{$rate->rate_name}}" >
                                             <i class="fa fa-key"></i> @lang('messages.delete')
                                         </a>
                                     </td>
@@ -160,7 +146,7 @@
                     cancelButtonText: "{{trans('messages.close')}}"
                 }, function() {
 
-                    window.location.href = "{{ url('/') }}" + "/school/teachers/delete/" + id;
+                    window.location.href = "{{ url('/') }}" + "/school/teacher/rates/delete/" + id;
 
                 });
 

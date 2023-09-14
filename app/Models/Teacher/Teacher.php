@@ -58,4 +58,12 @@ class Teacher extends Authenticatable
     {
         return $this->hasMany(TeacherDeviceToken::class , 'teacher_id');
     }
+    public function rates()
+    {
+        return $this->hasMany(TeacherRate::class , 'teacher_id');
+    }
+    public function rewards()
+    {
+        return $this->hasMany(Reward::class , 'teacher_id');
+    }
 }

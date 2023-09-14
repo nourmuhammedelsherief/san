@@ -214,4 +214,9 @@ return [
     'yes' => 'Yes',
     'no' => 'No',
     'whatsapp_activation' => 'Whatsapp Activation',
+    'rates' => 'Rates',
+    'rate_name' => 'Rate Name',
+    'positive' => 'Positive',
+    'negative' => 'Negative',
+    'rewards' => 'Rewards',
 ];

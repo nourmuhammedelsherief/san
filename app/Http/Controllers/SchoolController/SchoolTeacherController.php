@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Classroom;
 use App\Models\School\City;
 use App\Models\Subject;
+use App\Models\Teacher\ClassRoomSubject;
 use App\Models\Teacher\Teacher;
 use App\Models\Teacher\TeacherClassRoom;
 use App\Models\Teacher\TeacherSubject;
@@ -90,7 +91,7 @@ class SchoolTeacherController extends Controller
         // add teacher classrooms
         if ($request->classrooms != null) {
             foreach ($request->classrooms as $classroom) {
-                TeacherClassRoom::create([
+                $teacher_classroom = TeacherClassRoom::create([
                     'teacher_id' => $teacher->id,
                     'classroom_id' => $classroom,
                     'name' => Classroom::find($classroom)->name,
@@ -98,6 +99,15 @@ class SchoolTeacherController extends Controller
                     'pulled' => 'false',
                     'archive' => 'false',
                 ]);
+                if ($request->subjects != null) {
+                    foreach ($request->subjects as $subject) {
+                        // create teacher subject
+                        ClassRoomSubject::create([
+                            'class_room_id' => $teacher_classroom->id,
+                            'subject_id' => $subject,
+                        ]);
+                    }
+                }
             }
         }
         flash(trans('messages.created'))->success();
@@ -170,7 +180,7 @@ class SchoolTeacherController extends Controller
         if ($request->classrooms != null) {
             TeacherClassRoom::whereTeacherId($teacher->id)->delete();
             foreach ($request->classrooms as $classroom) {
-                TeacherClassRoom::create([
+                $teacher_classroom = TeacherClassRoom::create([
                     'teacher_id' => $teacher->id,
                     'classroom_id' => $classroom,
                     'name' => Classroom::find($classroom)->name,
@@ -178,6 +188,15 @@ class SchoolTeacherController extends Controller
                     'pulled' => 'false',
                     'archive' => 'false',
                 ]);
+                if ($request->subjects != null) {
+                    foreach ($request->subjects as $subject) {
+                        // create teacher subject
+                        ClassRoomSubject::create([
+                            'class_room_id' => $teacher_classroom->id,
+                            'subject_id' => $subject,
+                        ]);
+                    }
+                }
             }
         }
         flash(trans('messages.updated'))->success();
