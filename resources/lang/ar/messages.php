@@ -203,4 +203,5 @@ return [
     'positive' => 'إيجابي',
     'negative' => 'سلبي',
     'rewards' => 'ألمكافآت',
+    'url'   => 'الرابط',
 ];

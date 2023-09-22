@@ -31,11 +31,13 @@ class SliderController extends Controller
     public function store(Request $request)
     {
         $this->validate($request , [
-            'photo'  => 'required|mimes:jpg,jpeg,png,gif,tif,psd,bmp,webp|max:5000'
+            'photo'  => 'required|mimes:jpg,jpeg,png,gif,tif,psd,bmp,webp|max:5000',
+            'url'    => 'nullable'
         ]);
         /// create new slider
         Slider::create([
-            'photo'   => UploadImage($request->file('photo') , 'photo' , '/uploads/sliders')
+            'photo'   => UploadImage($request->file('photo') , 'photo' , '/uploads/sliders'),
+            'url'     => $request->url,
         ]);
         flash(trans('messages.created'))->success();
         return redirect()->route('sliders.index');
@@ -65,11 +67,13 @@ class SliderController extends Controller
     {
         $slider = Slider::findOrFail($id);
         $this->validate($request , [
-            'photo'  => 'nullable|mimes:jpg,jpeg,png,gif,tif,psd,bmp,webp|max:5000'
+            'photo'  => 'nullable|mimes:jpg,jpeg,png,gif,tif,psd,bmp,webp|max:5000',
+            'url'    => 'nullable'
         ]);
 
         $slider->update([
-            'photo'   => $request->file('photo') == null ? $slider->photo : UploadImageEdit($request->file('photo') , 'photo' , '/uploads/sliders' , $slider->photo)
+            'photo'   => $request->file('photo') == null ? $slider->photo : UploadImageEdit($request->file('photo') , 'photo' , '/uploads/sliders' , $slider->photo),
+            'url'     => $request->url == null ? $slider->url : $request->url,
         ]);
         flash(trans('messages.updated'))->success();
         return redirect()->route('sliders.index');

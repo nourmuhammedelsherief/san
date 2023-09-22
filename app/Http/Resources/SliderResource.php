@@ -16,7 +16,8 @@ class SliderResource extends JsonResource
     {
         return [
             'id'    => $this->id,
-            'photo' => $this->photo == null ? null : asset('/uploads/sliders/' . $this->photo)
+            'photo' => $this->photo == null ? null : asset('/uploads/sliders/' . $this->photo),
+            'url'   => $this->url,
         ];
     }
 }

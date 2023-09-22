@@ -76,6 +76,15 @@
                                     </div>
 
                                 </div>
+                                <div class="form-group">
+                                    <label class="control-label"> @lang('messages.url') </label>
+                                    <input name="url" type="url" class="form-control" value="{{old('url')}}" placeholder="@lang('messages.url')">
+                                    @if ($errors->has('url'))
+                                        <span class="help-block">
+                                            <strong style="color: red;">{{ $errors->first('url') }}</strong>
+                                        </span>
+                                    @endif
+                                </div>
                             </div>
                             <!-- /.card-body -->
 

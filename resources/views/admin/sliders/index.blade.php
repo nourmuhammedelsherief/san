@@ -59,6 +59,7 @@
                                 </th>
                                 <th></th>
                                 <th> @lang('messages.photo') </th>
+                                <th> @lang('messages.url') </th>
                                 <th> @lang('messages.operations') </th>
                             </tr>
                             </thead>
@@ -104,6 +105,9 @@
                                             </div>
                                             <!-- /.modal-dialog -->
                                         </div>
+                                    </td>
+                                    <td>
+                                        <a href="{{$slider->url}}" target="_blank">{{$slider->url}}</a>
                                     </td>
                                     <td>
 

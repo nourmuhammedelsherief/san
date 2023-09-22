@@ -1,7 +1,7 @@
-@extends('admin.lteLayout.master')
+@extends('school.lteLayout.master')
 
 @section('title')
-    @lang('messages.classrooms')
+    @lang('messages.rewards')
 @endsection
 
 @section('style')
@@ -15,18 +15,18 @@
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1>@lang('messages.classrooms')</h1>
+                    <h1>@lang('messages.rewards') ({{$student->name}})</h1>
                 </div>
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
                         <li class="breadcrumb-item">
-                            <a href="{{url('/admin/home')}}">
+                            <a href="{{url('/school/home')}}">
                                 @lang('messages.control_panel')
                             </a>
                         </li>
                         <li class="breadcrumb-item active">
-                            <a href="{{route('classrooms.index')}}"></a>
-                            @lang('messages.classrooms')
+                            <a href="{{route('students.rewards' , $student->id)}}"></a>
+                            @lang('messages.rewards')
                         </li>
                     </ol>
                 </div>
@@ -38,12 +38,6 @@
     <section class="content">
         <div class="row">
             <div class="col-12">
-{{--                <h3>--}}
-{{--                    <a href="{{route('classrooms.create')}}" class="btn btn-info">--}}
-{{--                        <i class="fa fa-plus"></i>--}}
-{{--                        @lang('messages.add_new')--}}
-{{--                    </a>--}}
-{{--                </h3>--}}
                 <div class="card">
 
                     <!-- /.card-header -->
@@ -58,16 +52,16 @@
                                     </label>
                                 </th>
                                 <th></th>
-                                <th> @lang('messages.school') </th>
                                 <th> @lang('messages.name') </th>
-                                <th> @lang('messages.teachers') </th>
-                                <th> @lang('messages.students') </th>
-                                <th> @lang('messages.operations') </th>
+                                <th> @lang('messages.points') </th>
+                                <th> @lang('messages.photo') </th>
+                                <th> @lang('messages.teacher') </th>
+{{--                                <th> @lang('messages.operations') </th>--}}
                             </tr>
                             </thead>
                             <tbody>
                             <?php $i=0 ?>
-                            @foreach($classrooms as $classroom)
+                            @foreach($rewards as $reward)
                                 <tr class="odd gradeX">
                                     <td>
                                         <label class="mt-checkbox mt-checkbox-single mt-checkbox-outline">
@@ -76,30 +70,52 @@
                                         </label>
                                     </td>
                                     <td><?php echo ++$i ?></td>
+                                    <td>{{$reward->reward->name}}</td>
+                                    <td>{{$reward->reward->points}}</td>
                                     <td>
-                                        @if($classroom->school_id)
-                                            {{$classroom->school->name}}
-                                        @else
-                                            {{$classroom->school_name}}
-                                        @endif
+                                        <button type="button" class="btn btn-success" data-toggle="modal"
+                                                data-target="#modal-success-{{$reward->reward->id}}">
+                                            <i class="fa fa-eye"></i>
+                                        </button>
+                                        <div class="modal fade" id="modal-success-{{$reward->reward->id}}">
+                                            <div class="modal-dialog">
+                                                <div class="modal-content bg-success">
+                                                    <div class="modal-header">
+                                                        <h4 class="modal-title">@lang('messages.photo')</h4>
+                                                        <button type="button" class="close" data-dismiss="modal"
+                                                                aria-label="Close">
+                                                            <span aria-hidden="true">&times;</span></button>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        <p>
+                                                            <img
+                                                                src="{{asset('/uploads/rewards/' . $reward->reward->photo)}}"
+                                                                width="400" height="400">
+                                                        </p>
+                                                    </div>
+                                                    <div class="modal-footer justify-content-between">
+                                                        <button type="button" class="btn btn-outline-light"
+                                                                data-dismiss="modal">@lang('messages.close')</button>
+                                                    </div>
+                                                </div>
+                                                <!-- /.modal-content -->
+                                            </div>
+                                            <!-- /.modal-dialog -->
+                                        </div>
                                     </td>
-                                    <td>{{$classroom->name}}</td>
                                     <td>
-                                        <a href="{{route('classroom_teachers' , $classroom->id)}}" class="btn btn-success"> {{$classroom->teachers->count()}} </a>
+                                        {{$reward->reward->teacher->name}}
                                     </td>
-                                    <td>
-                                        <a href="{{route('classroom_students' , $classroom->id)}}" class="btn btn-primary"> {{$classroom->students->count()}} </a>
-                                    </td>
-                                    <td>
+{{--                                    <td>--}}
 
-{{--                                        <a class="btn btn-info" href="{{route('classrooms.edit' , $classroom->id)}}">--}}
+{{--                                        <a class="btn btn-info" href="{{route('rewards.edit' , $reward->id)}}">--}}
 {{--                                            <i class="fa fa-user-edit"></i> @lang('messages.edit')--}}
 {{--                                        </a>--}}
 
-                                        <a class="delete_data btn btn-danger" data="{{ $classroom->id }}" data_name="{{$classroom->name}}" >
-                                            <i class="fa fa-key"></i> @lang('messages.delete')
-                                        </a>
-                                    </td>
+{{--                                        <a class="delete_data btn btn-danger" data="{{ $reward->id }}" data_name="{{$reward->name}}" >--}}
+{{--                                            <i class="fa fa-key"></i> @lang('messages.delete')--}}
+{{--                                        </a>--}}
+{{--                                    </td>--}}
                                 </tr>
                             @endforeach
                             </tbody>
@@ -152,7 +168,7 @@
                     cancelButtonText: "{{trans('messages.close')}}"
                 }, function() {
 
-                    window.location.href = "{{ url('/') }}" + "/admin/classrooms/delete/" + id;
+                    window.location.href = "{{ url('/') }}" + "/school/rewards/delete/" + id;
 
                 });
 

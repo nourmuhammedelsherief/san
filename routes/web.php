@@ -18,6 +18,7 @@ use \App\Http\Controllers\AdminController\SellerCodeController;
 use \App\Http\Controllers\AdminController\TransferController;
 use \App\Http\Controllers\AdminController\SliderController;
 use \App\Http\Controllers\AdminController\TeacherController;
+use \App\Http\Controllers\AdminController\SchoolController as AdminSchool;
 
 /**
  * end admin controllers
@@ -116,7 +117,7 @@ Route::prefix('admin')->group(function () {
 
         Route::controller(TeacherController::class)->group(function () {
             Route::get('/teachers/{status}', 'index')->name('teachers.index');
-            Route::get('/classrooms', 'classrooms')->name('classrooms.index');
+            Route::get('/classrooms', 'classrooms')->name('adminClassrooms.index');
             Route::get('/classrooms/delete/{id}', 'delete_classroom')->name('delete_classroom');
             Route::get('/classroom_teachers/{id}', 'classroom_teachers')->name('classroom_teachers');
             Route::get('/classroom_students/{id}', 'classroom_students')->name('classroom_students');
@@ -125,6 +126,13 @@ Route::prefix('admin')->group(function () {
             Route::get('/parents', 'parents')->name('parents.index');
             Route::get('/parent_children/{id}', 'father_children')->name('parent_children');
             Route::get('/parents/delete/{id}', 'delete_parent')->name('delete_parent');
+        });
+        Route::controller(AdminSchool::class)->group(function () {
+            Route::get('/schools/{status}', 'index')->name('adminSchools.index');
+            Route::get('/schools/delete/{id}', 'destroy')->name('adminSchools.delete');
+            Route::get('/schools/teachers/{id}', 'schoolTeachers')->name('schoolTeachers');
+            Route::get('/schools/students/{id}', 'schoolStudents')->name('schoolStudents');
+
         });
 
     });
@@ -170,17 +178,19 @@ Route::prefix('school')->group(function () {
             Route::post('/pay_subscription/{id}', 'submit_subscription')->name('submit_subscription');
         });
 
-        Route::resource('/classrooms' , ClassroomController::class);
-        Route::get('/classrooms/delete/{id}' , [ClassroomController::class , 'destroy']);
+        Route::resource('/classrooms', ClassroomController::class);
+        Route::get('/classrooms/delete/{id}', [ClassroomController::class, 'destroy']);
 
-        Route::resource('/students' , StudentController::class);
-        Route::get('/students/delete/{id}' , [StudentController::class , 'destroy']);
+        Route::resource('/students', StudentController::class);
+        Route::get('/students/delete/{id}', [StudentController::class, 'destroy']);
+        Route::get('/students/{id}/rates', [StudentController::class, 'rates'])->name('students.rates');
+        Route::get('/students/{id}/rewards', [StudentController::class, 'rewards'])->name('students.rewards');
 
-        Route::resource('/teachers' , SchoolTeacherController::class);
-        Route::get('/teachers/delete/{id}' , [SchoolTeacherController::class , 'destroy']);
+        Route::resource('/teachers', SchoolTeacherController::class);
+        Route::get('/teachers/delete/{id}', [SchoolTeacherController::class, 'destroy']);
 
-        Route::resource('/rates' , SchoolRateController::class);
-        Route::get('/rates/delete/{id}' , [SchoolRateController::class , 'destroy']);
+        Route::resource('/rates', SchoolRateController::class);
+        Route::get('/rates/delete/{id}', [SchoolRateController::class, 'destroy']);
 
         Route::controller(SchoolTeacherRateController::class)->group(function () {
             Route::get('/teacher/{id}/rates', 'index')->name('schoolTeacherRate');
@@ -195,8 +205,8 @@ Route::prefix('school')->group(function () {
             Route::get('/teacher/rewards/delete/{id}', 'destroy')->name('deleteSchoolTeacherReward');
         });
 
-        Route::resource('/rewards' , SchoolRewardController::class);
-        Route::get('/rewards/delete/{id}' , [SchoolRewardController::class , 'destroy']);
+        Route::resource('/rewards', SchoolRewardController::class);
+        Route::get('/rewards/delete/{id}', [SchoolRewardController::class, 'destroy']);
 //
 //        Route::controller(TeacherController::class)->group(function () {
 //            Route::get('/teachers/{status}', 'index')->name('teachers.index');

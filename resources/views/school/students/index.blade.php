@@ -63,6 +63,8 @@
                                 <th> @lang('messages.gender') </th>
                                 <th> @lang('messages.birth_date') </th>
                                 <th> @lang('messages.points') </th>
+                                <th> @lang('messages.rates') </th>
+                                <th> @lang('messages.rewards') </th>
                                 <th> @lang('messages.operations') </th>
                             </tr>
                             </thead>
@@ -88,6 +90,16 @@
                                     </td>
                                     <td>{{$student->birth_date->format('Y-m-d')}}</td>
                                     <td>{{$student->points}}</td>
+                                    <td>
+                                        <a href="{{route('students.rates' , $student->id)}}" class="btn btn-primary">
+                                            {{$student->rates->count()}}
+                                        </a>
+                                    </td>
+                                    <td>
+                                        <a href="{{route('students.rewards' , $student->id)}}" class="btn btn-success">
+                                            {{$student->rewards->count()}}
+                                        </a>
+                                    </td>
                                     <td>
 
                                         <a class="btn btn-info" href="{{route('students.edit' , $student->id)}}">

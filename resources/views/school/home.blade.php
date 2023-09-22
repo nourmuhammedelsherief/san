@@ -22,108 +22,113 @@
         </div><!-- /.container-fluid -->
     </div>
     <!-- /.content-header -->
+    <?php $school = Auth::guard('school')->user(); ?>
 
     <!-- Main content -->
     <section class="content">
         <div class="container-fluid">
             <!-- Small boxes (Stat box) -->
             <div class="row">
-{{--                <div class="col-12 col-sm-6 col-md-3">--}}
-{{--                    <a href="{{url('/admin/admins')}}">--}}
-{{--                        <div class="info-box">--}}
-{{--                        <span class="info-box-icon bg-info elevation-1">--}}
-{{--                            <i class="fas fa-users"></i>--}}
-{{--                        </span>--}}
+                <div class="col-12 col-sm-6 col-md-3">
+                    <a href="{{url('/school/classrooms')}}">
+                        <div class="info-box">
+                        <span class="info-box-icon bg-info elevation-1">
+                            <i class="fas fa-school"></i>
+                        </span>
 
-{{--                            <div class="info-box-content">--}}
-{{--                                <span class="info-box-text">@lang('messages.admins')</span>--}}
-{{--                                <span class="info-box-number">--}}
-{{--                                {{\App\Models\Admin::count()--}}
-{{--                                 }}--}}
-{{--                            </span>--}}
-{{--                            </div>--}}
-{{--                            <!-- /.info-box-content -->--}}
-{{--                        </div>--}}
-{{--                    </a>--}}
-{{--                    <!-- /.info-box -->--}}
-{{--                </div>--}}
-{{--                <div class="col-12 col-sm-6 col-md-3">--}}
-{{--                    <a href="{{url('/admin/users')}}">--}}
-{{--                        <div class="info-box">--}}
-{{--                        <span class="info-box-icon bg-warning elevation-1">--}}
-{{--                            <i class="fas fa-users"></i>--}}
-{{--                        </span>--}}
+                            <div class="info-box-content">
+                                <span class="info-box-text">@lang('messages.classrooms')</span>
+                                <span class="info-box-number">
+                                {{\App\Models\Classroom::whereSchoolId($school->id)->count()}}
+                            </span>
+                            </div>
+                            <!-- /.info-box-content -->
+                        </div>
+                    </a>
+                    <!-- /.info-box -->
+                </div>
+                <div class="col-12 col-sm-6 col-md-3">
+                    <a href="{{url('/school/rates')}}">
+                        <div class="info-box">
+                        <span class="info-box-icon bg-warning elevation-1">
+                            <i class="fa fa-star"></i>
+                        </span>
 
-{{--                            <div class="info-box-content">--}}
-{{--                                <span class="info-box-text">@lang('messages.subscribers')</span>--}}
-{{--                                <span class="info-box-number">--}}
-{{--                                {{\App\Models\User::count()--}}
-{{--                                 }}--}}
-{{--                            </span>--}}
-{{--                            </div>--}}
-{{--                            <!-- /.info-box-content -->--}}
-{{--                        </div>--}}
-{{--                    </a>--}}
-{{--                    <!-- /.info-box -->--}}
-{{--                </div>--}}
-{{--                <div class="col-12 col-sm-6 col-md-3">--}}
-{{--                    <a href="{{url('/admin/teachers')}}">--}}
-{{--                        <div class="info-box">--}}
-{{--                        <span class="info-box-icon bg-success elevation-1">--}}
-{{--                            <i class="fas fa-users"></i>--}}
-{{--                        </span>--}}
+                            <div class="info-box-content">
+                                <span class="info-box-text">@lang('messages.rates')</span>
+                                <span class="info-box-number">
+                                {{\App\Models\School\SchoolRate::whereSchoolId($school->id)->count()}}
+                            </span>
+                            </div>
+                            <!-- /.info-box-content -->
+                        </div>
+                    </a>
+                    <!-- /.info-box -->
+                </div>
+                <div class="col-12 col-sm-6 col-md-3">
+                    <a href="{{url('/school/rewards')}}">
+                        <div class="info-box">
+                        <span class="info-box-icon bg-success elevation-1">
+                            <i class="fa fa-gifts"></i>
+                        </span>
 
-{{--                            <div class="info-box-content">--}}
-{{--                                <span class="info-box-text">@lang('messages.teachers')</span>--}}
-{{--                                <span class="info-box-number">--}}
-{{--                                {{\App\Models\Teacher::count()--}}
-{{--                                 }}--}}
-{{--                            </span>--}}
-{{--                            </div>--}}
-{{--                            <!-- /.info-box-content -->--}}
-{{--                        </div>--}}
-{{--                    </a>--}}
-{{--                    <!-- /.info-box -->--}}
-{{--                </div>--}}
-{{--                <div class="col-12 col-sm-6 col-md-3">--}}
-{{--                    <a href="{{url('/admin/categories')}}">--}}
-{{--                        <div class="info-box">--}}
-{{--                        <span class="info-box-icon bg-primary elevation-1">--}}
-{{--                            <i class="fas fa-list"></i>--}}
-{{--                        </span>--}}
+                            <div class="info-box-content">
+                                <span class="info-box-text">@lang('messages.rewards')</span>
+                                <span class="info-box-number">
+                               {{\App\Models\School\SchoolReward::whereSchoolId($school->id)->count()}}
+                            </span>
+                            </div>
+                            <!-- /.info-box-content -->
+                        </div>
+                    </a>
+                    <!-- /.info-box -->
+                </div>
+                <div class="col-12 col-sm-6 col-md-3">
+                    <a href="{{url('/school/students')}}">
+                        <div class="info-box">
+                        <span class="info-box-icon bg-primary elevation-1">
+                            <i class="fas fa-users"></i>
+                        </span>
 
-{{--                            <div class="info-box-content">--}}
-{{--                                <span class="info-box-text">@lang('messages.categories')</span>--}}
-{{--                                <span class="info-box-number">--}}
-{{--                                {{\App\Models\Category::count()--}}
-{{--                                 }}--}}
-{{--                            </span>--}}
-{{--                            </div>--}}
-{{--                            <!-- /.info-box-content -->--}}
-{{--                        </div>--}}
-{{--                    </a>--}}
-{{--                    <!-- /.info-box -->--}}
-{{--                </div>--}}
-{{--                <div class="clearfix hidden-md-up"></div>--}}
-{{--                <div class="col-12 col-sm-6 col-md-3">--}}
-{{--                    <a href="{{url('/admin/sub_categories')}}">--}}
-{{--                        <div class="info-box">--}}
-{{--                        <span class="info-box-icon bg-gray elevation-1">--}}
-{{--                            <i class="fas fa-list"></i>--}}
-{{--                        </span>--}}
+                            <div class="info-box-content">
+                                <span class="info-box-text">@lang('messages.students')</span>
+                                <span class="info-box-number">
+                                {{\App\Models\Student::with('classroom')
+                                ->whereHas('classroom' , function ($q){
+                                    $q->whereSchoolId(auth()->guard('school')->user()->id);
+                                })->count()}}
+                            </span>
+                            </div>
+                            <!-- /.info-box-content -->
+                        </div>
+                    </a>
+                    <!-- /.info-box -->
+                </div>
+                <div class="clearfix hidden-md-up"></div>
+                <div class="col-12 col-sm-6 col-md-3">
+                    <a href="{{url('/school/teachers')}}">
+                        <div class="info-box">
+                        <span class="info-box-icon bg-gray elevation-1">
+                            <i class="fas fa-users"></i>
+                        </span>
 
-{{--                            <div class="info-box-content">--}}
-{{--                                <span class="info-box-text">@lang('messages.sub_categories')</span>--}}
-{{--                                <span class="info-box-number">--}}
-{{--                                    {{\App\Models\SubCategory::count()--}}
-{{--                                 }}--}}
-{{--                                </span>--}}
-{{--                            </div>--}}
-{{--                            <!-- /.info-box-content -->--}}
-{{--                        </div>--}}
-{{--                    </a>--}}
-{{--                    <!-- /.info-box -->--}}
-{{--                </div>--}}
+                            <div class="info-box-content">
+                                <span class="info-box-text">@lang('messages.teachers')</span>
+                                <span class="info-box-number">
+                                    {{\App\Models\Teacher\Teacher::with('teacher_classrooms')
+                                ->whereHas('teacher_classrooms', function ($q) {
+                                    $q->with('classroom');
+                                    $q->whereHas('classroom', function ($c) {
+                                        $c->whereSchoolId(auth()->guard('school')->user()->id);
+                                    });
+                                })->count()}}
+                                </span>
+                            </div>
+                            <!-- /.info-box-content -->
+                        </div>
+                    </a>
+                    <!-- /.info-box -->
+                </div>
 {{--                <div class="col-12 col-sm-6 col-md-3">--}}
 {{--                    <a href="{{url('/admin/courses')}}">--}}
 {{--                        <div class="info-box">--}}

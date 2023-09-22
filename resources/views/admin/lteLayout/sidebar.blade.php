@@ -69,6 +69,44 @@
                     </ul>
                 </li>
 
+                <li class="nav-item has-treeview {{ strpos(URL::current(), 'schools') !== false ? 'menu-open' : '' }}">
+                    <a href="#" class="nav-link {{ strpos(URL::current(), 'schools') !== false ? 'active' : '' }}">
+                        <i class="nav-icon fas fa-building"></i>
+                        <p>
+                            @lang('messages.schools')
+                            <i class="right fas fa-angle-left"></i>
+                        </p>
+                    </a>
+                    <ul class="nav nav-treeview">
+                        <li class="nav-item">
+                            <a href="{{ url('/admin/schools/active') }}"
+                               class="nav-link {{ strpos(URL::current(), '/admin/schools/active') !== false ? 'active' : '' }}">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>
+                                    @lang('messages.active')
+                                </p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{ url('/admin/schools/not_active') }}"
+                               class="nav-link {{ strpos(URL::current(), '/admin/schools/not_active') !== false ? 'active' : '' }}">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>
+                                    @lang('messages.not_active')
+                                </p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{ url('/admin/schools/finished') }}"
+                               class="nav-link {{ strpos(URL::current(), '/admin/schools/finished') !== false ? 'active' : '' }}">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>
+                                    @lang('messages.finished')
+                                </p>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
                 <li class="nav-item has-treeview {{ strpos(URL::current(), 'teachers') !== false ? 'menu-open' : '' }}">
                     <a href="#" class="nav-link {{ strpos(URL::current(), 'teachers') !== false ? 'active' : '' }}">
                         <i class="nav-icon fas fa-users"></i>
@@ -109,7 +147,7 @@
                 </li>
 
                 <li class="nav-item">
-                    <a href="{{route('classrooms.index')}}"
+                    <a href="{{route('adminClassrooms.index')}}"
                        class="nav-link {{ strpos(URL::current(), '/admin/classrooms') !== false ? 'active' : '' }}">
                         <i class="fa fa-graduation-cap"></i>
                         <span class="badge badge-info right">

@@ -1,7 +1,7 @@
 @extends('admin.lteLayout.master')
 
 @section('title')
-    @lang('messages.classrooms')
+    @lang('messages.teachers')
 @endsection
 
 @section('style')
@@ -15,7 +15,9 @@
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1>@lang('messages.classrooms')</h1>
+                    <h1>
+                        @lang('messages.teachers') ({{$school->name}})
+                    </h1>
                 </div>
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
@@ -25,8 +27,7 @@
                             </a>
                         </li>
                         <li class="breadcrumb-item active">
-                            <a href="{{route('classrooms.index')}}"></a>
-                            @lang('messages.classrooms')
+                            <a href="{{route('schoolTeachers' , $school->id)}}"></a>
                         </li>
                     </ol>
                 </div>
@@ -38,12 +39,12 @@
     <section class="content">
         <div class="row">
             <div class="col-12">
-{{--                <h3>--}}
-{{--                    <a href="{{route('classrooms.create')}}" class="btn btn-info">--}}
-{{--                        <i class="fa fa-plus"></i>--}}
-{{--                        @lang('messages.add_new')--}}
-{{--                    </a>--}}
-{{--                </h3>--}}
+                {{--                <h3>--}}
+                {{--                    <a href="{{route('teachers.create')}}" class="btn btn-info">--}}
+                {{--                        <i class="fa fa-plus"></i>--}}
+                {{--                        @lang('messages.add_new')--}}
+                {{--                    </a>--}}
+                {{--                </h3>--}}
                 <div class="card">
 
                     <!-- /.card-header -->
@@ -53,50 +54,42 @@
                             <tr>
                                 <th>
                                     <label class="mt-checkbox mt-checkbox-single mt-checkbox-outline">
-                                        <input type="checkbox" class="group-checkable" data-set="#sample_1 .checkboxes" />
+                                        <input type="checkbox" class="group-checkable"
+                                               data-set="#sample_1 .checkboxes"/>
                                         <span></span>
                                     </label>
                                 </th>
                                 <th></th>
-                                <th> @lang('messages.school') </th>
                                 <th> @lang('messages.name') </th>
-                                <th> @lang('messages.teachers') </th>
-                                <th> @lang('messages.students') </th>
+                                <th> @lang('messages.email') </th>
+                                <th> @lang('messages.city') </th>
                                 <th> @lang('messages.operations') </th>
                             </tr>
                             </thead>
                             <tbody>
-                            <?php $i=0 ?>
-                            @foreach($classrooms as $classroom)
+                            <?php $i = 0 ?>
+                            @foreach($teachers as $teacher)
                                 <tr class="odd gradeX">
                                     <td>
                                         <label class="mt-checkbox mt-checkbox-single mt-checkbox-outline">
-                                            <input type="checkbox" class="checkboxes" value="1" />
+                                            <input type="checkbox" class="checkboxes" value="1"/>
                                             <span></span>
                                         </label>
                                     </td>
                                     <td><?php echo ++$i ?></td>
                                     <td>
-                                        @if($classroom->school_id)
-                                            {{$classroom->school->name}}
-                                        @else
-                                            {{$classroom->school_name}}
-                                        @endif
+                                        {{$teacher->name}}
                                     </td>
-                                    <td>{{$classroom->name}}</td>
-                                    <td>
-                                        <a href="{{route('classroom_teachers' , $classroom->id)}}" class="btn btn-success"> {{$classroom->teachers->count()}} </a>
-                                    </td>
-                                    <td>
-                                        <a href="{{route('classroom_students' , $classroom->id)}}" class="btn btn-primary"> {{$classroom->students->count()}} </a>
-                                    </td>
+                                    <td><a href="mailTo:{{$teacher->email}}">{{$teacher->email}}</a></td>
+                                    <td> {{app()->getLocale() == 'ar' ? $teacher->city->name_ar : $teacher->city->name_en}} </td>
                                     <td>
 
-{{--                                        <a class="btn btn-info" href="{{route('classrooms.edit' , $classroom->id)}}">--}}
-{{--                                            <i class="fa fa-user-edit"></i> @lang('messages.edit')--}}
-{{--                                        </a>--}}
+                                        {{--                                        <a class="btn btn-info" href="{{route('teachers.edit' , $teacher->id)}}">--}}
+                                        {{--                                            <i class="fa fa-user-edit"></i> @lang('messages.edit')--}}
+                                        {{--                                        </a>--}}
 
-                                        <a class="delete_data btn btn-danger" data="{{ $classroom->id }}" data_name="{{$classroom->name}}" >
+                                        <a class="delete_data btn btn-danger" data="{{ $teacher->id }}"
+                                           data_name="{{$teacher->name}}">
                                             <i class="fa fa-key"></i> @lang('messages.delete')
                                         </a>
                                     </td>
@@ -104,6 +97,7 @@
                             @endforeach
                             </tbody>
                         </table>
+                        {{$teachers->links()}}
                     </div>
                     <!-- /.card-body -->
                 </div>
@@ -136,8 +130,8 @@
         });
     </script>
     <script>
-        $( document ).ready(function () {
-            $('body').on('click', '.delete_data', function() {
+        $(document).ready(function () {
+            $('body').on('click', '.delete_data', function () {
                 var id = $(this).attr('data');
                 var swal_text = '{{trans('messages.delete')}} ' + $(this).attr('data_name');
                 var swal_title = "{{trans('messages.deleteSure')}}";
@@ -150,9 +144,9 @@
                     confirmButtonClass: "btn-warning",
                     confirmButtonText: "{{trans('messages.sure')}}",
                     cancelButtonText: "{{trans('messages.close')}}"
-                }, function() {
+                }, function () {
 
-                    window.location.href = "{{ url('/') }}" + "/admin/classrooms/delete/" + id;
+                    window.location.href = "{{ url('/') }}" + "/admin/teachers/delete/" + id;
 
                 });
 

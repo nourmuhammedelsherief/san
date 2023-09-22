@@ -118,4 +118,16 @@ class StudentController extends Controller
         flash(trans('messages.deleted'))->success();
         return redirect()->route('students.index');
     }
+    public function rates($id)
+    {
+        $student = Student::findOrFail($id);
+        $rates = $student->rates;
+        return view('school.students.rates' , compact('student' , 'rates'));
+    }
+    public function rewards($id)
+    {
+        $student = Student::findOrFail($id);
+        $rewards = $student->rewards;
+        return view('school.students.rewards' , compact('student' , 'rewards'));
+    }
 }

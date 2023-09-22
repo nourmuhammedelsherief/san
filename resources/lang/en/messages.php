@@ -219,4 +219,5 @@ return [
     'positive' => 'Positive',
     'negative' => 'Negative',
     'rewards' => 'Rewards',
+    'url'   => 'Url',
 ];

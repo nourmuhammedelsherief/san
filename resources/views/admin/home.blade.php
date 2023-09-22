@@ -47,138 +47,136 @@
                     </a>
                     <!-- /.info-box -->
                 </div>
-{{--                <div class="col-12 col-sm-6 col-md-3">--}}
-{{--                    <a href="{{url('/admin/users')}}">--}}
-{{--                        <div class="info-box">--}}
-{{--                        <span class="info-box-icon bg-warning elevation-1">--}}
-{{--                            <i class="fas fa-users"></i>--}}
-{{--                        </span>--}}
+                <div class="col-12 col-sm-6 col-md-3">
+                    <a href="{{url('/admin/teachers/active')}}">
+                        <div class="info-box">
+                        <span class="info-box-icon bg-warning elevation-1">
+                            <i class="fas fa-users"></i>
+                        </span>
 
-{{--                            <div class="info-box-content">--}}
-{{--                                <span class="info-box-text">@lang('messages.subscribers')</span>--}}
-{{--                                <span class="info-box-number">--}}
-{{--                                {{\App\Models\User::count()--}}
-{{--                                 }}--}}
-{{--                            </span>--}}
-{{--                            </div>--}}
-{{--                            <!-- /.info-box-content -->--}}
-{{--                        </div>--}}
-{{--                    </a>--}}
-{{--                    <!-- /.info-box -->--}}
-{{--                </div>--}}
-{{--                <div class="col-12 col-sm-6 col-md-3">--}}
-{{--                    <a href="{{url('/admin/teachers')}}">--}}
-{{--                        <div class="info-box">--}}
-{{--                        <span class="info-box-icon bg-success elevation-1">--}}
-{{--                            <i class="fas fa-users"></i>--}}
-{{--                        </span>--}}
+                            <div class="info-box-content">
+                                <span class="info-box-text">@lang('messages.teachers')</span>
+                                <span class="info-box-number">
+                                {{\App\Models\Teacher\Teacher::whereType('free')->count()
+                                 }}
+                            </span>
+                            </div>
+                            <!-- /.info-box-content -->
+                        </div>
+                    </a>
+                    <!-- /.info-box -->
+                </div>
+                <div class="col-12 col-sm-6 col-md-3">
+                    <a href="{{url('/admin/classrooms')}}">
+                        <div class="info-box">
+                        <span class="info-box-icon bg-success elevation-1">
+                            <i class="fas fa-graduation-cap"></i>
+                        </span>
 
-{{--                            <div class="info-box-content">--}}
-{{--                                <span class="info-box-text">@lang('messages.teachers')</span>--}}
-{{--                                <span class="info-box-number">--}}
-{{--                                {{\App\Models\Teacher::count()--}}
-{{--                                 }}--}}
-{{--                            </span>--}}
-{{--                            </div>--}}
-{{--                            <!-- /.info-box-content -->--}}
-{{--                        </div>--}}
-{{--                    </a>--}}
-{{--                    <!-- /.info-box -->--}}
-{{--                </div>--}}
-{{--                <div class="col-12 col-sm-6 col-md-3">--}}
-{{--                    <a href="{{url('/admin/categories')}}">--}}
-{{--                        <div class="info-box">--}}
-{{--                        <span class="info-box-icon bg-primary elevation-1">--}}
-{{--                            <i class="fas fa-list"></i>--}}
-{{--                        </span>--}}
+                            <div class="info-box-content">
+                                <span class="info-box-text">@lang('messages.classrooms')</span>
+                                <span class="info-box-number">
+                                {{\App\Models\Classroom::count()}}
+                            </span>
+                            </div>
+                            <!-- /.info-box-content -->
+                        </div>
+                    </a>
+                    <!-- /.info-box -->
+                </div>
+                <div class="col-12 col-sm-6 col-md-3">
+                    <a href="{{url('/admin/parents')}}">
+                        <div class="info-box">
+                        <span class="info-box-icon bg-primary elevation-1">
+                            <i class="fas fa-users"></i>
+                        </span>
 
-{{--                            <div class="info-box-content">--}}
-{{--                                <span class="info-box-text">@lang('messages.categories')</span>--}}
-{{--                                <span class="info-box-number">--}}
-{{--                                {{\App\Models\Category::count()--}}
-{{--                                 }}--}}
-{{--                            </span>--}}
-{{--                            </div>--}}
-{{--                            <!-- /.info-box-content -->--}}
-{{--                        </div>--}}
-{{--                    </a>--}}
-{{--                    <!-- /.info-box -->--}}
-{{--                </div>--}}
-{{--                <div class="clearfix hidden-md-up"></div>--}}
-{{--                <div class="col-12 col-sm-6 col-md-3">--}}
-{{--                    <a href="{{url('/admin/sub_categories')}}">--}}
-{{--                        <div class="info-box">--}}
-{{--                        <span class="info-box-icon bg-gray elevation-1">--}}
-{{--                            <i class="fas fa-list"></i>--}}
-{{--                        </span>--}}
+                            <div class="info-box-content">
+                                <span class="info-box-text">@lang('messages.parents')</span>
+                                <span class="info-box-number">
+                                {{\App\Models\Father\Father::count()}}
+                            </span>
+                            </div>
+                            <!-- /.info-box-content -->
+                        </div>
+                    </a>
+                    <!-- /.info-box -->
+                </div>
+                <div class="clearfix hidden-md-up"></div>
+                <div class="col-12 col-sm-6 col-md-3">
+                    <a href="{{url('/admin/cities')}}">
+                        <div class="info-box">
+                        <span class="info-box-icon bg-gray elevation-1">
+                            <i class="fas fa-building"></i>
+                        </span>
 
-{{--                            <div class="info-box-content">--}}
-{{--                                <span class="info-box-text">@lang('messages.sub_categories')</span>--}}
-{{--                                <span class="info-box-number">--}}
-{{--                                    {{\App\Models\SubCategory::count()--}}
-{{--                                 }}--}}
-{{--                                </span>--}}
-{{--                            </div>--}}
-{{--                            <!-- /.info-box-content -->--}}
-{{--                        </div>--}}
-{{--                    </a>--}}
-{{--                    <!-- /.info-box -->--}}
-{{--                </div>--}}
-{{--                <div class="col-12 col-sm-6 col-md-3">--}}
-{{--                    <a href="{{url('/admin/courses')}}">--}}
-{{--                        <div class="info-box">--}}
-{{--                        <span class="info-box-icon bg-danger elevation-1">--}}
-{{--                            <i class="fas fa-graduation-cap"></i>--}}
-{{--                        </span>--}}
+                            <div class="info-box-content">
+                                <span class="info-box-text">@lang('messages.cities')</span>
+                                <span class="info-box-number">
+                                    {{\App\Models\School\City::count()
+                                 }}
+                                </span>
+                            </div>
+                            <!-- /.info-box-content -->
+                        </div>
+                    </a>
+                    <!-- /.info-box -->
+                </div>
+                <div class="col-12 col-sm-6 col-md-3">
+                    <a href="{{url('/admin/subjects')}}">
+                        <div class="info-box">
+                        <span class="info-box-icon bg-danger elevation-1">
+                            <i class="fas fa-book-open"></i>
+                        </span>
 
-{{--                            <div class="info-box-content">--}}
-{{--                                <span class="info-box-text">@lang('messages.courses')</span>--}}
-{{--                                <span class="info-box-number">--}}
-{{--                                    {{\App\Models\Course::count()}}--}}
-{{--                                </span>--}}
-{{--                            </div>--}}
-{{--                            <!-- /.info-box-content -->--}}
-{{--                        </div>--}}
-{{--                    </a>--}}
-{{--                    <!-- /.info-box -->--}}
-{{--                </div>--}}
-{{--                <div class="col-12 col-sm-6 col-md-3">--}}
-{{--                    <a href="{{url('/admin/sliders')}}">--}}
-{{--                        <div class="info-box">--}}
-{{--                        <span class="info-box-icon bg-dark elevation-1">--}}
-{{--                            <i class="fas fa-image"></i>--}}
-{{--                        </span>--}}
+                            <div class="info-box-content">
+                                <span class="info-box-text">@lang('messages.subjects')</span>
+                                <span class="info-box-number">
+                                    {{\App\Models\Subject::count()}}
+                                </span>
+                            </div>
+                            <!-- /.info-box-content -->
+                        </div>
+                    </a>
+                    <!-- /.info-box -->
+                </div>
+                <div class="col-12 col-sm-6 col-md-3">
+                    <a href="{{url('/admin/seller_codes')}}">
+                        <div class="info-box">
+                        <span class="info-box-icon bg-dark elevation-1">
+                            <i class="fas fa-code"></i>
+                        </span>
 
-{{--                            <div class="info-box-content">--}}
-{{--                                <span class="info-box-text">@lang('messages.sliders')</span>--}}
-{{--                                <span class="info-box-number">--}}
-{{--                                    {{\App\Models\Slider::count()}}--}}
-{{--                                </span>--}}
-{{--                            </div>--}}
-{{--                            <!-- /.info-box-content -->--}}
-{{--                        </div>--}}
-{{--                    </a>--}}
-{{--                    <!-- /.info-box -->--}}
-{{--                </div>--}}
-{{--                <div class="col-12 col-sm-6 col-md-3">--}}
-{{--                    <a href="{{url('/admin/pages')}}">--}}
-{{--                        <div class="info-box">--}}
-{{--                        <span class="info-box-icon bg-success elevation-1">--}}
-{{--                            <i class="fas fa-pager"></i>--}}
-{{--                        </span>--}}
+                            <div class="info-box-content">
+                                <span class="info-box-text">@lang('messages.seller_codes')</span>
+                                <span class="info-box-number">
+                                    {{\App\Models\SellerCode::count()}}
+                                </span>
+                            </div>
+                            <!-- /.info-box-content -->
+                        </div>
+                    </a>
+                    <!-- /.info-box -->
+                </div>
+                <div class="col-12 col-sm-6 col-md-3">
+                    <a href="{{url('/admin/sliders')}}">
+                        <div class="info-box">
+                        <span class="info-box-icon bg-success elevation-1">
+                            <i class="fas fa-images"></i>
+                        </span>
 
-{{--                            <div class="info-box-content">--}}
-{{--                                <span class="info-box-text">@lang('messages.pages')</span>--}}
-{{--                                <span class="info-box-number">--}}
-{{--                                    {{\App\Models\Page::count()}}--}}
-{{--                                </span>--}}
-{{--                            </div>--}}
-{{--                            <!-- /.info-box-content -->--}}
-{{--                        </div>--}}
-{{--                    </a>--}}
-{{--                    <!-- /.info-box -->--}}
-{{--                </div>--}}
-{{--                <div class="clearfix hidden-md-up"></div>--}}
+                            <div class="info-box-content">
+                                <span class="info-box-text">@lang('messages.sliders')</span>
+                                <span class="info-box-number">
+                                    {{\App\Models\Slider::count()}}
+                                </span>
+                            </div>
+                            <!-- /.info-box-content -->
+                        </div>
+                    </a>
+                    <!-- /.info-box -->
+                </div>
+                <div class="clearfix hidden-md-up"></div>
 {{--                <div class="col-12 col-sm-6 col-md-3">--}}
 {{--                    <a href="{{url('/admin/bank_transfers')}}">--}}
 {{--                        <div class="info-box">--}}

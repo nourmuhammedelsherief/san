@@ -59,7 +59,8 @@ class TClassRoomController extends Controller
 
         // create new classroom
         $classroom = Classroom::create([
-            'name' => $request->name
+            'name' => $request->name,
+            'school_name' => $teacher->school
         ]);
         $teacher_classroom = TeacherClassRoom::create([
             'classroom_id' => $classroom->id,

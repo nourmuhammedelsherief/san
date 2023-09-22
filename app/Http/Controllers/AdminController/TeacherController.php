@@ -23,7 +23,8 @@ class TeacherController extends Controller
 
     public function classrooms()
     {
-        $classrooms = Classroom::orderBy('id' , 'desc')->get();
+        $classrooms = Classroom::orderBy('id' , 'desc')
+            ->get();
         return view('admin.teachers.classrooms' , compact('classrooms'));
     }
 
