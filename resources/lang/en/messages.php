@@ -220,4 +220,5 @@ return [
     'negative' => 'Negative',
     'rewards' => 'Rewards',
     'url'   => 'Url',
+    'all' => 'All',
 ];

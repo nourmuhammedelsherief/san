@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\AdminController;
 
 use App\Http\Controllers\Controller;
+use App\Models\Classroom;
+use App\Models\History;
 use App\Models\School\School;
 use App\Models\Student;
 use App\Models\Teacher\Teacher;
@@ -95,5 +97,18 @@ class SchoolController extends Controller
         $school->delete();
         flash(trans('messages.deleted'))->success();
         return redirect()->back();
+    }
+    public function school_history($id)
+    {
+        $school = School::findOrFail($id);
+        $histories = History::whereSchoolId($school->id)
+            ->paginate(100);
+        return view('admin.schools.school_history' , compact('school' , 'histories'));
+    }
+    public function school_classrooms($id)
+    {
+        $school = School::findOrFail($id);
+        $classrooms = Classroom::whereSchoolId($school->id)->get();
+        return view('admin.teachers.classrooms' , compact('classrooms'));
     }
 }

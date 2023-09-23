@@ -67,6 +67,25 @@
                     <!-- /.info-box -->
                 </div>
                 <div class="col-12 col-sm-6 col-md-3">
+                    <a href="{{url('/admin/schools/active')}}">
+                        <div class="info-box">
+                        <span class="info-box-icon bg-gray elevation-1">
+                            <i class="fas fa-building"></i>
+                        </span>
+
+                            <div class="info-box-content">
+                                <span class="info-box-text">@lang('messages.schools')</span>
+                                <span class="info-box-number">
+                                {{\App\Models\School\School::count()
+                                 }}
+                            </span>
+                            </div>
+                            <!-- /.info-box-content -->
+                        </div>
+                    </a>
+                    <!-- /.info-box -->
+                </div>
+                <div class="col-12 col-sm-6 col-md-3">
                     <a href="{{url('/admin/classrooms')}}">
                         <div class="info-box">
                         <span class="info-box-icon bg-success elevation-1">
@@ -76,7 +95,7 @@
                             <div class="info-box-content">
                                 <span class="info-box-text">@lang('messages.classrooms')</span>
                                 <span class="info-box-number">
-                                {{\App\Models\Classroom::count()}}
+                                {{\App\Models\Classroom::where('school_id' , null)->count()}}
                             </span>
                             </div>
                             <!-- /.info-box-content -->
@@ -84,6 +103,8 @@
                     </a>
                     <!-- /.info-box -->
                 </div>
+                <div class="clearfix hidden-md-up"></div>
+
                 <div class="col-12 col-sm-6 col-md-3">
                     <a href="{{url('/admin/parents')}}">
                         <div class="info-box">
@@ -102,7 +123,6 @@
                     </a>
                     <!-- /.info-box -->
                 </div>
-                <div class="clearfix hidden-md-up"></div>
                 <div class="col-12 col-sm-6 col-md-3">
                     <a href="{{url('/admin/cities')}}">
                         <div class="info-box">
@@ -158,6 +178,8 @@
                     </a>
                     <!-- /.info-box -->
                 </div>
+                <div class="clearfix hidden-md-up"></div>
+
                 <div class="col-12 col-sm-6 col-md-3">
                     <a href="{{url('/admin/sliders')}}">
                         <div class="info-box">
@@ -169,6 +191,24 @@
                                 <span class="info-box-text">@lang('messages.sliders')</span>
                                 <span class="info-box-number">
                                     {{\App\Models\Slider::count()}}
+                                </span>
+                            </div>
+                            <!-- /.info-box-content -->
+                        </div>
+                    </a>
+                    <!-- /.info-box -->
+                </div>
+                <div class="col-12 col-sm-6 col-md-3">
+                    <a href="{{url('/admin/histories')}}">
+                        <div class="info-box">
+                        <span class="info-box-icon bg-warning elevation-1">
+                            <i class="fas fa-money-bill"></i>
+                        </span>
+
+                            <div class="info-box-content">
+                                <span class="info-box-text">@lang('messages.histories')</span>
+                                <span class="info-box-number">
+                                    {{\App\Models\History::count()}}
                                 </span>
                             </div>
                             <!-- /.info-box-content -->

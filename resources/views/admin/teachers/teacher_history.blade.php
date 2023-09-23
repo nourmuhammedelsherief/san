@@ -1,14 +1,7 @@
 @extends('admin.lteLayout.master')
 
 @section('title')
-    @lang('messages.teachers')
-    @if($status == 'active')
-        (@lang('messages.active'))
-    @elseif($status == 'not_active')
-        (@lang('messages.not_active'))
-    @elseif($status == 'finished')
-        (@lang('messages.finished'))
-    @endif
+    @lang('messages.histories')
 @endsection
 
 @section('style')
@@ -23,14 +16,8 @@
             <div class="row mb-2">
                 <div class="col-sm-6">
                     <h1>
-                        @lang('messages.teachers')
-                        @if($status == 'active')
-                            (@lang('messages.active'))
-                        @elseif($status == 'not_active')
-                            (@lang('messages.not_active'))
-                        @elseif($status == 'finished')
-                            (@lang('messages.finished'))
-                        @endif
+                        @lang('messages.histories')
+                        ({{$teacher->name}})
                     </h1>
                 </div>
                 <div class="col-sm-6">
@@ -41,15 +28,8 @@
                             </a>
                         </li>
                         <li class="breadcrumb-item active">
-                            <a href="{{route('teachers.index' , $status)}}"></a>
-                            @lang('messages.teachers')
-                            @if($status == 'active')
-                                (@lang('messages.active'))
-                            @elseif($status == 'not_active')
-                                (@lang('messages.not_active'))
-                            @elseif($status == 'finished')
-                                (@lang('messages.finished'))
-                            @endif
+                            <a href="{{route('teachers.teacher_history' , $teacher->id)}}"></a>
+                            @lang('messages.histories')
                         </li>
                     </ol>
                 </div>
@@ -60,13 +40,26 @@
 
     <section class="content">
         <div class="row">
+            <div class="col-sm-4">
+            </div>
+            <div class="col-sm-4">
+                <div class="small-box bg-success">
+                    <div class="inner">
+                        <h3>{{$histories->sum('amount')}}
+                            <sup style="font-size: 20px">@lang('messages.SR')</sup>
+                        </h3>
+
+                        <p>@lang('messages.totalPayments')</p>
+                    </div>
+                    <div class="icon">
+                        <i class="ion ion-stats-bars"></i>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-4"></div>
+        </div>
+        <div class="row">
             <div class="col-12">
-                {{--                <h3>--}}
-                {{--                    <a href="{{route('teachers.create')}}" class="btn btn-info">--}}
-                {{--                        <i class="fa fa-plus"></i>--}}
-                {{--                        @lang('messages.add_new')--}}
-                {{--                    </a>--}}
-                {{--                </h3>--}}
                 <div class="card">
 
                     <!-- /.card-header -->
@@ -82,19 +75,17 @@
                                     </label>
                                 </th>
                                 <th></th>
-                                <th> @lang('messages.name') </th>
-                                <th> @lang('messages.email') </th>
-                                <th> @lang('messages.city') </th>
-                                <th> @lang('messages.school') </th>
+                                <th> @lang('messages.teacher') </th>
+                                <th> @lang('messages.price') </th>
                                 <th> @lang('messages.payment_type') </th>
-                                <th> @lang('messages.end_subscription') </th>
-                                <th> @lang('messages.histories') </th>
+                                <th> @lang('messages.transfer_photo') </th>
+                                <th> @lang('messages.operation_date') </th>
                                 <th> @lang('messages.operations') </th>
                             </tr>
                             </thead>
                             <tbody>
                             <?php $i = 0 ?>
-                            @foreach($teachers as $teacher)
+                            @foreach($histories as $history)
                                 <tr class="odd gradeX">
                                     <td>
                                         <label class="mt-checkbox mt-checkbox-single mt-checkbox-outline">
@@ -103,39 +94,65 @@
                                         </label>
                                     </td>
                                     <td><?php echo ++$i ?></td>
+                                    <td>{{$history->teacher ? $history->teacher->name : ''}}</td>
                                     <td>
-                                        {{$teacher->name}}
+                                        {{$history->amount}} @lang('messages.SR')
                                     </td>
-                                    <td><a href="mailTo:{{$teacher->email}}">{{$teacher->email}}</a></td>
-                                    <td> {{app()->getLocale() == 'ar' ? $teacher->city->name_ar : $teacher->city->name_en}} </td>
-                                    <td> {{$teacher->school}} </td>
                                     <td>
-                                        @if($teacher->subscription->payment_type == 'bank')
-                                            @lang('messages.bank_transfers')
-                                        @elseif($teacher->subscription->payment_type == 'online')
+                                        @if($history->invoice_id != null)
                                             @lang('messages.online_payment')
-                                        @endif
-                                    </td>
-                                    <td>
-                                        @if($teacher->subscription->end_at)
-                                            {{$teacher->subscription->end_at->format('Y-m-d')}}
                                         @else
-                                            @lang('messages.noSubscription')
+                                            @lang('messages.bank_transfer')
                                         @endif
                                     </td>
                                     <td>
-                                        <a class="btn btn-primary" href="{{route('teachers.teacher_history' , $teacher->id)}}">
-                                            <i class="fa fa-eye"></i>
-                                        </a>
+                                        @if($history->invoice_id != null)
+                                            @lang('messages.invoice_id') : {{$history->invoice_id}}
+                                        @else
+                                            <button type="button" class="btn btn-success" data-toggle="modal"
+                                                    data-target="#modal-success-{{$history->id}}">
+                                                <i class="fa fa-eye"></i>
+                                            </button>
+                                            <div class="modal fade" id="modal-success-{{$history->id}}">
+                                                <div class="modal-dialog">
+                                                    <div class="modal-content bg-success">
+                                                        <div class="modal-header">
+                                                            <h4 class="modal-title">@lang('messages.transfer_photo')</h4>
+                                                            <button type="button" class="close" data-dismiss="modal"
+                                                                    aria-label="Close">
+                                                                <span aria-hidden="true">&times;</span></button>
+                                                        </div>
+                                                        <div class="modal-body">
+                                                            <p>
+                                                                @if($history->type == 'school')
+                                                                    <img
+                                                                        src="{{asset('/uploads/school_transfers/' . $history->transfer_photo)}}"
+                                                                        width="400" height="400">
+                                                                @else
+                                                                    <img
+                                                                        src="{{asset('/uploads/teacher_transfers/' . $history->transfer_photo)}}"
+                                                                        width="400" height="400">
+                                                                @endif
+                                                            </p>
+                                                        </div>
+                                                        <div class="modal-footer justify-content-between">
+                                                            <button type="button" class="btn btn-outline-light"
+                                                                    data-dismiss="modal">@lang('messages.close')</button>
+                                                        </div>
+                                                    </div>
+                                                    <!-- /.modal-content -->
+                                                </div>
+                                                <!-- /.modal-dialog -->
+                                            </div>
+                                        @endif
+                                    </td>
+                                    <td>
+                                        {{$history->created_at->format('Y-m-d')}}
                                     </td>
                                     <td>
 
-                                        {{--                                        <a class="btn btn-info" href="{{route('teachers.edit' , $teacher->id)}}">--}}
-                                        {{--                                            <i class="fa fa-user-edit"></i> @lang('messages.edit')--}}
-                                        {{--                                        </a>--}}
-
-                                        <a class="delete_data btn btn-danger" data="{{ $teacher->id }}"
-                                           data_name="{{$teacher->name}}">
+                                        <a class="delete_data btn btn-danger" data="{{ $history->id }}"
+                                           data_name="{{$history->school ? $history->school->name : $history->teacher->name}}">
                                             <i class="fa fa-key"></i> @lang('messages.delete')
                                         </a>
                                     </td>
@@ -143,7 +160,6 @@
                             @endforeach
                             </tbody>
                         </table>
-                        {{$teachers->links()}}
                     </div>
                     <!-- /.card-body -->
                 </div>
@@ -192,7 +208,7 @@
                     cancelButtonText: "{{trans('messages.close')}}"
                 }, function () {
 
-                    window.location.href = "{{ url('/') }}" + "/admin/teachers/delete/" + id;
+                    window.location.href = "{{ url('/') }}" + "/admin/histories/delete/" + id;
 
                 });
 

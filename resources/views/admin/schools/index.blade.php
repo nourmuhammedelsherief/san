@@ -84,12 +84,12 @@
                                 <th></th>
                                 <th> @lang('messages.name') </th>
                                 <th> @lang('messages.email') </th>
-                                <th> @lang('messages.city') </th>
                                 <th> @lang('messages.identity_code') </th>
-                                <th> @lang('messages.payment_type') </th>
-                                <th> @lang('messages.end_subscription') </th>
+                                <th> @lang('messages.subscription_data') </th>
                                 <th> @lang('messages.teachers') </th>
                                 <th> @lang('messages.students') </th>
+                                <th> @lang('messages.classrooms') </th>
+                                <th> @lang('messages.histories') </th>
                                 <th> @lang('messages.operations') </th>
                             </tr>
                             </thead>
@@ -108,22 +108,53 @@
                                         {{$school->name}}
                                     </td>
                                     <td><a href="mailTo:{{$school->email}}">{{$school->email}}</a></td>
-                                    <td> {{app()->getLocale() == 'ar' ? $school->city->name_ar : $school->city->name_en}} </td>
                                     <td> {{$school->identity_code}} </td>
                                     <td>
-                                        @if($school->subscription->payment_type == 'bank')
-                                            @lang('messages.bank_transfers')
-                                        @elseif($school->subscription->payment_type == 'online')
-                                            @lang('messages.online_payment')
-                                        @endif
+                                        <button type="button" class="btn btn-success" data-toggle="modal"
+                                                data-target="#modal-success-{{$school->id}}">
+                                            <i class="fa fa-eye"></i>
+                                        </button>
+                                        <div class="modal fade" id="modal-success-{{$school->id}}">
+                                            <div class="modal-dialog">
+                                                <div class="modal-content bg-success">
+                                                    <div class="modal-header">
+                                                        <h4 class="modal-title">@lang('messages.subscription_data')</h4>
+                                                        <button type="button" class="close" data-dismiss="modal"
+                                                                aria-label="Close">
+                                                            <span aria-hidden="true">&times;</span></button>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        <p>
+                                                            @lang('messages.payment_type') :
+                                                            @if($school->subscription->payment_type == 'bank')
+                                                                @lang('messages.bank_transfers')
+                                                            @elseif($school->subscription->payment_type == 'online')
+                                                                @lang('messages.online_payment')
+                                                            @endif
+                                                        </p>
+                                                        <p>
+                                                            @lang('messages.end_subscription') :
+                                                            @if($school->subscription->end_at)
+                                                                {{$school->subscription->end_at->format('Y-m-d')}}
+                                                            @else
+                                                                @lang('messages.noSubscription')
+                                                            @endif
+                                                        </p>
+                                                        <p>
+                                                            @lang('messages.city') : {{app()->getLocale() == 'ar' ? $school->city->name_ar : $school->city->name_en}}
+                                                        </p>
+                                                    </div>
+                                                    <div class="modal-footer justify-content-between">
+                                                        <button type="button" class="btn btn-outline-light"
+                                                                data-dismiss="modal">@lang('messages.close')</button>
+                                                    </div>
+                                                </div>
+                                                <!-- /.modal-content -->
+                                            </div>
+                                            <!-- /.modal-dialog -->
+                                        </div>
                                     </td>
-                                    <td>
-                                        @if($school->subscription->end_at)
-                                            {{$school->subscription->end_at->format('Y-m-d')}}
-                                        @else
-                                            @lang('messages.noSubscription')
-                                        @endif
-                                    </td>
+
                                     <td>
                                         <a href="{{route('schoolTeachers' , $school->id)}}" class="btn btn-primary">
                                             {{\App\Models\Teacher\Teacher::with('teacher_classrooms')
@@ -145,6 +176,16 @@
                                         </a>
                                     </td>
                                     <td>
+                                        <a class="btn btn-warning" href="{{route('school_classrooms' , $school->id)}}">
+                                            {{\App\Models\Classroom::whereSchoolId($school->id)->count()}}
+                                        </a>
+                                    </td>
+                                    <td>
+                                        <a class="btn btn-success" href="{{route('school_history' , $school->id)}}">
+                                            <i class="fa fa-eye"></i>
+                                        </a>
+                                    </td>
+                                    <td>
 
                                         {{--                                        <a class="btn btn-info" href="{{route('schools.edit' , $school->id)}}">--}}
                                         {{--                                            <i class="fa fa-user-edit"></i> @lang('messages.edit')--}}
@@ -152,7 +193,7 @@
 
                                         <a class="delete_data btn btn-danger" data="{{ $school->id }}"
                                            data_name="{{$school->name}}">
-                                            <i class="fa fa-key"></i> @lang('messages.delete')
+                                            @lang('messages.delete')
                                         </a>
                                     </td>
                                 </tr>

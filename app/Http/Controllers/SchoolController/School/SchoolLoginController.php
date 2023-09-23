@@ -230,16 +230,16 @@ class SchoolLoginController extends Controller
             ]);
             // add operation to History
             History::create([
-                'school_id' => $subscription->school->id,
+                'school_id' => $subscription->school_id,
                 'amount' => $subscription->paid_amount,
                 'discount' => $subscription->discount,
-                'type' => 'teacher',
+                'type' => 'school',
                 'invoice_id' => $InvoiceId,
                 'payment_type' => 'online'
             ]);
             flash(trans('messages.payment_done_successfully'))->success();
             Auth::guard('school')->login($subscription->school);
-            return redirect()->route('school.home');
+            return redirect()->route('school.my_subscription');
         } else {
             flash(trans('messages.errorPayment'))->error();
             return redirect()->back();

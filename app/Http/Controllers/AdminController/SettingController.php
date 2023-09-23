@@ -92,12 +92,18 @@ class SettingController extends Controller
         }
         return redirect()->back();
     }
-    public function histories()
+    public function histories($type = null)
     {
-        $histories = History::orderBy('id' , 'desc')
-            ->orderBy('id' , 'desc')
-            ->paginate(200);
-        return view('admin.settings.histories' , compact('histories'));
+        if ($type):
+            $histories = History::whereType($type)
+                ->orderBy('id' , 'desc')
+                ->paginate(200);
+        else:
+            $histories = History::orderBy('id' , 'desc')
+                ->paginate(200);
+        endif;
+
+        return view('admin.settings.histories' , compact('histories' , 'type'));
     }
     public function delete_history($id)
     {

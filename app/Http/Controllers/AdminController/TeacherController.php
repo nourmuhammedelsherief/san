@@ -5,6 +5,7 @@ namespace App\Http\Controllers\AdminController;
 use App\Http\Controllers\Controller;
 use App\Models\Classroom;
 use App\Models\Father\Father;
+use App\Models\History;
 use App\Models\Student;
 use App\Models\Teacher\Teacher;
 use Illuminate\Http\Request;
@@ -23,7 +24,8 @@ class TeacherController extends Controller
 
     public function classrooms()
     {
-        $classrooms = Classroom::orderBy('id' , 'desc')
+        $classrooms = Classroom::where('school_id' , null)
+            ->orderBy('id' , 'desc')
             ->get();
         return view('admin.teachers.classrooms' , compact('classrooms'));
     }
@@ -87,5 +89,13 @@ class TeacherController extends Controller
         $parent->delete();
         flash(trans('messages.deleted'))->success();
         return redirect()->back();
+    }
+
+    public function teacher_history($id)
+    {
+        $teacher = Teacher::findOrFail($id);
+        $histories = History::whereTeacherId($teacher->id)
+            ->paginate(100);
+        return view('admin.teachers.teacher_history' , compact('histories' , 'teacher'));
     }
 }

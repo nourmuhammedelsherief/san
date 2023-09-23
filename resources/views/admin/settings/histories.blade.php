@@ -15,7 +15,16 @@
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1>@lang('messages.histories')</h1>
+                    <h1>
+                        @lang('messages.histories')
+                        @if($type)
+                            @if($type == 'school')
+                                (@lang('messages.schools'))
+                            @else
+                                (@lang('messages.teachers'))
+                            @endif
+                        @endif
+                    </h1>
                 </div>
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
@@ -37,11 +46,21 @@
 
     <section class="content">
         <div class="row">
-            <div class="col-sm-4"></div>
+            <div class="col-sm-4">
+                <a class="btn btn-success" href="{{route('settings.histories')}}">
+                    @lang('messages.all')
+                </a>
+                <a class="btn btn-info" href="{{route('settings.histories' , 'school')}}">
+                    @lang('messages.schools')
+                </a>
+                <a class="btn btn-primary" href="{{route('settings.histories' , 'teacher')}}">
+                    @lang('messages.teachers')
+                </a>
+            </div>
             <div class="col-sm-4">
                 <div class="small-box bg-success">
                     <div class="inner">
-                        <h3>{{$histories->sum('price')}}
+                        <h3>{{$histories->sum('amount')}}
                             <sup style="font-size: 20px">@lang('messages.SR')</sup>
                         </h3>
 
@@ -71,8 +90,8 @@
                                     </label>
                                 </th>
                                 <th></th>
-                                <th> @lang('messages.user') </th>
-                                <th> @lang('messages.course') </th>
+                                <th> @lang('messages.school')  </th>
+                                <th> @lang('messages.teacher') </th>
                                 <th> @lang('messages.price') </th>
                                 <th> @lang('messages.payment_type') </th>
                                 <th> @lang('messages.transfer_photo') </th>
@@ -91,14 +110,10 @@
                                         </label>
                                     </td>
                                     <td><?php echo ++$i ?></td>
+                                    <td>{{$history->school ? $history->school->name : ''}}</td>
+                                    <td>{{$history->teacher ? $history->teacher->name : ''}}</td>
                                     <td>
-                                        {{$history->user->name}}
-                                    </td>
-                                    <td>
-                                        {{app()->getLocale() == 'ar' ? $history->course->name_ar : $history->course->name_en}}
-                                    </td>
-                                    <td>
-                                        {{$history->price}} @lang('messages.SR')
+                                        {{$history->amount}} @lang('messages.SR')
                                     </td>
                                     <td>
                                         @if($history->invoice_id != null)
@@ -126,9 +141,15 @@
                                                         </div>
                                                         <div class="modal-body">
                                                             <p>
+                                                                @if($history->type == 'school')
                                                                 <img
-                                                                    src="{{asset('/uploads/transfers/' . $history->transfer_photo)}}"
+                                                                    src="{{asset('/uploads/school_transfers/' . $history->transfer_photo)}}"
                                                                     width="400" height="400">
+                                                                @else
+                                                                    <img
+                                                                        src="{{asset('/uploads/teacher_transfers/' . $history->transfer_photo)}}"
+                                                                        width="400" height="400">
+                                                                @endif
                                                             </p>
                                                         </div>
                                                         <div class="modal-footer justify-content-between">
@@ -148,7 +169,7 @@
                                     <td>
 
                                         <a class="delete_data btn btn-danger" data="{{ $history->id }}"
-                                           data_name="{{app()->getLocale() == 'ar' ? $history->course->name_ar : $history->course->name_en}}">
+                                           data_name="{{$history->school ? $history->school->name : $history->teacher->name}}">
                                             <i class="fa fa-key"></i> @lang('messages.delete')
                                         </a>
                                     </td>

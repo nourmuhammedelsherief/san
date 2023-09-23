@@ -94,6 +94,8 @@ Route::prefix('admin')->group(function () {
             Route::post('/settings', 'store_setting')->name('store_setting');
             Route::get('/about_us', 'about')->name('about');
             Route::post('/update_about', 'update_about')->name('update_about');
+            Route::get('/histories/{type?}', 'histories')->name('settings.histories');
+            Route::get('/histories/delete/{id}', 'delete_history')->name('settings.delete_history');
         });
         // city routes
         Route::resource('/cities', CityController::class);
@@ -117,6 +119,7 @@ Route::prefix('admin')->group(function () {
 
         Route::controller(TeacherController::class)->group(function () {
             Route::get('/teachers/{status}', 'index')->name('teachers.index');
+            Route::get('/teachers/{id}/histories', 'teacher_history')->name('teachers.teacher_history');
             Route::get('/classrooms', 'classrooms')->name('adminClassrooms.index');
             Route::get('/classrooms/delete/{id}', 'delete_classroom')->name('delete_classroom');
             Route::get('/classroom_teachers/{id}', 'classroom_teachers')->name('classroom_teachers');
@@ -132,6 +135,8 @@ Route::prefix('admin')->group(function () {
             Route::get('/schools/delete/{id}', 'destroy')->name('adminSchools.delete');
             Route::get('/schools/teachers/{id}', 'schoolTeachers')->name('schoolTeachers');
             Route::get('/schools/students/{id}', 'schoolStudents')->name('schoolStudents');
+            Route::get('/schools/{id}/histories', 'school_history')->name('school_history');
+            Route::get('/schools/{id}/classrooms', 'school_classrooms')->name('school_classrooms');
 
         });
 
@@ -172,7 +177,7 @@ Route::prefix('school')->group(function () {
             Route::post('/profileChangePass', 'change_pass_update');
         });
         Route::controller(SubscriptionController::class)->group(function () {
-            Route::get('/my_subscription', 'my_subscription');
+            Route::get('/my_subscription', 'my_subscription')->name('school.my_subscription');
             Route::get('/print_subscription_pdf', 'print_subscription_pdf');
             Route::get('/pay_subscription/{id}', 'pay_subscription')->name('pay_subscription');
             Route::post('/pay_subscription/{id}', 'submit_subscription')->name('submit_subscription');

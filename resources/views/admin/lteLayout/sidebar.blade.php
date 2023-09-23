@@ -263,6 +263,19 @@
 
 
                 <li class="nav-item">
+                    <a href="{{route('settings.histories')}}"
+                       class="nav-link {{ strpos(URL::current(), '/admin/histories') !== false ? 'active' : '' }}">
+                        <i class="fa fa-money-bill"></i>
+                        <span class="badge badge-info right">
+                                    {{\App\Models\History::count()}}
+                        </span>
+                        <p>
+                            @lang('messages.histories')
+                        </p>
+                    </a>
+                </li>
+
+                <li class="nav-item">
                     <a href="{{route('settings.index')}}"
                        class="nav-link {{ strpos(URL::current(), '/admin/settings') !== false ? 'active' : '' }}">
                         <i class="fa fa-cog"></i>
