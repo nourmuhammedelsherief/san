@@ -85,7 +85,11 @@
                                     </td>
                                     <td>{{$classroom->name}}</td>
                                     <td>
-                                        <a href="{{route('classroom_teachers' , $classroom->id)}}" class="btn btn-success"> {{$classroom->teachers->count()}} </a>
+                                        @if($school)
+                                            <a href="{{route('school_classroom_teachers' , [$school->id,$classroom->id])}}" class="btn btn-success"> {{$classroom->teachers->count()}} </a>
+                                        @else
+                                            <a href="{{route('classroom_teachers' , $classroom->id)}}" class="btn btn-success"> {{$classroom->teachers->count()}} </a>
+                                        @endif
                                     </td>
                                     <td>
                                         <a href="{{route('classroom_students' , $classroom->id)}}" class="btn btn-primary"> {{$classroom->students->count()}} </a>

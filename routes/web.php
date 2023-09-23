@@ -137,6 +137,7 @@ Route::prefix('admin')->group(function () {
             Route::get('/schools/students/{id}', 'schoolStudents')->name('schoolStudents');
             Route::get('/schools/{id}/histories', 'school_history')->name('school_history');
             Route::get('/schools/{id}/classrooms', 'school_classrooms')->name('school_classrooms');
+            Route::get('/schools/{id}/classrooms/{class_id}/teachers', 'school_classroom_teachers')->name('school_classroom_teachers');
 
         });
 

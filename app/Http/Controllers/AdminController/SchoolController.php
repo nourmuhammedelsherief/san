@@ -109,6 +109,18 @@ class SchoolController extends Controller
     {
         $school = School::findOrFail($id);
         $classrooms = Classroom::whereSchoolId($school->id)->get();
-        return view('admin.teachers.classrooms' , compact('classrooms'));
+        return view('admin.teachers.classrooms' , compact('classrooms' , 'school'));
+    }
+    public function school_classroom_teachers($school_id , $class_id)
+    {
+        $school = School::findOrFail($school_id);
+        $classroom = Classroom::findOrFail($class_id);
+        $teachers = Teacher::with('teacher_classrooms')
+            ->whereHas('teacher_classrooms' , function ($q) use ($classroom){
+                $q->whereClassroomId($classroom->id);
+            })
+            ->paginate(100);
+        $status = 'active';
+        return view('admin.schools.teachers' , compact('teachers' , 'school'));
     }
 }
