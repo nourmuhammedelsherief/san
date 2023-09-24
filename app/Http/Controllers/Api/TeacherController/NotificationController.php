@@ -57,7 +57,7 @@ class NotificationController extends Controller
         {
             foreach ($parents as $parent)
             {
-                $firebaseToken = FatherDeviceToken::whereFatherId($parents->id)->pluck('device_token')->all();
+                $firebaseToken = FatherDeviceToken::whereFatherId($parent->father_id)->pluck('device_token')->all();
                 sendNotification($firebaseToken , $request->title, $request->message);
             }
         }
