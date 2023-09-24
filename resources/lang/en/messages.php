@@ -221,4 +221,5 @@ return [
     'rewards' => 'Rewards',
     'url'   => 'Url',
     'all' => 'All',
+    'notificationSendSuccessfully' => 'Notification Send Successfully',
 ];

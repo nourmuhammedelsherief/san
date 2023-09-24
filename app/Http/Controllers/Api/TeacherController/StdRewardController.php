@@ -20,7 +20,7 @@ class StdRewardController extends Controller
         if ($std)
         {
             $rewards = Reward::whereTeacherId($request->user()->id)
-                ->where('points' , '<' , $std->points)
+                ->where('points' , '<=' , $std->points)
                 ->get();
             return  ApiController::respondWithSuccess(RewardResource::collection($rewards));
         }else{
@@ -82,7 +82,7 @@ class StdRewardController extends Controller
 
         $reward = Reward::find($request->reward_id);
         $students = Student::whereClassroomId($request->classroom_id)
-            ->where('points' , '>' , $reward->points)
+            ->where('points' , '>=' , $reward->points)
             ->get();
         return ApiController::respondWithSuccess(StudentResource::collection($students));
     }

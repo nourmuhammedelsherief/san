@@ -192,14 +192,22 @@ function taqnyatSms($msgBody, $reciver)
     return $message;
 }
 
-function sendNotification($device_token, $message)
+function sendNotification($firebaseToken , $title , $body)
 {
-    $SERVER_API_KEY = 'AAAAssJXQIk:APA91bEyYjJw0WI1rL56GfJvcW5iCYQf544zwh8CZG92l6mBcWjAtmCPpy0rDhFhhHgcRAXo865l_q0tDp9-ydtB_Y9ip4N9KPsPP4rIJK8IDlPAN-PDfx67HQxzcfY3aGghlbhi3ij0';
-
+    $SERVER_API_KEY = 'AAAAMPW1SSg:APA91bHaD3j132C9NNKBrmHD4OMGOv_6GpWdOSHCpPHtWIXnhpA7WQo_ldHCeV2Nk9UBcaR-Jj4R4xvlng2AxF3ioFpjyg2q1UCI9wNZjbZmAFgVNPqe-q3Aucs9KWao_6sFjMrUkOdW';
+    $sender_id = '210280728872';
     // payload data, it will vary according to requirement
+//    $data = [
+//        "to" => $device_token, // for single device id
+//        "data" => $message
+//    ];
+//    $dataString = json_encode($data);
     $data = [
-        "to" => $device_token, // for single device id
-        "data" => $message
+        "registration_ids" => $firebaseToken,
+        "notification" => [
+            "title" => $title,
+            "body" => $body,
+        ]
     ];
     $dataString = json_encode($data);
 

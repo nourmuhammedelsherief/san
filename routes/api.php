@@ -10,6 +10,7 @@ use App\Http\Controllers\Api\TeacherController\TClassRoomController;
 use App\Http\Controllers\Api\TeacherController\TeacherClassIntegrationController;
 use App\Http\Controllers\Api\TeacherController\TeacherController;
 use App\Http\Controllers\Api\TeacherController\TeacherRateController;
+use App\Http\Controllers\Api\TeacherController\NotificationController;
 use Illuminate\Support\Facades\Route;
 
 // students controllers
@@ -135,6 +136,11 @@ Route::group(['middleware' => ['auth:teacher-api', 'cors', 'localization-api']],
             Route::get('/integration_requests', 'integration_requests');
             Route::post('/teacher_apply_integration_request', 'teacher_apply_integration_request');
             Route::get('/my_integrations', 'my_integrations');
+        });
+        //notification routes
+        Route::controller(NotificationController::class)->group(function () {
+            Route::post('/send_notification_to_student', 'send_notification_to_student');
+            Route::post('/send_notification_to_parent', 'send_notification_to_parent');
         });
     });
 });

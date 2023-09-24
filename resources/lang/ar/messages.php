@@ -205,4 +205,5 @@ return [
     'rewards' => 'ألمكافآت',
     'url'   => 'الرابط',
     'all' => 'الكل',
+    'notificationSendSuccessfully' => 'تم إرسال الأشعار بنجاح',
 ];
