@@ -30,7 +30,15 @@ class NotificationController extends Controller
         // sent notification to student
         $student = Student::find($request->student_id);
         $firebaseToken = StudentDeviceToken::whereStudentId($student->id)->pluck('device_token')->all();
-        sendNotification($firebaseToken , $request->title, $request->message);
+        if ($request->file('photo'))
+        {
+            $photo = UploadImage($request->file('photo') , 'photo' , '/uploads/notifications');
+            $photo = asset('/uploads/notifications/' . $photo);
+        }else{
+            $photo = null;
+        }
+        sendNotification($firebaseToken , $request->title, $request->message , $photo);
+        saveNotification('student' , '3' , $request->title , $request->message , $request->user()->id , null , $student->id);
         $success = [
             'message' => trans('messages.notificationSendSuccessfully')
         ];
@@ -53,12 +61,20 @@ class NotificationController extends Controller
         // sent notification to student
         $student = Student::find($request->student_id);
         $parents = FatherChild::whereStudentId($student->id)->get();
+        if ($request->file('photo'))
+        {
+            $photo = UploadImage($request->file('photo') , 'photo' , '/uploads/notifications');
+            $photo = asset('/uploads/notifications/' . $photo);
+        }else{
+            $photo = null;
+        }
         if ($parents->count()>0)
         {
             foreach ($parents as $parent)
             {
                 $firebaseToken = FatherDeviceToken::whereFatherId($parent->father_id)->pluck('device_token')->all();
-                sendNotification($firebaseToken , $request->title, $request->message);
+                sendNotification($firebaseToken , $request->title, $request->message , $photo);
+                saveNotification('father' , '2' , $request->title , $request->message , $request->user()->id , $parent->father_id , $student->id);
             }
         }
         $success = [

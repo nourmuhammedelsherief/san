@@ -6,9 +6,11 @@ use App\Http\Controllers\Api\ApiController;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\Teacher\IntegrationResource;
 use App\Models\Teacher\ClassRoomSubject;
+use App\Models\Teacher\Reward;
 use App\Models\Teacher\Teacher;
 use App\Models\Teacher\TeacherClassRoom;
 use App\Models\Teacher\TeacherIntegration;
+use App\Models\Teacher\TeacherRate;
 use App\Models\Teacher\TeacherSubject;
 use Illuminate\Http\Request;
 use Validator;
@@ -108,6 +110,33 @@ class TeacherClassIntegrationController extends Controller
                             ]);
                         }
                     }
+                }
+            }
+            // add teachers rate and rewards to another teacher
+            $rates = TeacherRate::whereTeacherId($integration_request->master_teacher_id)->get();
+            if ($rates->count() > 0)
+            {
+                foreach ($rates  as $rate)
+                {
+                    TeacherRate::create([
+                        'teacher_id'    => $integration_request->teacher_id,
+                        'rate_name'     => $rate->rate_name,
+                        'points'        => $rate->points,
+                        'type'          => $rate->type,
+                    ]);
+                }
+            }
+            $rewards = Reward::whereTeacherId($integration_request->master_teacher_id)->get();
+            if ($rewards->count() > 0)
+            {
+                foreach ($rewards  as $reward)
+                {
+                    Reward::create([
+                        'teacher_id'    => $integration_request->teacher_id,
+                        'name'          => $reward->name,
+                        'points'        => $reward->points,
+                        'photo'         => $reward->photo,
+                    ]);
                 }
             }
             $success = [

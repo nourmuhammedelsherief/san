@@ -192,21 +192,16 @@ function taqnyatSms($msgBody, $reciver)
     return $message;
 }
 
-function sendNotification($firebaseToken , $title , $body)
+function sendNotification($firebaseToken , $title , $body , $photo=null)
 {
     $SERVER_API_KEY = 'AAAAMPW1SSg:APA91bHaD3j132C9NNKBrmHD4OMGOv_6GpWdOSHCpPHtWIXnhpA7WQo_ldHCeV2Nk9UBcaR-Jj4R4xvlng2AxF3ioFpjyg2q1UCI9wNZjbZmAFgVNPqe-q3Aucs9KWao_6sFjMrUkOdW';
-    $sender_id = '210280728872';
     // payload data, it will vary according to requirement
-//    $data = [
-//        "to" => $device_token, // for single device id
-//        "data" => $message
-//    ];
-//    $dataString = json_encode($data);
     $data = [
         "registration_ids" => $firebaseToken,
         "notification" => [
             "title" => $title,
             "body" => $body,
+            "photo" => $photo,
         ]
     ];
     $dataString = json_encode($data);
@@ -228,6 +223,19 @@ function sendNotification($firebaseToken , $title , $body)
     $response = curl_exec($ch);
     curl_close($ch);
     return $response;
+}
+
+function saveNotification($user,$type , $title , $message,$teacher_id = null , $father_id = null , $student_id = null)
+{
+    \App\Models\Notification::create([
+        'teacher_id'   => $teacher_id,
+        'father_id'    => $father_id,
+        'student_id'   => $student_id,
+        'type'         => $type,
+        'user'         => $user,
+        'title'        => $title,
+        'message'      => $message,
+    ]);
 }
 
 function getStudentArrange($subjectId , $studentId , $points)
