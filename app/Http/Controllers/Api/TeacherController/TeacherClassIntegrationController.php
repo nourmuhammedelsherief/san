@@ -9,6 +9,7 @@ use App\Models\Teacher\ClassRoomSubject;
 use App\Models\Teacher\Reward;
 use App\Models\Teacher\Teacher;
 use App\Models\Teacher\TeacherClassRoom;
+use App\Models\Teacher\TeacherDeviceToken;
 use App\Models\Teacher\TeacherIntegration;
 use App\Models\Teacher\TeacherRate;
 use App\Models\Teacher\TeacherSubject;
@@ -45,8 +46,12 @@ class TeacherClassIntegrationController extends Controller
             'title' => 'ldldldl',
             'body'  => 'dddddddddd',
         ];
-//        sendNotification('ddddddddddddddddddddd',$message);
 
+        $firebaseToken = TeacherDeviceToken::whereTeacherId($master->id)->pluck('device_token')->all();
+        $title = trans('messages.integration');
+        $message = trans('messages.integration_request') . $request->user()->name;
+        sendNotification($firebaseToken , $title, $message , null);
+        saveNotification('teacher' , '1' , $title , $message , $master->id , null , null);
         $success = [
             'message'  => trans('messages.IntegrationRequestedSuccessfully')
         ];
@@ -77,6 +82,7 @@ class TeacherClassIntegrationController extends Controller
             return ApiController::respondWithErrorObject(validateRules($validator->errors(), $rules));
 
         $integration_request = TeacherIntegration::find($request->integration_request_id);
+        $master_teacher = Teacher::find($integration_request->master_teacher_id);
         if ($request->status == 'done')
         {
             $integration_request->update([
@@ -139,6 +145,14 @@ class TeacherClassIntegrationController extends Controller
                     ]);
                 }
             }
+
+            // send notification to teacher with operation done
+            $firebaseToken = TeacherDeviceToken::whereTeacherId($integration_request->teacher_id)->pluck('device_token')->all();
+            $title = trans('messages.integration');
+            $message = trans('messages.integration_request_done') . $master_teacher->name;
+            sendNotification($firebaseToken , $title, $message , null);
+            saveNotification('teacher' , '1' , $title , $message , $integration_request->teacher_id , null , null);
+
             $success = [
                 'message' => trans('messages.operationDoneSuccessfully')
             ];
@@ -148,6 +162,13 @@ class TeacherClassIntegrationController extends Controller
             $integration_request->update([
                 'status'   => 'canceled',
             ]);
+            // send notification to teacher with operation canceled
+            $firebaseToken = TeacherDeviceToken::whereTeacherId($integration_request->teacher_id)->pluck('device_token')->all();
+            $title = trans('messages.integration');
+            $message = trans('messages.integration_request_canceled') . $master_teacher->name;
+            sendNotification($firebaseToken , $title, $message , null);
+            saveNotification('teacher' , '1' , $title , $message , $integration_request->teacher_id , null , null);
+
             $success = [
                 'message' => trans('messages.operationCanceledSuccessfully')
             ];

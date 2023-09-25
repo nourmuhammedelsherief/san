@@ -222,4 +222,9 @@ return [
     'url'   => 'Url',
     'all' => 'All',
     'notificationSendSuccessfully' => 'Notification Send Successfully',
+    'integration' => 'Integration',
+    'integration_request' => 'Integration Request To You From Teacher : ',
+    'integration_request_done' => 'Integration Request Done with You Successfully From Teacher : ',
+    'integration_request_canceled' => 'Integration Request Canceled with You From Teacher : ',
+    'notificationDeletedSuccessfully' => 'Notification Deleted Successfully',
 ];

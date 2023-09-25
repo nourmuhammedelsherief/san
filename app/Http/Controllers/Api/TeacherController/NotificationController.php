@@ -4,8 +4,11 @@ namespace App\Http\Controllers\Api\TeacherController;
 
 use App\Http\Controllers\Api\ApiController;
 use App\Http\Controllers\Controller;
+use App\Http\Resources\NotificationCollection;
+use App\Http\Resources\NotificationResource;
 use App\Models\Father\FatherChild;
 use App\Models\Father\FatherDeviceToken;
+use App\Models\Notification;
 use App\Models\Student;
 use App\Models\StudentDeviceToken;
 use Illuminate\Http\Request;
@@ -33,12 +36,11 @@ class NotificationController extends Controller
         if ($request->file('photo'))
         {
             $photo = UploadImage($request->file('photo') , 'photo' , '/uploads/notifications');
-            $photo = asset('/uploads/notifications/' . $photo);
         }else{
             $photo = null;
         }
-        sendNotification($firebaseToken , $request->title, $request->message , $photo);
-        saveNotification('student' , '3' , $request->title , $request->message , $request->user()->id , null , $student->id);
+        sendNotification($firebaseToken , $request->title, $request->message , asset('/uploads/notifications/' . $photo));
+        saveNotification('student' , '3' , $request->title , $request->message , $request->user()->id , null , $student->id , $photo);
         $success = [
             'message' => trans('messages.notificationSendSuccessfully')
         ];
@@ -64,7 +66,6 @@ class NotificationController extends Controller
         if ($request->file('photo'))
         {
             $photo = UploadImage($request->file('photo') , 'photo' , '/uploads/notifications');
-            $photo = asset('/uploads/notifications/' . $photo);
         }else{
             $photo = null;
         }
@@ -73,13 +74,52 @@ class NotificationController extends Controller
             foreach ($parents as $parent)
             {
                 $firebaseToken = FatherDeviceToken::whereFatherId($parent->father_id)->pluck('device_token')->all();
-                sendNotification($firebaseToken , $request->title, $request->message , $photo);
-                saveNotification('father' , '2' , $request->title , $request->message , $request->user()->id , $parent->father_id , $student->id);
+                sendNotification($firebaseToken , $request->title, $request->message , asset('/uploads/notifications/' . $photo));
+                saveNotification('father' , '2' , $request->title , $request->message , $request->user()->id , $parent->father_id , $student->id , $photo);
             }
         }
         $success = [
             'message' => trans('messages.notificationSendSuccessfully')
         ];
         return ApiController::respondWithSuccess($success);
+    }
+    public function notification_list(Request $request)
+    {
+        $teacher = $request->user();
+        $notifications = Notification::whereUser('teacher')
+            ->whereTeacherId($teacher->id)
+            ->get();
+        return ApiController::respondWithSuccess(NotificationResource::collection($notifications));
+    }
+    public function student_notification_list(Request $request)
+    {
+        $std = $request->user();
+        $notifications = Notification::whereUser('student')
+            ->whereStudentId($std->id)
+            ->get();
+        return ApiController::respondWithSuccess(NotificationResource::collection($notifications));
+    }
+    public function father_notification_list(Request $request)
+    {
+        $father = $request->user();
+        $notifications = Notification::whereUser('father')
+            ->whereFatherId($father->id)
+            ->get();
+        return ApiController::respondWithSuccess(NotificationResource::collection($notifications));
+    }
+    public function delete_notification($id)
+    {
+        $notification = Notification::find($id);
+        if ($notification)
+        {
+            $notification->delete();
+            $success = [
+                'message' => trans('messages.notificationDeletedSuccessfully')
+            ];
+            return ApiController::respondWithSuccess($success);
+        }else{
+            $error = ['message' => trans('messages.not_found')];
+            return ApiController::respondWithErrorNOTFoundObject($error);
+        }
     }
 }

@@ -206,4 +206,9 @@ return [
     'url'   => 'الرابط',
     'all' => 'الكل',
     'notificationSendSuccessfully' => 'تم إرسال الأشعار بنجاح',
+    'integration' => 'الارتباط والتكامل',
+    'integration_request' => 'هناك طلب ارتباط وتكامل معك من قبل المعلم : ',
+    'integration_request_done' => 'تم قبول عمليه الارتباط والتكامل معك بنجاح من قبل المعلم : ',
+    'integration_request_canceled' => 'تم إلغاء عملية الارتباط والتكامل  معك من قبل المعلم : ',
+    'notificationDeletedSuccessfully' => 'تم حذف الأشعار بنجاح',
 ];

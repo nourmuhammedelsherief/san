@@ -20,6 +20,7 @@ class Notification extends Model
         'user',
         'title',
         'message',
+        'photo',
     ];
 
     public function teacher()

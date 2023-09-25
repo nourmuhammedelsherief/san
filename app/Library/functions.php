@@ -225,7 +225,7 @@ function sendNotification($firebaseToken , $title , $body , $photo=null)
     return $response;
 }
 
-function saveNotification($user,$type , $title , $message,$teacher_id = null , $father_id = null , $student_id = null)
+function saveNotification($user,$type , $title , $message,$teacher_id = null , $father_id = null , $student_id = null , $photo =null)
 {
     \App\Models\Notification::create([
         'teacher_id'   => $teacher_id,
@@ -235,6 +235,7 @@ function saveNotification($user,$type , $title , $message,$teacher_id = null , $
         'user'         => $user,
         'title'        => $title,
         'message'      => $message,
+        'photo'        => $photo,
     ]);
 }
 
