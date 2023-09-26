@@ -211,4 +211,12 @@ return [
     'integration_request_done' => 'تم قبول عمليه الارتباط والتكامل معك بنجاح من قبل المعلم : ',
     'integration_request_canceled' => 'تم إلغاء عملية الارتباط والتكامل  معك من قبل المعلم : ',
     'notificationDeletedSuccessfully' => 'تم حذف الأشعار بنجاح',
+    'public_notifications' => 'الإشعارات العامة',
+    'select_type' => 'اختر الفئة',
+    'title' => 'العنوان',
+    'teacher_notifications' => 'أشعارات لمعلمين',
+    'parent_notifications' => 'أشعارات لأولياء الأمور',
+    'student_notifications' =>'أشعارات للطلاب',
+    'specified' => 'محددين',
+    'specified_notifications' => 'أشعارات لأشخاص محددين',
 ];

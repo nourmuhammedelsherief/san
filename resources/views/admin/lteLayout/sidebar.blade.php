@@ -147,6 +147,54 @@
                 </li>
 
                 <li class="nav-item">
+                    <a href="{{route('public_notification')}}"
+                       class="nav-link {{ strpos(URL::current(), '/admin/public_notification') !== false ? 'active' : '' }}">
+                        <i class="fa fa-bell"></i>
+                        <p>
+                            @lang('messages.public_notifications')
+                        </p>
+                    </a>
+                </li>
+                <li class="nav-item has-treeview {{ strpos(URL::current(), 'teacher_notifications') !== false ? 'menu-open' : '' }}">
+                    <a href="#" class="nav-link {{ strpos(URL::current(), 'teacher_notifications') !== false ? 'active' : '' }}">
+                        <i class="fa fa-bell"></i>
+                        <p>
+                            @lang('messages.specified_notifications')
+                            <i class="right fas fa-angle-left"></i>
+                        </p>
+                    </a>
+                    <ul class="nav nav-treeview">
+                        <li class="nav-item">
+                            <a href="{{ url('/admin/teacher_notifications') }}"
+                               class="nav-link {{ strpos(URL::current(), '/admin/teacher_notifications') !== false ? 'active' : '' }}">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>
+                                    @lang('messages.teacher_notifications')
+                                </p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{ url('/admin/parent_notifications') }}"
+                               class="nav-link {{ strpos(URL::current(), '/admin/parent_notifications') !== false ? 'active' : '' }}">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>
+                                    @lang('messages.parent_notifications')
+                                </p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{ url('/admin/student_notifications') }}"
+                               class="nav-link {{ strpos(URL::current(), '/admin/student_notifications') !== false ? 'active' : '' }}">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>
+                                    @lang('messages.student_notifications')
+                                </p>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+
+                <li class="nav-item">
                     <a href="{{route('adminClassrooms.index')}}"
                        class="nav-link {{ strpos(URL::current(), '/admin/classrooms') !== false ? 'active' : '' }}">
                         <i class="fa fa-graduation-cap"></i>

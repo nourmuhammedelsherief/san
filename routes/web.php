@@ -18,6 +18,7 @@ use \App\Http\Controllers\AdminController\SellerCodeController;
 use \App\Http\Controllers\AdminController\TransferController;
 use \App\Http\Controllers\AdminController\SliderController;
 use \App\Http\Controllers\AdminController\TeacherController;
+use \App\Http\Controllers\AdminController\NotificationController;
 use \App\Http\Controllers\AdminController\SchoolController as AdminSchool;
 
 /**
@@ -138,6 +139,17 @@ Route::prefix('admin')->group(function () {
             Route::get('/schools/{id}/histories', 'school_history')->name('school_history');
             Route::get('/schools/{id}/classrooms', 'school_classrooms')->name('school_classrooms');
             Route::get('/schools/{id}/classrooms/{class_id}/teachers', 'school_classroom_teachers')->name('school_classroom_teachers');
+        });
+
+        Route::controller(NotificationController::class)->group(function () {
+            Route::get('/public_notification', 'public_notification')->name('public_notification');
+            Route::post('/store_public_notification', 'store_public_notification')->name('store_public_notification');
+            Route::get('/teacher_notifications', 'teacher_notifications')->name('teacher_notifications');
+            Route::post('/store_teacher_notifications', 'store_teacher_notifications')->name('store_teacher_notifications');
+            Route::get('/parent_notifications', 'parent_notifications')->name('parent_notifications');
+            Route::post('/store_parent_notifications', 'store_parent_notifications')->name('store_parent_notifications');
+            Route::get('/student_notifications', 'student_notifications')->name('student_notifications');
+            Route::post('/store_student_notifications', 'store_student_notifications')->name('store_student_notifications');
 
         });
 

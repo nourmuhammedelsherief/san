@@ -27,7 +27,8 @@ class TeacherController extends Controller
         $classrooms = Classroom::where('school_id' , null)
             ->orderBy('id' , 'desc')
             ->get();
-        return view('admin.teachers.classrooms' , compact('classrooms'));
+        $school = null;
+        return view('admin.teachers.classrooms' , compact('classrooms' ,'school'));
     }
 
     public function classroom_teachers($id)

@@ -227,4 +227,12 @@ return [
     'integration_request_done' => 'Integration Request Done with You Successfully From Teacher : ',
     'integration_request_canceled' => 'Integration Request Canceled with You From Teacher : ',
     'notificationDeletedSuccessfully' => 'Notification Deleted Successfully',
+    'public_notifications' => 'Public Notifications',
+    'select_type' => 'Select Users Type',
+    'title' => 'Title',
+    'teacher_notifications' => 'Teacher Notifications',
+    'parent_notifications' => 'Parents Notifications',
+    'student_notifications' =>'Students Notifications',
+    'specified' => 'Specified',
+    'specified_notifications' => 'Specified Notifications',
 ];
