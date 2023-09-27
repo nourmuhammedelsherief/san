@@ -60,7 +60,9 @@ class TeacherClassIntegrationController extends Controller
     public function integration_requests(Request $request)
     {
         $teacher = $request->user();
-        $integrations = TeacherIntegration::whereMasterTeacherId($teacher->id)->get();
+        $integrations = TeacherIntegration::whereMasterTeacherId($teacher->id)
+            ->whereStatus('requested')
+            ->get();
         return ApiController::respondWithSuccess(IntegrationResource::collection($integrations));
     }
     public function my_integrations(Request $request)
