@@ -31,7 +31,7 @@ class StudentRateController extends Controller
             {
                 $rate = TeacherRate::find($item->rate_id);
                 $student = Student::find($item->student_id);
-                StudentRate::updateOrCreate([
+                StudentRate::create([
                     'rate_id'    => $rate->id,
                     'student_id' => $student->id,
                     'points'     => $rate->points,
