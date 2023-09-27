@@ -107,10 +107,16 @@ class StudentController extends Controller
             return ApiController::respondWithErrorNOTFoundObject($error);
         }
     }
-    public function destroy($id)
+    public function destroy(Request $request , $id)
     {
+        $teacher = $request->user();
         $student = Student::find($id);
-        if ($student)
+        $check = TeacherClassRoom::whereTeacherId($teacher->id)
+            ->whereClassroomId($student->classroom_id)
+            ->where('main_teacher_id' , $teacher->id)
+            ->where('pulled' , 'false')
+            ->first();
+        if ($student and $check)
         {
             $student->delete();
             $success = [
