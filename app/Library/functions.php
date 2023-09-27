@@ -194,7 +194,7 @@ function taqnyatSms($msgBody, $reciver)
 
 function sendNotification($firebaseToken , $title , $body , $photo=null)
 {
-    $SERVER_API_KEY = 'AAAAMPW1SSg:APA91bHaD3j132C9NNKBrmHD4OMGOv_6GpWdOSHCpPHtWIXnhpA7WQo_ldHCeV2Nk9UBcaR-Jj4R4xvlng2AxF3ioFpjyg2q1UCI9wNZjbZmAFgVNPqe-q3Aucs9KWao_6sFjMrUkOdW';
+    $SERVER_API_KEY = 'AAAA6XeJCl8:APA91bF-kul3qdiL-CwY2n8_wv0upJNC_hjHT7A3N8b1EkzdoGze73pR1OhIhf9ufVdOdRa0tY_FgSwNqd94RDZHDaNKrDIxszzCV_RtbQ_lN7NbqhwFDAdbgkTGALdg2-54kmM97x5w';
     // payload data, it will vary according to requirement
     $data = [
         "registration_ids" => $firebaseToken,
