@@ -104,7 +104,7 @@ class StdRewardController extends Controller
             {
                 $reward = Reward::find($item->reward_id);
                 $student = Student::find($item->student_id);
-                StudentReward::updateOrCreate([
+                StudentReward::create([
                     'student_id' => $student->id,
                     'reward_id'  => $reward->id,
                     'points'     => $reward->points
