@@ -16,8 +16,8 @@ class IntegrationResource extends JsonResource
     {
         return [
             'id'                     => $this->id,
-            'master_teacher_id'      => $this->master_teacher_id,
-            'teacher_id'             => $this->teacher_id,
+            'master_teacher_id'      => new TeacherResource($this->master),
+            'teacher_id'             => new TeacherResource($this->teacher),
             'status'                 => $this->status,
             'created_at'             => $this->created_at->format('Y-m-d')
         ];
