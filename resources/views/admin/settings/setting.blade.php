@@ -105,6 +105,23 @@
                                         </div>
                                     </div>
                                 </div>
+                                <div class="form-group">
+                                    <label class="control-label"> حدد نوع الدفع </label>
+                                    <div class="row">
+                                        <div class="col-sm-10">
+                                            <select name="payment_type" class="form-control">
+                                                <option value="online" {{$setting->payment_type == 'online' ? 'selected' : ''}}>دفع اونلاين</option>
+                                                <option value="bank" {{$setting->payment_type == 'bank' ? 'selected' : ''}}> تحويل بنكي</option>
+                                                <option value="both" {{$setting->payment_type == 'both' ? 'selected' : ''}}>كلاهما</option>
+                                            </select>
+                                            @if ($errors->has('payment_type'))
+                                                <span class="help-block">
+                                            <strong style="color: red;">{{ $errors->first('payment_type') }}</strong>
+                                        </span>
+                                            @endif
+                                        </div>
+                                    </div>
+                                </div>
                                 <hr>
                                 <h3 class="text-center"> رقم تواصل الدعم الفني </h3>
 
@@ -116,6 +133,19 @@
                                             @if ($errors->has('contact_number'))
                                                 <span class="help-block">
                                             <strong style="color: red;">{{ $errors->first('contact_number') }}</strong>
+                                        </span>
+                                            @endif
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label"> رابط الويب للدعم الفني </label>
+                                    <div class="row">
+                                        <div class="col-sm-10">
+                                            <input name="site_url" type="url" class="form-control" value="{{$setting->site_url}}" placeholder=" رابط الويب للدعم الفني ">
+                                            @if ($errors->has('site_url'))
+                                                <span class="help-block">
+                                            <strong style="color: red;">{{ $errors->first('site_url') }}</strong>
                                         </span>
                                             @endif
                                         </div>

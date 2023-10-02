@@ -41,6 +41,7 @@ Route::middleware(['cors', 'localization-api'])->group(function () {
         Route::get('/sliders', 'sliders');
         Route::get('/about_us', 'about_us');
         Route::get('/contact_number', 'contact_number');
+        Route::get('/setting', 'setting');
     });
     Route::prefix('teachers')->group(function () {
         Route::controller(TeacherController::class)->group(function () {

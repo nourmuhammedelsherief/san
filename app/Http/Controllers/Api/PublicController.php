@@ -17,6 +17,14 @@ use Spatie\FlareClient\Api;
 
 class PublicController extends Controller
 {
+    public function setting()
+    {
+        $setting = Setting::first();
+        $all = [
+            'payment_type'       => $setting->payment_type,
+        ];
+        return ApiController::respondWithSuccess($all);
+    }
     public function cities()
     {
         $cities = City::all();
@@ -43,6 +51,7 @@ class PublicController extends Controller
         $setting = Setting::first();
         $all = [
             'contact_number' => $setting->contact_number,
+            'site_url'       => $setting->site_url,
         ];
         return ApiController::respondWithSuccess($all);
     }

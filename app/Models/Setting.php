@@ -21,5 +21,7 @@ class Setting extends Model
         'invitation_code_discount',
         'logo',
         'contact_number',
+        'payment_type',
+        'site_url',
     ];
 }
