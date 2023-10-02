@@ -138,7 +138,7 @@ class StudentController extends Controller
         if ($classroom and $check)
         {
             $students = Student::whereClassroomId($id)
-                ->orderBy('points' , 'asc')
+                ->orderBy('points' , 'desc')
                 ->get();
             return ApiController::respondWithSuccess(StudentResource::collection($students));
         }else{
