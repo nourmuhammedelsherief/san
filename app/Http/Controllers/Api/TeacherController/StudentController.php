@@ -128,4 +128,22 @@ class StudentController extends Controller
             return ApiController::respondWithErrorNOTFoundObject($error);
         }
     }
+    public function honor_board(Request $request , $id)
+    {
+        $classroom = Classroom::find($id);
+        // check if the teacher related with this class
+        $check = TeacherClassRoom::whereClassroomId($id)
+            ->whereteacherId($request->user()->id)
+            ->first();
+        if ($classroom and $check)
+        {
+            $students = Student::whereClassroomId($id)
+                ->orderBy('points' , 'asc')
+                ->get();
+            return ApiController::respondWithSuccess(StudentResource::collection($students));
+        }else{
+            $error = ['message' => trans('messages.not_found')];
+            return ApiController::respondWithErrorNOTFoundObject($error);
+        }
+    }
 }

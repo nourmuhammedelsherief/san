@@ -100,9 +100,11 @@ Route::group(['middleware' => ['auth:teacher-api', 'cors', 'localization-api']],
         });
         Route::controller(StudentController::class)->group(function () {
             Route::get('/classroom/{id}/students', 'index');
+            Route::get('/classroom/{id}/honor_board', 'honor_board');
             Route::post('/classroom/{id}/students/create', 'create');
             Route::post('/classroom/students/{id}/edit', 'edit');
             Route::get('/classroom/students/{id}/show', 'show');
+            Route::get('/classroom/students/{id}/delete', 'destroy');
             Route::get('/classroom/students/{id}/delete', 'destroy');
         });
         Route::controller(TeacherRateController::class)->group(function () {
