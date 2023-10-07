@@ -47,7 +47,7 @@ class StudentResource extends JsonResource
                 'birth_date' => $this->birth_date->format('Y-m-d'),
                 'age'      => \Carbon\Carbon::parse($this->birth_date)->diff(\Carbon\Carbon::now())->format('%y'),
                 'points'  => $request->subject_id != null ? intval($this->rates()->whereSubjectId($request->subject_id)->sum('points')) :$this->points,
-                'rates'   => StudentRateResource::collection($this->rates),
+                'rates'   => $request->subject_id != null ? StudentRateResource::collection($this->rates()->whereSubjectId($request->subject_id)->get()) : StudentRateResource::collection($this->rates),
                 'rewards' => StudentRewardResource::collection($this->rewards),
                 'identity_id' => $this->identity_id,
                 'password'  => $this->un_hashed_password,
