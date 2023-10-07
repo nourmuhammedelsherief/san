@@ -175,7 +175,7 @@ class TClassRoomController extends Controller
         $Tclassroom = TeacherClassRoom::find($id);
         if ($Tclassroom){
             $rules = [
-                'name' => 'sometimes|string|max:191',
+                'name' => 'required|string|max:191',
             ];
 
             $validator = Validator::make($request->all(), $rules);
