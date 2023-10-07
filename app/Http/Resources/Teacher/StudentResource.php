@@ -5,6 +5,7 @@ namespace App\Http\Resources\Teacher;
 use App\Http\Resources\Student\StudentRateResource;
 use App\Http\Resources\Student\StudentRewardResource;
 use App\Models\Teacher\StudentReward;
+use App\Models\Teacher\TeacherSubject;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
@@ -18,6 +19,7 @@ class StudentResource extends JsonResource
      */
     public function toArray(Request $request): array
     {
+        $default_subject = TeacherSubject::whereTeacherId($request->user()->id)->first();
         if ($this->student)
         {
             return [
@@ -29,7 +31,7 @@ class StudentResource extends JsonResource
                 'photo'    => $this->student->photo == null ? null : asset('/uploads/students/' . $this->student->photo),
                 'birth_date' => $this->student->birth_date->format('Y-m-d'),
                 'age'      => \Carbon\Carbon::parse($this->student->birth_date)->diff(\Carbon\Carbon::now())->format('%y'),
-                'points'  => $request->subject_id != null ? intval($this->student->rates()->whereSubjectId($request->subject_id)->sum('points')) :$this->student->points,
+                'points'  => $request->subject_id != null ? intval($this->student->rates()->whereSubjectId($request->subject_id)->sum('points')) : intval($this->student->rates()->whereSubjectId($default_subject->subject_id)->sum('points')),
                 'rates'   => $request->subject_id != null ? StudentRateResource::collection($this->student->rates()->whereSubjectId($request->subject_id)->get()) : StudentRateResource::collection($this->student->rates),
                 'rewards' => $request->subject_id != null ? StudentRewardResource::collection($this->student->rewards()->whereSubjectId($request->subject_id)->get()) : StudentRewardResource::collection($this->student->rewards),
                 'identity_id' => $this->student->identity_id,
@@ -46,7 +48,7 @@ class StudentResource extends JsonResource
                 'photo'    => $this->photo == null ? null : asset('/uploads/students/' . $this->photo),
                 'birth_date' => $this->birth_date->format('Y-m-d'),
                 'age'      => \Carbon\Carbon::parse($this->birth_date)->diff(\Carbon\Carbon::now())->format('%y'),
-                'points'  => $request->subject_id != null ? intval($this->rates()->whereSubjectId($request->subject_id)->sum('points')) :$this->points,
+                'points'  => $request->subject_id != null ? intval($this->rates()->whereSubjectId($request->subject_id)->sum('points')) : intval($this->rates()->whereSubjectId($default_subject->subject_id)->sum('points')),
                 'rates'   => $request->subject_id != null ? StudentRateResource::collection($this->rates()->whereSubjectId($request->subject_id)->get()) : StudentRateResource::collection($this->rates),
                 'rewards' => $request->subject_id != null ? StudentRewardResource::collection($this->rewards()->whereSubjectId($request->subject_id)->get()) : StudentRewardResource::collection($this->rewards),
                 'identity_id' => $this->identity_id,
