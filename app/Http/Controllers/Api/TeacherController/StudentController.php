@@ -191,4 +191,27 @@ class StudentController extends Controller
             return ApiController::respondWithErrorNOTFoundObject($error);
         }
     }
+
+    public function move(Request $request)
+    {
+        $rules = [
+            'student_id'   => 'required|exists:students,id',
+            'classroom_id' => 'required|exists:classrooms,id',
+        ];
+
+        $validator = Validator::make($request->all(), $rules);
+
+        if ($validator->fails())
+            return ApiController::respondWithErrorObject(validateRules($validator->errors(), $rules));
+
+        $student = Student::find($request->student_id);
+        $classroom = Classroom::find($request->classroom_id);
+        $student->update([
+            'classroom_id' => $classroom->id,
+        ]);
+        $success = [
+            'message' => trans('messages.studentMovedSuccessfully')
+        ];
+        return ApiController::respondWithSuccess($success);
+    }
 }

@@ -219,4 +219,5 @@ return [
     'student_notifications' =>'أشعارات للطلاب',
     'specified' => 'محددين',
     'specified_notifications' => 'أشعارات لأشخاص محددين',
+    'studentMovedSuccessfully' => 'تم نقل الطالب بنجاح',
 ];

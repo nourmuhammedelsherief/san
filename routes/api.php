@@ -106,7 +106,7 @@ Route::group(['middleware' => ['auth:teacher-api', 'cors', 'localization-api']],
             Route::post('/classroom/students/{id}/edit', 'edit');
             Route::get('/classroom/students/{id}/show', 'show');
             Route::get('/classroom/students/{id}/delete', 'destroy');
-            Route::get('/classroom/students/{id}/delete', 'destroy');
+            Route::post('/classroom/move_student_to_another_class', 'move');
         });
         Route::controller(TeacherRateController::class)->group(function () {
             Route::post('/rates', 'index');
