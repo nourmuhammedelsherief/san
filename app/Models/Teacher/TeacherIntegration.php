@@ -24,8 +24,3 @@ class TeacherIntegration extends Model
         return $this->belongsTo(Teacher::class , 'teacher_id');
     }
 }
-
-
-
-/// التحكم بنوع الدفع بالتطبيق من لوحة الادارة
-/// تعديل اتصل بنا

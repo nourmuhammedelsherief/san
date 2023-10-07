@@ -4,9 +4,12 @@ namespace App\Http\Controllers\Api\TeacherController;
 
 use App\Http\Controllers\Api\ApiController;
 use App\Http\Controllers\Controller;
+use App\Http\Resources\Student\StudentRateResource;
+use App\Http\Resources\Student\StudentRewardResource;
 use App\Http\Resources\Teacher\StudentResource;
 use App\Models\Classroom;
 use App\Models\Student;
+use App\Models\Teacher\StudentRate;
 use App\Models\Teacher\TeacherClassRoom;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
@@ -16,6 +19,15 @@ class StudentController extends Controller
 {
     public function index(Request $request , $id)
     {
+        $rules = [
+            'subject_id' => 'sometimes|exists:subjects,id'
+        ];
+
+        $validator = Validator::make($request->all(), $rules);
+
+        if ($validator->fails())
+            return ApiController::respondWithErrorObject(validateRules($validator->errors(), $rules));
+
         $classroom = Classroom::find($id);
         // check if the teacher related with this class
         $check = TeacherClassRoom::whereClassroomId($id)
@@ -23,8 +35,41 @@ class StudentController extends Controller
             ->first();
         if ($classroom and $check)
         {
-            $students = Student::whereClassroomId($id)->get();
-            return ApiController::respondWithSuccess(StudentResource::collection($students));
+            if ($request->subject_id == null)
+            {
+                $students = Student::whereClassroomId($id)->get();
+                return ApiController::respondWithSuccess(StudentResource::collection($students));
+            }else{
+                $students = Student::with('rates' , 'rewards')
+                    ->whereHas('rates' , function ($r) use ($request){
+                        $r->whereSubjectId($request->subject_id);
+                    })
+                    ->whereClassroomId($id)
+                    ->get();
+                $std = [];
+                if ($students->count() > 0)
+                {
+                    foreach ($students as $student) {
+                        array_push($std , [
+                            'id'    => $student->student->id,
+                            'classroom_id'  => $student->student->classroom_id,
+                            'classroom'    => $student->student->classroom->name,
+                            'name'     => $student->student->name,
+                            'gender'   => $student->student->gender,
+                            'photo'    => $student->student->photo == null ? null : asset('/uploads/students/' . $student->student->photo),
+                            'birth_date' => $student->student->birth_date->format('Y-m-d'),
+                            'age'      => \Carbon\Carbon::parse($student->student->birth_date)->diff(\Carbon\Carbon::now())->format('%y'),
+                            'points'  => $student->rates()->whereSubjectId($request->subject_id)->sum('points'),
+                            'rates'   => StudentRateResource::collection($student->student->rates),
+                            'rewards' => StudentRewardResource::collection($student->student->rewards),
+                            'identity_id' => $student->student->identity_id,
+                            'password'  => $student->student->un_hashed_password,
+                            'api_token'  => $student->student->api_token,
+                        ]);
+                    }
+                }
+                return ApiController::respondWithSuccess($std);
+            }
         }else{
             $error = ['message' => trans('messages.not_found')];
             return ApiController::respondWithErrorNOTFoundObject($error);
