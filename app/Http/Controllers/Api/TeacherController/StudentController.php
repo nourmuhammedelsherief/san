@@ -47,28 +47,30 @@ class StudentController extends Controller
                     ->whereClassroomId($id)
                     ->get();
                 $std = [];
-                if ($students->count() > 0)
-                {
-                    foreach ($students as $student) {
-                        array_push($std , [
-                            'id'    => $student->id,
-                            'classroom_id'  => $student->classroom_id,
-                            'classroom'    => $student->classroom->name,
-                            'name'     => $student->name,
-                            'gender'   => $student->gender,
-                            'photo'    => $student->photo == null ? null : asset('/uploads/students/' . $student->photo),
-                            'birth_date' => $student->birth_date->format('Y-m-d'),
-                            'age'      => \Carbon\Carbon::parse($student->birth_date)->diff(\Carbon\Carbon::now())->format('%y'),
-                            'points'  => intval($student->rates()->whereSubjectId($request->subject_id)->sum('points')),
-                            'rates'   => StudentRateResource::collection($student->rates),
-                            'rewards' => StudentRewardResource::collection($student->rewards),
-                            'identity_id' => $student->identity_id,
-                            'password'  => $student->un_hashed_password,
-                            'api_token'  => $student->api_token,
-                        ]);
-                    }
-                }
-                return ApiController::respondWithSuccess($std);
+//                if ($students->count() > 0)
+//                {
+//                    foreach ($students as $student) {
+//                        array_push($std , [
+//                            'id'    => $student->id,
+//                            'classroom_id'  => $student->classroom_id,
+//                            'classroom'    => $student->classroom->name,
+//                            'name'     => $student->name,
+//                            'gender'   => $student->gender,
+//                            'photo'    => $student->photo == null ? null : asset('/uploads/students/' . $student->photo),
+//                            'birth_date' => $student->birth_date->format('Y-m-d'),
+//                            'age'      => \Carbon\Carbon::parse($student->birth_date)->diff(\Carbon\Carbon::now())->format('%y'),
+//                            'points'  => intval($student->rates()->whereSubjectId($request->subject_id)->sum('points')),
+//                            'rates'   => StudentRateResource::collection($student->rates),
+//                            'rewards' => StudentRewardResource::collection($student->rewards),
+//                            'identity_id' => $student->identity_id,
+//                            'password'  => $student->un_hashed_password,
+//                            'api_token'  => $student->api_token,
+//                        ]);
+//                    }
+//                }
+                return ApiController::respondWithSuccess(StudentResource::collection($students));
+
+//                return ApiController::respondWithSuccess($std);
             }
         }else{
             $error = ['message' => trans('messages.not_found')];

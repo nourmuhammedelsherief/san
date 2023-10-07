@@ -29,7 +29,7 @@ class StudentResource extends JsonResource
                 'photo'    => $this->student->photo == null ? null : asset('/uploads/students/' . $this->student->photo),
                 'birth_date' => $this->student->birth_date->format('Y-m-d'),
                 'age'      => \Carbon\Carbon::parse($this->student->birth_date)->diff(\Carbon\Carbon::now())->format('%y'),
-                'points'  => $this->student->points,
+                'points'  => $request->subject_id != null ? intval($this->rates()->whereSubjectId($request->subject_id)->sum('points')) :$this->student->points,
                 'rates'   => StudentRateResource::collection($this->student->rates),
                 'rewards' => StudentRewardResource::collection($this->student->rewards),
                 'identity_id' => $this->student->identity_id,
