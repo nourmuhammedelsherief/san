@@ -37,41 +37,19 @@ class StudentController extends Controller
         {
             if ($request->subject_id == null)
             {
-                $students = Student::whereClassroomId($id)->get();
-                return ApiController::respondWithSuccess(StudentResource::collection($students));
+                $students = Student::whereClassroomId($id)
+                    ->orderBy('points' , 'desc')
+                    ->get();
             }else{
                 $students = Student::with('rates' , 'rewards')
                     ->whereHas('rates' , function ($r) use ($request){
                         $r->whereSubjectId($request->subject_id);
                     })
                     ->whereClassroomId($id)
+                    ->orderBy('points' , 'desc')
                     ->get();
-                $std = [];
-//                if ($students->count() > 0)
-//                {
-//                    foreach ($students as $student) {
-//                        array_push($std , [
-//                            'id'    => $student->id,
-//                            'classroom_id'  => $student->classroom_id,
-//                            'classroom'    => $student->classroom->name,
-//                            'name'     => $student->name,
-//                            'gender'   => $student->gender,
-//                            'photo'    => $student->photo == null ? null : asset('/uploads/students/' . $student->photo),
-//                            'birth_date' => $student->birth_date->format('Y-m-d'),
-//                            'age'      => \Carbon\Carbon::parse($student->birth_date)->diff(\Carbon\Carbon::now())->format('%y'),
-//                            'points'  => intval($student->rates()->whereSubjectId($request->subject_id)->sum('points')),
-//                            'rates'   => StudentRateResource::collection($student->rates),
-//                            'rewards' => StudentRewardResource::collection($student->rewards),
-//                            'identity_id' => $student->identity_id,
-//                            'password'  => $student->un_hashed_password,
-//                            'api_token'  => $student->api_token,
-//                        ]);
-//                    }
-//                }
-                return ApiController::respondWithSuccess(StudentResource::collection($students));
-
-//                return ApiController::respondWithSuccess($std);
             }
+            return ApiController::respondWithSuccess(StudentResource::collection($students));
         }else{
             $error = ['message' => trans('messages.not_found')];
             return ApiController::respondWithErrorNOTFoundObject($error);
@@ -177,6 +155,15 @@ class StudentController extends Controller
     }
     public function honor_board(Request $request , $id)
     {
+        $rules = [
+            'subject_id' => 'sometimes|exists:subjects,id'
+        ];
+
+        $validator = Validator::make($request->all(), $rules);
+
+        if ($validator->fails())
+            return ApiController::respondWithErrorObject(validateRules($validator->errors(), $rules));
+
         $classroom = Classroom::find($id);
         // check if the teacher related with this class
         $check = TeacherClassRoom::whereClassroomId($id)
@@ -184,9 +171,20 @@ class StudentController extends Controller
             ->first();
         if ($classroom and $check)
         {
-            $students = Student::whereClassroomId($id)
-                ->orderBy('points' , 'desc')
-                ->get();
+            if ($request->subject_id == null)
+            {
+                $students = Student::whereClassroomId($id)
+                    ->orderBy('points' , 'desc')
+                    ->get();
+            }else{
+                $students = Student::with('rates' , 'rewards')
+                    ->whereHas('rates' , function ($r) use ($request){
+                        $r->whereSubjectId($request->subject_id);
+                    })
+                    ->whereClassroomId($id)
+                    ->orderBy('points' , 'desc')
+                    ->get();
+            }
             return ApiController::respondWithSuccess(StudentResource::collection($students));
         }else{
             $error = ['message' => trans('messages.not_found')];
