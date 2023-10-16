@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Api\StudentController;
 
 use App\Http\Controllers\Api\ApiController;
 use App\Http\Controllers\Controller;
-use App\Http\Resources\Teacher\StudentResource;
+use App\Http\Resources\Student\StudentResource;
 use App\Models\Student;
 use Illuminate\Http\Request;
 use Validator;
