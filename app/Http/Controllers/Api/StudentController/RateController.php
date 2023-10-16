@@ -7,7 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Resources\Student\StudentRateResource;
 use App\Http\Resources\Student\StudentRewardResource;
 use App\Http\Resources\SubjectResource;
-use App\Http\Resources\Teacher\StudentResource;
+use App\Http\Resources\Student\StudentResource;
 use App\Http\Resources\Teacher\TeacherResource;
 use App\Models\Teacher\ClassRoomSubject;
 use App\Models\Teacher\StudentRate;
