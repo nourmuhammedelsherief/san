@@ -26,6 +26,8 @@ class Student extends Authenticatable
         'password',
         'un_hashed_password',
         'api_token',
+        'last_login_at',
+        'last_login_ip_address',
     ];
 
     protected $casts = ['birth_date' => 'datetime'];

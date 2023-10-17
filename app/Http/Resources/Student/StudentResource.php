@@ -16,6 +16,7 @@ class StudentResource extends JsonResource
     {
         return [
             'id'    => $this->id,
+            'school_name' => $this->classroom->school != null ? $this->classroom->school->name : $this->classroom->school_name,
             'classroom_id'  => $this->classroom_id,
             'classroom'    => $this->classroom->name,
             'name'     => $this->name,
@@ -29,6 +30,7 @@ class StudentResource extends JsonResource
             'identity_id' => $this->identity_id,
             'password'  => $this->un_hashed_password,
             'api_token'  => $this->api_token,
+            'last_login_at' => $this->last_login_at->format('Y-m-d H:i:s')
         ];
     }
 }

@@ -6,6 +6,7 @@ use App\Http\Controllers\Api\ApiController;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\Student\StudentResource;
 use App\Models\Student;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Validator;
 use function auth;
@@ -27,10 +28,12 @@ class AuthStudentController extends Controller
         if ($validator->fails())
             return ApiController::respondWithErrorArray(validateRules($validator->errors(), $rules));
 
-        $student = Student::where('identity_id' , $request->identity_id)->first();
+        $student = Student::where('identity_id', $request->identity_id)->first();
         if ($student and auth()->guard('student')->attempt(['identity_id' => $request->identity_id, 'password' => $request->password])) {
             $student->update([
                 'api_token' => generateApiToken($student->id, 50),
+                'last_login_at' => Carbon::now(),
+                'last_login_ip_address' => request()->getClientIp()
             ]);
             // create teacher device token
             $created = ApiController::createStudentDeviceToken($student->id, $request->device_token);
@@ -50,6 +53,7 @@ class AuthStudentController extends Controller
         }
 
     }
+
     public function logout(Request $request)
     {
         $student = Student::find($request->user()->id);
