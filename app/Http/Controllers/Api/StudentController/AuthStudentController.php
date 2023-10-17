@@ -9,6 +9,7 @@ use App\Http\Resources\SubjectResource;
 use App\Models\Classroom;
 use App\Models\Student;
 use App\Models\Teacher\ClassRoomSubject;
+use App\Models\Teacher\StudentRate;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Validator;
@@ -71,9 +72,7 @@ class AuthStudentController extends Controller
     }
     public function my_subjects(Request $request)
     {
-        $student = Student::find($request->user()->id);
-        $classroom = Classroom::find($student->classroom_id);
-        $subjects = ClassRoomSubject::where('class_room_id' , $classroom->id)->get();
+        $subjects = StudentRate::whereStudentId($request->user()->id)->get();
         return ApiController::respondWithSuccess(SubjectResource::collection($subjects));
     }
 }
