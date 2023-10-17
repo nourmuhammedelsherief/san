@@ -4,6 +4,7 @@ namespace App\Http\Resources\Student;
 
 use App\Http\Resources\SubjectResource;
 use App\Http\Resources\Teacher\TeacherRateResource;
+use App\Http\Resources\Teacher\TeacherResource;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
@@ -18,6 +19,7 @@ class StudentRateResource extends JsonResource
     {
         return [
             'id'           => $this->id,
+            'teacher'      => new TeacherResource($this->rate->teacher),
             'rate'         => new TeacherRateResource($this->rate),
             'points'       => $this->points,
             'subject'      => new SubjectResource($this->subject),
