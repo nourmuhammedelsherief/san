@@ -160,6 +160,7 @@ Route::group(['middleware' => ['auth:student-api', 'cors', 'localization-api']],
     Route::prefix('students')->group(function () {
         Route::controller(AuthStudentController::class)->group(function () {
             Route::get('/profile', 'profile');
+            Route::get('/my_subjects', 'my_subjects');
             Route::post('/logout', 'logout');
         });
         Route::controller(RateController::class)->group(function () {

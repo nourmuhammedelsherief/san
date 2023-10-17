@@ -5,7 +5,10 @@ namespace App\Http\Controllers\Api\StudentController;
 use App\Http\Controllers\Api\ApiController;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\Student\StudentResource;
+use App\Http\Resources\SubjectResource;
+use App\Models\Classroom;
 use App\Models\Student;
+use App\Models\Teacher\ClassRoomSubject;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Validator;
@@ -65,5 +68,12 @@ class AuthStudentController extends Controller
             'message' => trans('messages.logout_successfully')
         ];
         return ApiController::respondWithSuccess($success);
+    }
+    public function my_subjects(Request $request)
+    {
+        $student = Student::find($request->user()->id);
+        $classroom = Classroom::find($student->classroom_id);
+        $subjects = ClassRoomSubject::where('class_room_id' , $classroom->id)->get();
+        return ApiController::respondWithSuccess(SubjectResource::collection($subjects));
     }
 }
