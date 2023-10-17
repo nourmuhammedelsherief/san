@@ -73,10 +73,7 @@ class AuthStudentController extends Controller
     public function my_subjects(Request $request)
     {
         $subjects = StudentRate::whereStudentId($request->user()->id)
-            ->select('id' ,'rate_id',
-                'student_id',
-                'points',
-                'subject_id')
+            ->select('subject_id')
             ->groupBy('subject_id')
             ->get();
         return ApiController::respondWithSuccess(SubjectResource::collection($subjects));
