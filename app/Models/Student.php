@@ -30,7 +30,7 @@ class Student extends Authenticatable
         'last_login_ip_address',
     ];
 
-    protected $casts = ['birth_date' => 'datetime'];
+    protected $casts = ['birth_date' => 'datetime' , 'last_login_at' => 'datetime'];
 
     public function classroom()
     {
