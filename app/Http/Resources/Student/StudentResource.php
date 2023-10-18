@@ -30,7 +30,7 @@ class StudentResource extends JsonResource
             'identity_id' => $this->identity_id,
             'password'  => $this->un_hashed_password,
             'api_token'  => $this->api_token,
-            'last_login_at' => $this->last_login_at->format('Y-m-d H:i:s')
+            'last_login_at' => $this->last_login_at == null ? null : $this->last_login_at->format('Y-m-d H:i:s')
         ];
     }
 }
