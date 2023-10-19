@@ -241,10 +241,20 @@ function saveNotification($user,$type , $title , $message,$teacher_id = null , $
 
 function getStudentArrange($subjectId , $studentId , $points)
 {
-    return StudentRate::where('student_id' , '!=' , $studentId)
-        ->whereSubjectId($subjectId)
-        ->where('points' , '>' , $points)
-        ->count();
+    $student = \App\Models\Student::find($studentId);
+    $classStudents = \App\Models\Student::whereClassroomId($student->classroom->id)
+        ->where('student_id' ,'!=', $studentId)
+        ->get();
+    $count = 0;
+    foreach ($classStudents as $classStudent)
+    {
+        $rate = StudentRate::whereStudentId($student->id)->whereSubjectId($subjectId)->sum('points');
+        if ($rate > $points)
+        {
+            $count++;
+        }
+    }
+    return $count;
 }
 
 //function sendMultiNotification($notificationTitle, $notificationBody, $devicesTokens , $type = null , $order_id = null)
