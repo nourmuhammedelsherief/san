@@ -248,7 +248,7 @@ function getStudentArrange($subjectId , $studentId , $points)
     $count = 0;
     foreach ($classStudents as $classStudent)
     {
-        $rate = StudentRate::whereStudentId($student->id)->whereSubjectId($subjectId)->sum('points');
+        $rate = StudentRate::whereStudentId($classStudent->id)->whereSubjectId($subjectId)->sum('points');
         if ($rate > $points)
         {
             $count++;
