@@ -243,7 +243,7 @@ function getStudentArrange($subjectId , $studentId , $points)
 {
     $student = \App\Models\Student::find($studentId);
     $classStudents = \App\Models\Student::whereClassroomId($student->classroom->id)
-        ->where('student_id' ,'!=', $studentId)
+        ->where('id' ,'!=', $studentId)
         ->get();
     $count = 0;
     foreach ($classStudents as $classStudent)
