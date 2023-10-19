@@ -64,7 +64,14 @@ class RateController extends Controller
     {
         $student = $request->user();
         $classroom = $student->classroom;
-        $subjects = ClassRoomSubject::where('class_room_id' , $classroom->id)->get();
+        $subjects = ClassRoomSubject::with('class_room')
+            ->whereHas('class_room' , function ($q) use ($classroom){
+                $q->with('classroom');
+                $q->whereHas('classroom' , function ($c) use ($classroom){
+                    $c->where('id' , $classroom->id);
+                });
+            })->get();
+        dd($subjects);
         $arranges = [];
         if ($subjects->count() > 0)
         {
