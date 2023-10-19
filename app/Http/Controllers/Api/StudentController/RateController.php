@@ -70,8 +70,10 @@ class RateController extends Controller
                 $q->whereHas('classroom' , function ($c) use ($classroom){
                     $c->where('id' , $classroom->id);
                 });
-            })->get();
-        dd($subjects);
+            })
+            ->select('subject_id')
+            ->groupBy('subject_id')
+            ->get();
         $arranges = [];
         if ($subjects->count() > 0)
         {
