@@ -69,16 +69,21 @@
     <div class="card">
         <div class="card-body login-card-body">
             {{--            <h4 class="text-center mb-4">{{trans('messages.dash_school')}}</h4>--}}
-            <form action="{{route('school.submit_register_payment' , $school->id)}}" method="post" enctype="multipart/form-data">
+            <form action="{{route('school.submit_register_payment' , $school->id)}}" method="post"
+                  enctype="multipart/form-data">
                 @csrf
                 <input type="hidden" name="amount" value="{{$amount}}">
                 <input type="hidden" name="seller_code_id" value="{{$seller_code_id}}">
                 <input type="hidden" name="discount" value="{{$discount}}">
+                <?php $setting = \App\Models\Setting::first(); ?>
                 <div class="input-group mb-3">
                     <select name="payment_method" class="form-control" onchange="showDiv(this)">
                         <option disabled selected> @lang('messages.choose_payment_method') </option>
-                        <option value="bank"> @lang('messages.bank_transfer') </option>
-                        <option value="online"> @lang('messages.online_payment') </option>
+                        @if($setting->payment_type == 'bank' or $setting->payment_type == 'both')
+                            <option value="bank"> @lang('messages.bank_transfer') </option>
+                        @elseif($setting->payment_type == 'online' or $setting->payment_type == 'both')
+                            <option value="online"> @lang('messages.online_payment') </option>
+                        @endif
                     </select>
                     <div class="input-group-append">
                         <div class="input-group-text">
