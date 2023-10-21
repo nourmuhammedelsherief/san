@@ -32,7 +32,8 @@ class SettingController extends Controller
             'logo'            => 'sometimes|mimes:jpg,jpeg,png,gif,tif,psd,pmp|max:5000',
             'contact_number'  => 'sometimes',
             'payment_type'    => 'sometimes',
-            'site_url'        => 'sometimes'
+            'site_url'        => 'sometimes',
+            'contact_email'        => 'sometimes',
         ]);
         $setting = Setting::find(1);
         $setting->update([
@@ -48,6 +49,7 @@ class SettingController extends Controller
             'payment_type' => $request->payment_type,
             'contact_number' => $request->contact_number,
             'site_url' => $request->site_url,
+            'contact_email' => $request->contact_email,
             'logo' => $request->file('logo') == null ? $setting->logo : UploadImageEdit($request->file('logo') , 'logo' , '/uploads' , $setting->logo)
         ]);
         flash(trans('messages.updated'))->success();

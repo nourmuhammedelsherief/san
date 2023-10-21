@@ -51,7 +51,7 @@ class PublicController extends Controller
         $setting = Setting::first();
         $all = [
             'contact_number' => $setting->contact_number,
-            'site_url'       => $setting->site_url,
+            'contact_email'       => $setting->contact_email,
         ];
         return ApiController::respondWithSuccess($all);
     }

@@ -23,5 +23,6 @@ class Setting extends Model
         'contact_number',
         'payment_type',
         'site_url',
+        'contact_email',
     ];
 }

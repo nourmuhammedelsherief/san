@@ -139,13 +139,13 @@
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    <label class="control-label"> رابط الويب للدعم الفني </label>
+                                    <label class="control-label"> ايميل للدعم الفني </label>
                                     <div class="row">
                                         <div class="col-sm-10">
-                                            <input name="site_url" type="url" class="form-control" value="{{$setting->site_url}}" placeholder=" رابط الويب للدعم الفني ">
-                                            @if ($errors->has('site_url'))
+                                            <input name="contact_email" type="email" class="form-control" value="{{$setting->contact_email}}" placeholder="ايميل الدعم الفني ">
+                                            @if ($errors->has('contact_email'))
                                                 <span class="help-block">
-                                            <strong style="color: red;">{{ $errors->first('site_url') }}</strong>
+                                            <strong style="color: red;">{{ $errors->first('contact_email') }}</strong>
                                         </span>
                                             @endif
                                         </div>
