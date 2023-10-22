@@ -22,6 +22,8 @@ class ClassRoomResource extends JsonResource
             'teacher_id' => $this->teacher_id,
             'subjects' => SubjectResource::collection($this->subjects),
             'archive' => $this->archive,
+            'main_teacher_id' => $this->main_teacher_id,
+            'pulled' => $this->pulled,
         ];
     }
 }
