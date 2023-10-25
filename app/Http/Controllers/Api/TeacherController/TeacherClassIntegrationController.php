@@ -95,6 +95,7 @@ class TeacherClassIntegrationController extends Controller
             // add the master teacher class to slave teacher
             $classes = TeacherClassRoom::whereTeacherId($integration_request->master_teacher_id)
                 ->whereArchive('false')
+                ->where('main_teacher_id' , $integration_request->master_teacher_id)
                 ->get();
             if ($classes->count() > 0)
             {
@@ -166,6 +167,13 @@ class TeacherClassIntegrationController extends Controller
             $integration_request->update([
                 'status'   => 'canceled',
             ]);
+
+            // check if the teacher
+//            $classes = TeacherClassRoom::whereTeacherId($integration_request->master_teacher_id)
+//                ->whereArchive('false')
+//                ->where('main_teacher_id' , $integration_request->master_teacher_id)
+//                ->get();
+
             // send notification to teacher with operation canceled
             $firebaseToken = TeacherDeviceToken::whereTeacherId($integration_request->teacher_id)->pluck('device_token')->all();
             $title = trans('messages.integration');
