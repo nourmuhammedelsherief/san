@@ -38,9 +38,9 @@ class RateController extends Controller
         }
         $all = [
             'student' => StudentRateResource::collection($rates),
-            'total_points' => $request->subject_id ? StudentRate::whereStudentId($request->user()->id)
+            'total_points' => $request->subject_id ? intval(StudentRate::whereStudentId($request->user()->id)
                 ->whereSubjectId($request->subject_id)
-                ->sum('points') : StudentRate::whereStudentId($request->user()->id)->sum('points'),
+                ->sum('points')) : intval(StudentRate::whereStudentId($request->user()->id)->sum('points')),
         ];
         return ApiController::respondWithSuccess($all);
     }
@@ -64,9 +64,9 @@ class RateController extends Controller
         }
         $all = [
             'student' => StudentRewardResource::collection($rewards),
-            'total_points' => $request->subject_id ? StudentReward::whereStudentId($request->user()->id)
+            'total_points' => $request->subject_id ? intval(StudentReward::whereStudentId($request->user()->id)
                 ->whereSubjectId($request->subject_id)
-                ->sum('points') : StudentReward::whereStudentId($request->user()->id)->sum('points'),
+                ->sum('points')) : intval(StudentReward::whereStudentId($request->user()->id)->sum('points')),
         ];
         return ApiController::respondWithSuccess($all);
 
