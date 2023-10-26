@@ -17,6 +17,7 @@ class StudentRateResource extends JsonResource
      */
     public function toArray(Request $request): array
     {
+
         return [
             'id'           => $this->id,
             'teacher'      => new TeacherResource($this->rate->teacher),
