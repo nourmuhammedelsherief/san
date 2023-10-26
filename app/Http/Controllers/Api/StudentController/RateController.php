@@ -83,7 +83,7 @@ class RateController extends Controller
                 array_push($arranges , [
                     'arrange' => intval(getStudentArrange($subject->subject_id , $student->id , $points) + 1),
                     'subject' => new SubjectResource($subject->subject),
-                    'points'  => $points,
+                    'points'  => intval($points),
                 ]);
             }
         }
