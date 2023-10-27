@@ -124,32 +124,32 @@ class TeacherClassIntegrationController extends Controller
                 }
             }
             // add teachers rate and rewards to another teacher
-            $rates = TeacherRate::whereTeacherId($integration_request->master_teacher_id)->get();
-            if ($rates->count() > 0)
-            {
-                foreach ($rates  as $rate)
-                {
-                    TeacherRate::create([
-                        'teacher_id'    => $integration_request->teacher_id,
-                        'rate_name'     => $rate->rate_name,
-                        'points'        => $rate->points,
-                        'type'          => $rate->type,
-                    ]);
-                }
-            }
-            $rewards = Reward::whereTeacherId($integration_request->master_teacher_id)->get();
-            if ($rewards->count() > 0)
-            {
-                foreach ($rewards  as $reward)
-                {
-                    Reward::create([
-                        'teacher_id'    => $integration_request->teacher_id,
-                        'name'          => $reward->name,
-                        'points'        => $reward->points,
-                        'photo'         => $reward->photo,
-                    ]);
-                }
-            }
+//            $rates = TeacherRate::whereTeacherId($integration_request->master_teacher_id)->get();
+//            if ($rates->count() > 0)
+//            {
+//                foreach ($rates  as $rate)
+//                {
+//                    TeacherRate::create([
+//                        'teacher_id'    => $integration_request->teacher_id,
+//                        'rate_name'     => $rate->rate_name,
+//                        'points'        => $rate->points,
+//                        'type'          => $rate->type,
+//                    ]);
+//                }
+//            }
+//            $rewards = Reward::whereTeacherId($integration_request->master_teacher_id)->get();
+//            if ($rewards->count() > 0)
+//            {
+//                foreach ($rewards  as $reward)
+//                {
+//                    Reward::create([
+//                        'teacher_id'    => $integration_request->teacher_id,
+//                        'name'          => $reward->name,
+//                        'points'        => $reward->points,
+//                        'photo'         => $reward->photo,
+//                    ]);
+//                }
+//            }
 
             // send notification to teacher with operation done
             $firebaseToken = TeacherDeviceToken::whereTeacherId($integration_request->teacher_id)->pluck('device_token')->all();
