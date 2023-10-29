@@ -71,6 +71,7 @@ Route::middleware(['cors', 'localization-api'])->group(function () {
             Route::post('/forget_password', 'forgetPassword');
             Route::post('/confirm_reset_code', 'confirmResetCode');
             Route::post('/reset_password', 'resetPassword');
+            Route::post('/my_subjects', 'my_subjects');
         });
     });
 });

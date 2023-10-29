@@ -5,8 +5,10 @@ namespace App\Http\Controllers\Api\ParentController;
 use App\Http\Controllers\Api\ApiController;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\Father\FatherResource;
+use App\Http\Resources\SubjectResource;
 use App\Mail\NotifyMail;
 use App\Models\Father\Father;
+use App\Models\Subject;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
@@ -285,5 +287,10 @@ class AuthParentController extends Controller
         return $updated
             ? ApiController::respondWithSuccess($success_password)
             : ApiController::respondWithServerErrorObject();
+    }
+    public function my_subjects()
+    {
+        $subjects = Subject::all();
+        return ApiController::respondWithSuccess(SubjectResource::collection($subjects));
     }
 }
