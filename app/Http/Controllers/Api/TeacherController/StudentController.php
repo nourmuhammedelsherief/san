@@ -172,29 +172,25 @@ class StudentController extends Controller
             return ApiController::respondWithErrorObject(validateRules($validator->errors(), $rules));
 
         $classroom = Classroom::find($id);
-        // check if the teacher related with this class
-        $check = TeacherClassRoom::whereClassroomId($id)
-            ->whereteacherId($request->user()->id)
-            ->first();
-        if ($classroom and $check)
+        if ($classroom)
         {
-            $students = Student::whereClassroomId($id)
-                ->orderBy('points' , 'desc')
-                ->get();
-//            if ($request->subject_id == null)
-//            {
-//                $students = Student::whereClassroomId($id)
-//                    ->orderBy('points' , 'desc')
-//                    ->get();
-//            }else{
-//                $students = Student::with('rates' , 'rewards')
-//                    ->whereHas('rates' , function ($r) use ($request){
-//                        $r->whereSubjectId($request->subject_id);
-//                    })
-//                    ->whereClassroomId($id)
-//                    ->orderBy('points' , 'desc')
-//                    ->get();
-//            }
+//            $students = Student::whereClassroomId($id)
+//                ->orderBy('points' , 'desc')
+//                ->get();
+            if ($request->subject_id == null)
+            {
+                $students = Student::whereClassroomId($id)
+                    ->orderBy('points' , 'desc')
+                    ->get();
+            }else{
+                $students = Student::with('rates' , 'rewards')
+                    ->whereHas('rates' , function ($r) use ($request){
+                        $r->whereSubjectId($request->subject_id);
+                    })
+                    ->whereClassroomId($id)
+                    ->orderBy('points' , 'desc')
+                    ->get();
+            }
             return ApiController::respondWithSuccess(StudentResource::collection($students));
         }else{
             $error = ['message' => trans('messages.not_found')];
