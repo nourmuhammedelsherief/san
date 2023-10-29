@@ -61,7 +61,10 @@ class StudentController extends Controller
     public function create(Request $request , $id)
     {
         $classroom = Classroom::find($id);
-        if ($classroom)
+        $teacher_classroom = TeacherClassRoom::where('main_teacher_id' , $request->user()->id)
+            ->where('classroom_id' , $classroom->id)
+            ->first();
+        if ($classroom and $teacher_classroom)
         {
             $rules = [
                 'name'        => 'required|string|max:191',
@@ -98,7 +101,10 @@ class StudentController extends Controller
     public function edit(Request $request , $id)
     {
         $student = Student::find($id);
-        if ($student)
+        $teacher_classroom = TeacherClassRoom::where('main_teacher_id' , $request->user()->id)
+            ->where('classroom_id' , $student->classroom_id)
+            ->first();
+        if ($student and $teacher_classroom)
         {
             $rules = [
                 'name'        => 'nullable|string|max:191',
@@ -139,10 +145,8 @@ class StudentController extends Controller
     {
         $teacher = $request->user();
         $student = Student::find($id);
-        $check = TeacherClassRoom::whereTeacherId($teacher->id)
-            ->whereClassroomId($student->classroom_id)
+        $check = TeacherClassRoom::whereClassroomId($student->classroom_id)
             ->where('main_teacher_id' , $teacher->id)
-            ->where('pulled' , 'false')
             ->first();
         if ($student and $check)
         {

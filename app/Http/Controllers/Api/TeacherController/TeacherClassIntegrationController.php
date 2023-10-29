@@ -70,6 +70,8 @@ class TeacherClassIntegrationController extends Controller
         $teacher = $request->user();
         $integrations = TeacherIntegration::whereTeacherId($teacher->id)
             ->whereStatus('done')
+            ->orWhere('master_teacher_id' , $teacher->id)
+            ->whereStatus('done')
             ->get();
         return ApiController::respondWithSuccess(IntegrationResource::collection($integrations));
     }
@@ -185,6 +187,37 @@ class TeacherClassIntegrationController extends Controller
                 'message' => trans('messages.operationCanceledSuccessfully')
             ];
             return ApiController::respondWithSuccess($success);
+        }
+    }
+    public function teacher_cancel_integration(Request $request , $id)
+    {
+        $integration = TeacherIntegration::find($id);
+        $teacher = $request->user();
+        if ($integration)
+        {
+            if ($integration->master_teacher_id == $teacher->id)
+            {
+                // remove classes that master teacher equal to teacher and the other integration teacher is the pulled teacher
+                $classes = TeacherClassRoom::where('main_teacher_id' , $teacher->id)
+                    ->whereTeacherId($integration->teacher_id)
+                    ->where('pulled' , 'true')
+                    ->delete();
+            }
+            elseif ($integration->teacher_id == $teacher->id)
+            {
+                // remove classes that master teacher not equal to teacher and the other integration teacher is the pulled teacher
+                $classes = TeacherClassRoom::whereTeacherId($teacher->id)
+                    ->where('main_teacher_id' , $integration->master_teacher_id)
+                    ->delete();
+            }
+            $integration->delete();
+            $success = [
+                'message' => trans('messages.operationCanceledSuccessfully')
+            ];
+            return ApiController::respondWithSuccess($success);
+        }else{
+            $error = ['message' => trans('messages.not_found')];
+            return ApiController::respondWithErrorNOTFoundObject($error);
         }
     }
 }

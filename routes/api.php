@@ -139,6 +139,7 @@ Route::group(['middleware' => ['auth:teacher-api', 'cors', 'localization-api']],
             Route::get('/integration_requests', 'integration_requests');
             Route::post('/teacher_apply_integration_request', 'teacher_apply_integration_request');
             Route::get('/my_integrations', 'my_integrations');
+            Route::get('/teacher_cancel_integration/{id}', 'teacher_cancel_integration');
         });
         //notification routes
         Route::controller(NotificationController::class)->group(function () {
