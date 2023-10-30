@@ -85,8 +85,10 @@ class TClassRoomController extends Controller
     public function edit(Request $request, $id)
     {
         $teacher = $request->user();
-        $classroom = TeacherClassRoom::find($id);
-        if ($classroom and $classroom->pulled == 'false') {
+        $classroom = TeacherClassRoom::whereId($id)
+            ->where('main_teacher_id' , $request->user()->id)
+            ->first();
+        if ($classroom) {
             $rules = [
                 'name' => 'sometimes|string|max:191',
                 'subjects' => 'nullable',
@@ -132,10 +134,12 @@ class TClassRoomController extends Controller
         }
     }
 
-    public function destroy($id)
+    public function destroy(Request $request , $id)
     {
-        $classroom = TeacherClassRoom::find($id);
-        if ($classroom and $classroom->main_teacher_id == $classroom->teacher_id) {
+        $classroom = TeacherClassRoom::whereId($id)
+            ->where('main_teacher_id' , $request->user()->id)
+            ->first();
+        if ($classroom) {
             $classroom->delete();
             $success = [
                 'message' => trans('messages.deleted')
@@ -149,7 +153,9 @@ class TClassRoomController extends Controller
 
     public function archive(Request $request, $id)
     {
-        $classroom = TeacherClassRoom::find($id);
+        $classroom = TeacherClassRoom::whereId($id)
+            ->where('main_teacher_id' , $request->user()->id)
+            ->first();
         if ($classroom) {
             $rules = [
                 'archive' => 'required|in:true,false',
@@ -172,7 +178,9 @@ class TClassRoomController extends Controller
 
     public function copy(Request $request, $id)
     {
-        $Tclassroom = TeacherClassRoom::find($id);
+        $Tclassroom = TeacherClassRoom::whereId($id)
+            ->where('main_teacher_id' , $request->user()->id)
+            ->first();
         if ($Tclassroom){
             $rules = [
                 'name' => 'required|string|max:191',
