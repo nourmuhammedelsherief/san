@@ -88,6 +88,7 @@ class NotificationController extends Controller
         $teacher = $request->user();
         $notifications = Notification::whereUser('teacher')
             ->whereTeacherId($teacher->id)
+            ->orderBy('id' , 'desc')
             ->get();
         return ApiController::respondWithSuccess(NotificationResource::collection($notifications));
     }
@@ -96,6 +97,7 @@ class NotificationController extends Controller
         $std = $request->user();
         $notifications = Notification::whereUser('student')
             ->whereStudentId($std->id)
+            ->orderBy('id' , 'desc')
             ->get();
         return ApiController::respondWithSuccess(NotificationResource::collection($notifications));
     }
@@ -104,6 +106,7 @@ class NotificationController extends Controller
         $father = $request->user();
         $notifications = Notification::whereUser('father')
             ->whereFatherId($father->id)
+            ->orderBy('id' , 'desc')
             ->get();
         return ApiController::respondWithSuccess(NotificationResource::collection($notifications));
     }
