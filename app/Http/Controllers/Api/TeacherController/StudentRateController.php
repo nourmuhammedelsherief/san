@@ -34,7 +34,7 @@ class StudentRateController extends Controller
                 StudentRate::create([
                     'rate_id'    => $rate->id,
                     'student_id' => $student->id,
-                    'points'     => $rate->points,
+                    'points'     => $rate->type == 'negative' ? -$rate->points : $rate->points,
                     'subject_id' => $request->subject_id,
                 ]);
                 $student->update([
