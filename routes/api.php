@@ -209,3 +209,5 @@ Route::group(['middleware' => ['auth:father-api', 'cors', 'localization-api']], 
 /**
  *  End Parent Routes
  */
+
+// لوحه الشرف ترجع طلاب

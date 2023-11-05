@@ -174,23 +174,23 @@ class StudentController extends Controller
         $classroom = Classroom::find($id);
         if ($classroom)
         {
-//            $students = Student::whereClassroomId($id)
-//                ->orderBy('points' , 'desc')
-//                ->get();
-            if ($request->subject_id == null)
-            {
-                $students = Student::whereClassroomId($id)
-                    ->orderBy('points' , 'desc')
-                    ->get();
-            }else{
-                $students = Student::with('rates' , 'rewards')
-                    ->whereHas('rates' , function ($r) use ($request){
-                        $r->whereSubjectId($request->subject_id);
-                    })
-                    ->whereClassroomId($id)
-                    ->orderBy('points' , 'desc')
-                    ->get();
-            }
+            $students = Student::whereClassroomId($id)
+                ->orderBy('points' , 'desc')
+                ->get();
+//            if ($request->subject_id == null)
+//            {
+//                $students = Student::whereClassroomId($id)
+//                    ->orderBy('points' , 'desc')
+//                    ->get();
+//            }else{
+//                $students = Student::with('rates' , 'rewards')
+//                    ->whereHas('rates' , function ($r) use ($request){
+//                        $r->whereSubjectId($request->subject_id);
+//                    })
+//                    ->whereClassroomId($id)
+//                    ->orderBy('points' , 'desc')
+//                    ->get();
+//            }
             return ApiController::respondWithSuccess(StudentResource::collection($students));
         }else{
             $error = ['message' => trans('messages.not_found')];
