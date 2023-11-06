@@ -100,7 +100,7 @@ class ParentChildController extends Controller
                         array_push($arranges, [
                             'arrange' => getStudentArrange($subject->subject_id, $student->id, $points->points) + 1,
                             'subject' => new SubjectResource($subject->subject),
-                            'points' => StudentRate::whereStudentId($student->id)->whereSubjectId($subject->subject_id)->sum('points'),
+                            'points' => intval(StudentRate::whereStudentId($student->id)->whereSubjectId($subject->subject_id)->sum('points')),
                         ]);
                     }
                 }
