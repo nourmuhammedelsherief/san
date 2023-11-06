@@ -140,7 +140,7 @@ return [
     'invitation_code_discount' => 'قيمة الخصم ل أكواد دعوه المعلمين',
     'stdNotHaveEnoughPoints' => 'لا يوجد نقاط كافيه لأضافه المكافأة للطالب',
     'rewardAddedToStdSuccessfully' => 'تم إضافة السلوك الي الطالب بنجاح',
-    'rewarded_successfully' => 'تم إضافة  السلوك الي الطلاب بنجاح',
+    'rewarded_successfully' => 'تم إضافة  السلوك الي الطلبة المستحقة بنجاح',
     'IntegrationRequestedSuccessfully' => 'تم إرسال طلب التكامل الي المعلم بنجاح',
     'operationDoneSuccessfully' => 'تمت عمليه الربط مع المعلم بنجاح',
     'operationCanceledSuccessfully' => 'تم إلغاء عمليه  الربط مع المعلم بنجاح',
