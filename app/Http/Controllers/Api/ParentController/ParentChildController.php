@@ -95,12 +95,12 @@ class ParentChildController extends Controller
             $arranges = [];
             if ($subjects->count() > 0) {
                 foreach ($subjects as $subject) {
-                    $points = StudentRate::whereStudentId($student->id)->whereSubjectId($subject->subject_id)->first();
+                    $points = StudentRate::whereStudentId($student->id)->whereSubjectId($subject->subject_id)->sum('points');
                     if ($points) {
                         array_push($arranges, [
-                            'arrange' => getStudentArrange($subject->subject_id, $student->id, $points->points) + 1,
+                            'arrange' => getStudentArrange($subject->subject_id, $student->id, $points) + 1,
                             'subject' => new SubjectResource($subject->subject),
-                            'points' => intval(StudentRate::whereStudentId($student->id)->whereSubjectId($subject->subject_id)->sum('points')),
+                            'points' => intval($points),
                         ]);
                     }
                 }
