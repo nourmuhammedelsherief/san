@@ -196,7 +196,7 @@ Route::group(['middleware' => ['auth:father-api', 'cors', 'localization-api']], 
             Route::post('/add_child', 'add_child');
             Route::post('/confirm_add_child', 'confirm_add_child');
             Route::get('/my_children', 'my_children');
-            Route::get('/get_child/{id}', 'get_child');
+            Route::post('/get_child/{id}', 'get_child');
             Route::get('/my_child_arrange/{id}', 'my_child_arrange');
             Route::get('/my_child_teachers_list/{id}', 'my_child_teachers_list');
         });

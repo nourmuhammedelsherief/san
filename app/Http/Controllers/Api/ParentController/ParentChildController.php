@@ -69,8 +69,17 @@ class ParentChildController extends Controller
         return ApiController::respondWithSuccess(StudentResource::collection($children));
     }
 
-    public function get_child($id)
+    public function get_child(Request $request ,  $id)
     {
+        $rules = [
+            'subject_id' => 'required|exists:subjects,id'
+        ];
+
+        $validator = Validator::make($request->all(), $rules);
+
+        if ($validator->fails())
+            return ApiController::respondWithErrorObject(validateRules($validator->errors(), $rules));
+
         $student = Student::find($id);
         if ($student) {
             return ApiController::respondWithSuccess(new StudentResource($student));
