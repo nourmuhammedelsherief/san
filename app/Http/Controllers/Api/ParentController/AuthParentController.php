@@ -8,7 +8,9 @@ use App\Http\Resources\Father\FatherResource;
 use App\Http\Resources\SubjectResource;
 use App\Mail\NotifyMail;
 use App\Models\Father\Father;
+use App\Models\Student;
 use App\Models\Subject;
+use App\Models\Teacher\ClassRoomSubject;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
@@ -288,9 +290,27 @@ class AuthParentController extends Controller
             ? ApiController::respondWithSuccess($success_password)
             : ApiController::respondWithServerErrorObject();
     }
-    public function my_subjects()
+    public function my_subjects(Request $request)
     {
-        $subjects = Subject::all();
+        $rules = [
+            'student_id' => 'required|exists:students,id',
+        ];
+
+        $validator = Validator::make($request->all(), $rules);
+
+        if ($validator->fails())
+            return ApiController::respondWithErrorArray(validateRules($validator->errors(), $rules));
+
+        $student = Student::find($request->student_id);
+        $classroom = $student->classroom;
+        $subjects = ClassRoomSubject::with('class_room')
+            ->whereHas('class_room', function ($q) use ($classroom) {
+                $q->with('classroom');
+                $q->whereHas('classroom', function ($c) use ($classroom) {
+                    $c->where('id', $classroom->id);
+                });
+            })->get();
+//        $subjects = Subject::all();
         return ApiController::respondWithSuccess(SubjectResource::collection($subjects));
     }
 }
