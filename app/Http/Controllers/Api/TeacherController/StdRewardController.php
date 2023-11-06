@@ -8,6 +8,7 @@ use App\Http\Resources\Teacher\RewardResource;
 use App\Http\Resources\Teacher\StudentResource;
 use App\Models\Student;
 use App\Models\Teacher\Reward;
+use App\Models\Teacher\StudentRate;
 use App\Models\Teacher\StudentReward;
 use Illuminate\Http\Request;
 use Validator;
@@ -43,8 +44,12 @@ class StdRewardController extends Controller
             return ApiController::respondWithErrorObject(validateRules($validator->errors(), $rules));
 
         $std = Student::find($request->student_id);
+        // get  the student rate at this subject
+        $student_rate = StudentRate::whereStudentId($std->id)
+            ->whereSubjectId($request->subject_id)
+            ->sum('points');
         $reward = Reward::find($request->reward_id);
-        if ($std->points >= $reward->points)
+        if ($student_rate >= $reward->points)
         {
             // add reward to student and remove its points from std points
             StudentReward::create([
@@ -91,6 +96,7 @@ class StdRewardController extends Controller
     {
         $rules = [
             'students' => 'required',
+            'subject_id' => 'required|exists:subjects,id'
         ];
 
         $validator = Validator::make($request->all(), $rules);
@@ -104,14 +110,21 @@ class StdRewardController extends Controller
             {
                 $reward = Reward::find($item->reward_id);
                 $student = Student::find($item->student_id);
-                StudentReward::create([
-                    'student_id' => $student->id,
-                    'reward_id'  => $reward->id,
-                    'points'     => $reward->points
-                ]);
-                $student->update([
-                    'points' => $student->points - $reward->points
-                ]);
+                $student_rate = StudentRate::whereStudentId($student->id)
+                    ->whereSubjectId($request->subject_id)
+                    ->sum('points');
+                if ($student_rate >= $reward->points)
+                {
+                    StudentReward::create([
+                        'student_id' => $student->id,
+                        'reward_id'  => $reward->id,
+                        'points'     => $reward->points,
+                        'subject_id' => $request->subject_id,
+                    ]);
+                    $student->update([
+                        'points' => $student->points - $reward->points
+                    ]);
+                }
             }
         }
         $success = [
