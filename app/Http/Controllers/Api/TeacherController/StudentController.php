@@ -130,8 +130,17 @@ class StudentController extends Controller
             return ApiController::respondWithErrorNOTFoundObject($error);
         }
     }
-    public function show($id)
+    public function show(Request $request , $id)
     {
+        $rules = [
+            'subject_id' => 'sometimes|exists:subjects,id'
+        ];
+
+        $validator = Validator::make($request->all(), $rules);
+
+        if ($validator->fails())
+            return ApiController::respondWithErrorObject(validateRules($validator->errors(), $rules));
+
         $student = Student::find($id);
         if ($student)
         {

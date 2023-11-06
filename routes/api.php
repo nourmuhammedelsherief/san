@@ -105,7 +105,7 @@ Route::group(['middleware' => ['auth:teacher-api', 'cors', 'localization-api']],
             Route::post('/classroom/{id}/honor_board', 'honor_board');
             Route::post('/classroom/{id}/students/create', 'create');
             Route::post('/classroom/students/{id}/edit', 'edit');
-            Route::get('/classroom/students/{id}/show', 'show');
+            Route::post('/classroom/students/{id}/show', 'show');
             Route::get('/classroom/students/{id}/delete', 'destroy');
             Route::post('/classroom/move_student_to_another_class', 'move');
         });
