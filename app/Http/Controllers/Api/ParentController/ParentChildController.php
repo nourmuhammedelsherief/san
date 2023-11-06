@@ -11,6 +11,7 @@ use App\Models\Father\FatherChild;
 use App\Models\Student;
 use App\Models\Teacher\ClassRoomSubject;
 use App\Models\Teacher\StudentRate;
+use App\Models\Teacher\StudentReward;
 use App\Models\Teacher\TeacherClassRoom;
 use Illuminate\Http\Request;
 use Validator;
@@ -109,7 +110,7 @@ class ParentChildController extends Controller
                         array_push($arranges, [
                             'arrange' => getStudentArrange($subject->subject_id, $student->id, $points) + 1,
                             'subject' => new SubjectResource($subject->subject),
-                            'points' => intval($points),
+                            'points' => intval($points - StudentReward::whereStudentId($student->id)->whereSubjectId($subject->subject_id)->sum('points')),
                         ]);
                     }
                 }
