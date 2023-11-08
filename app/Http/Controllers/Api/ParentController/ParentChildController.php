@@ -50,9 +50,10 @@ class ParentChildController extends Controller
         $student = Student::whereIdentityId($request->identity_id)->first();
         if ($student):
             // add student to parent
-            FatherChild::updateOrCreate(
-                ['father_id' => $request->user()->id],
-                ['student_id' => $student->id,]);
+            FatherChild::updateOrCreate([
+                'father_id' => $request->user()->id,
+                'student_id' => $student->id
+            ]);
             $success = [
                 'message' => trans('messages.childAddedSuccessfully')
             ];
