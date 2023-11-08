@@ -236,4 +236,5 @@ return [
     'specified' => 'Specified',
     'specified_notifications' => 'Specified Notifications',
     'studentMovedSuccessfully' => 'Student Moved Successfully',
+    'school_transfers' => 'Schools Transfers',
 ];

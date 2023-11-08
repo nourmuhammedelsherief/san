@@ -44,8 +44,8 @@ class StudentController extends Controller
             'birth_date'  => 'required|date',
         ]);
         // create new student
-        $identity_id = mt_rand(10000000, 99999999);
-        $password = mt_rand(10000000, 99999999);
+        $identity_id = mt_rand(100000, 999999);
+        $password = mt_rand(1000, 9999);
         $student = Student::create([
             'classroom_id'  => $request->classroom_id,
             'name'          => $request->name,

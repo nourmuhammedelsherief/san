@@ -61,9 +61,11 @@ class SchoolTeacherController extends Controller
             "phone_number" => 'nullable|min:10',
             "photo" => 'nullable|mimes:jpg,jpeg,png,gif,tif,psd,pmp,webp|max:5000'
         ]);
+        // Available alpha caracters
+        $characters = 'abcdefghijklmnopqrstuvwxyz';
+        $integration_code = $characters[rand(0, strlen($characters) - 1)]. $characters[rand(0, strlen($characters) - 1)] . mt_rand(100, 999);
+        $invitation_code = $characters[rand(0, strlen($characters) - 1)] . mt_rand(1000, 9999);
         // create new Teacher
-        $integration_code = mt_rand(10000000000, 99999999999);
-        $invitation_code = mt_rand(10000000, 99999999);
         $teacher = Teacher::create([
             'city_id' => $request->city_id,
             'name' => $request->name,

@@ -199,6 +199,47 @@
                     <!-- /.info-box -->
                 </div>
                 <div class="col-12 col-sm-6 col-md-3">
+                    <a href="{{url('/admin/teacher_transfers')}}">
+                        <div class="info-box">
+                        <span class="info-box-icon bg-info elevation-1">
+                            <i class="fas fa-money-bill"></i>
+                        </span>
+
+                            <div class="info-box-content">
+                                <span class="info-box-text">@lang('messages.teacher_transfers')</span>
+                                <span class="info-box-number">
+                                    {{\App\Models\Teacher\TeacherSubscription::wherePaymentType('bank')
+                                     ->wherePayment('false')
+                                     ->where('transfer_photo' , '!=' , null)
+                                     ->where('status' , 'not_active')->count()}}
+                                </span>
+                            </div>
+                            <!-- /.info-box-content -->
+                        </div>
+                    </a>
+                    <!-- /.info-box -->
+                </div>
+                <div class="col-12 col-sm-6 col-md-3">
+                    <a href="{{url('/admin/school_transfers')}}">
+                        <div class="info-box">
+                        <span class="info-box-icon bg-success elevation-1">
+                            <i class="fas fa-money-bill"></i>
+                        </span>
+                            <div class="info-box-content">
+                                <span class="info-box-text">@lang('messages.school_transfers')</span>
+                                <span class="info-box-number">
+                                    {{\App\Models\School\SchoolSubscription::wherePaymentType('bank')
+                                     ->wherePayment('false')
+                                     ->where('transfer_photo' , '!=' , null)
+                                     ->where('status' , 'not_active')->count()}}
+                                </span>
+                            </div>
+                            <!-- /.info-box-content -->
+                        </div>
+                    </a>
+                    <!-- /.info-box -->
+                </div>
+                <div class="col-12 col-sm-6 col-md-3">
                     <a href="{{url('/admin/histories')}}">
                         <div class="info-box">
                         <span class="info-box-icon bg-warning elevation-1">

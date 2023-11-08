@@ -220,4 +220,6 @@ return [
     'specified' => 'محددين',
     'specified_notifications' => 'أشعارات لأشخاص محددين',
     'studentMovedSuccessfully' => 'تم نقل الطالب بنجاح',
+    'school_transfers' => 'التحويلات البنكية للمدارس',
+    'send' => 'إرسال',
 ];

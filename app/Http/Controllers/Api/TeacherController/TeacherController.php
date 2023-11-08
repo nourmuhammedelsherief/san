@@ -45,9 +45,12 @@ class TeacherController extends Controller
         if ($validator->fails())
             return ApiController::respondWithErrorArray(validateRules($validator->errors(), $rules));
 
+        // Available alpha caracters
+        $characters = 'abcdefghijklmnopqrstuvwxyz';
+        $integration_code = $characters[rand(0, strlen($characters) - 1)]. $characters[rand(0, strlen($characters) - 1)] . mt_rand(100, 999);
+        $invitation_code = $characters[rand(0, strlen($characters) - 1)] . mt_rand(1000, 9999);
+//        $string = str_shuffle($integration_code);
         // create new Teacher
-        $integration_code = mt_rand(10000000000, 99999999999);
-        $invitation_code = mt_rand(10000000, 99999999);
         $teacher = Teacher::create([
             'city_id' => $request->city_id,
             'name' => $request->name,
@@ -91,12 +94,11 @@ class TeacherController extends Controller
         }
         // second check and apply invitation code
 
-        if ($request->invitation_code != null)
-        {
+        if ($request->invitation_code != null) {
             $invitation_discount = ($amount * $setting->invitation_code_discount) / 100;
             $amount = $amount - $invitation_discount;
-            $discount+=$invitation_discount;
-            $invitation_code_owner = Teacher::where('invitation_code' , $request->invitation_code)->first();
+            $discount += $invitation_discount;
+            $invitation_code_owner = Teacher::where('invitation_code', $request->invitation_code)->first();
         }
 
         if ($request->payment_type == 'bank') {
@@ -117,8 +119,7 @@ class TeacherController extends Controller
                 'message' => trans('messages.register_and_wait_active')
             ];
             return ApiController::respondWithSuccess($success);
-        }
-        elseif ($request->payment_type == 'online') {
+        } elseif ($request->payment_type == 'online') {
             // online payment by my fatoourah
             $amount = number_format((float)$amount, 2, '.', '');
             if ($request->online_type == 'visa') {
@@ -263,8 +264,7 @@ class TeacherController extends Controller
             $subscription->teacher->update([
                 'active' => 'true',
             ]);
-            if ($subscription->invitation_code_id != null)
-            {
+            if ($subscription->invitation_code_id != null) {
                 $subscription->invitation_code->update([
                     'balance' => $subscription->invitation_code->balance + $subscription->invitation_discount
                 ]);
@@ -279,13 +279,13 @@ class TeacherController extends Controller
                 'payment_type' => 'online'
             ]);
             $success = [
-                'code'    => 200,
+                'code' => 200,
                 'message' => trans('messages.payment_done_successfully'),
             ];
             return ApiController::respondWithSuccess($success);
         } else {
             $error = [
-                'code'    => 422,
+                'code' => 422,
                 'message' => trans('messages.errorPayment')
             ];
             return ApiController::respondWithErrorObject($error);
@@ -345,8 +345,8 @@ class TeacherController extends Controller
             ->first();
         if ($teacher) {
             $teacher->update([
-                    'verification_code' => null
-                ]);
+                'verification_code' => null
+            ]);
             $success = [
                 'message' => trans('messages.code_success')
             ];
@@ -433,8 +433,8 @@ class TeacherController extends Controller
     public function edit_account(Request $request)
     {
         $rules = [
-            'email' => 'nullable|email|unique:teachers,email,'.$request->user()->id,
-            'name'  => 'nullable|string|max:191',
+            'email' => 'nullable|email|unique:teachers,email,' . $request->user()->id,
+            'name' => 'nullable|string|max:191',
             'photo' => 'nullable|mimes:jpg,jpeg,png,gif,tif,psd,pmp,webp|max:5000',
         ];
 
@@ -445,16 +445,17 @@ class TeacherController extends Controller
 
         $teacher = $request->user();
         $teacher->update([
-            'name'   => $request->name == null ? $teacher->name : $request->name,
-            'email'  => $request->email == null ? $teacher->email : $request->email,
-            'photo'  => $request->file('photo') == null ? $teacher->photo : UploadImageEdit($request->file('photo') , 'photo' , '/uploads/teachers' , $teacher->photo),
+            'name' => $request->name == null ? $teacher->name : $request->name,
+            'email' => $request->email == null ? $teacher->email : $request->email,
+            'photo' => $request->file('photo') == null ? $teacher->photo : UploadImageEdit($request->file('photo'), 'photo', '/uploads/teachers', $teacher->photo),
         ]);
         return ApiController::respondWithSuccess(new TeacherResource($teacher));
     }
+
     public function edit_whats_info(Request $request)
     {
         $rules = [
-            'whatsapp'  => 'sometimes|in:true,false',
+            'whatsapp' => 'sometimes|in:true,false',
             'phone_number' => 'sometimes'
         ];
 
@@ -465,7 +466,7 @@ class TeacherController extends Controller
 
         $teacher = $request->user();
         $teacher->update([
-            'whatsapp'     => $request->whatsapp == null ? $teacher->whatsapp : $request->whatsapp,
+            'whatsapp' => $request->whatsapp == null ? $teacher->whatsapp : $request->whatsapp,
             'phone_number' => $request->phone_number == null ? $teacher->phone_number : $request->phone_number,
         ]);
         return ApiController::respondWithSuccess(new TeacherResource($teacher));
@@ -475,10 +476,9 @@ class TeacherController extends Controller
     {
         $teacher = $request->user();
         $subscription = $teacher->subscription;
-        if ($subscription)
-        {
+        if ($subscription) {
             return ApiController::respondWithSuccess(new SubscriptionResource($subscription));
-        }else{
+        } else {
             $error = ['message' => trans('messages.not_found')];
             return ApiController::respondWithErrorNOTFoundObject($error);
         }
