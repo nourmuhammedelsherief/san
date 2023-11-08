@@ -146,6 +146,9 @@ Route::group(['middleware' => ['auth:teacher-api', 'cors', 'localization-api']],
         Route::controller(NotificationController::class)->group(function () {
             Route::post('/send_notification_to_student', 'send_notification_to_student');
             Route::post('/send_notification_to_parent', 'send_notification_to_parent');
+            Route::post('/send_notification_to_all_parents', 'send_notification_to_all_parents');
+            Route::post('/send_notification_to_classroom', 'send_notification_to_classroom');
+            Route::post('/send_notification_all_classrooms', 'send_notification_all_classrooms');
             Route::get('/notification_list', 'notification_list');
             Route::get('/delete_notification/{id}', 'delete_notification');
         });
