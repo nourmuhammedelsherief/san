@@ -59,6 +59,13 @@ Route::get('locale/{locale}', function ($locale) {
 Route::get('/error', function () {
     echo trans('messages.errorOccurred');
 });
+Route::get('/tamara', function () {
+    tamara();
+});
+Route::get('/tamara_checkOut', function () {
+    return redirect()->to(tamara_checkOut());
+});
+
 Route::get('/check-school-status/{id1?}/{id2?}', [SchoolLoginController::class, 'check_status'])->name('checkSchoolStatus');
 Route::get('/check-school-subscription-status/{id1?}/{id2?}', [SubscriptionController::class, 'check_status'])->name('checkSchoolStatus');
 
