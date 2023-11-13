@@ -72,13 +72,21 @@
                                         <td>{{$school->identity_code}}</td>
                                         <td>
                                             @if($school->status == 'active')
-                                                @lang('messages.active')
+                                                <a class="btn btn-success">
+                                                    @lang('messages.active')
+                                                </a>
                                             @elseif($school->status == 'not_active')
-                                                @lang('messages.not_active')
+                                                <a class="btn btn-dark">
+                                                    @lang('messages.not_active')
+                                                </a>
                                             @elseif($school->status == 'finished')
-                                                @lang('messages.finished')
+                                                <a class="btn btn-danger">
+                                                    @lang('messages.finished')
+                                                </a>
                                             @elseif($school->status == 'in_complete')
-                                                @lang('messages.in_complete')
+                                                <a class="btn btn-warning">
+                                                    @lang('messages.in_complete')
+                                                </a>
                                             @endif
                                         </td>
                                     </tr>
