@@ -3,6 +3,7 @@
 namespace App\Console\Commands;
 
 use App\Models\School\SchoolSubscription;
+use App\Models\Teacher\Teacher;
 use Illuminate\Console\Command;
 
 class TeacherSubscription extends Command
@@ -63,6 +64,24 @@ class TeacherSubscription extends Command
                 $school_subscription->school->update([
                     'status'     => 'finished',
                 ]);
+                // unActive the teachers belongs to school
+                $teachers = Teacher::with('teacher_classrooms')
+                    ->whereHas('teacher_classrooms', function ($q) use ($school_subscription){
+                        $q->with('classroom');
+                        $q->whereHas('classroom', function ($c) use ($school_subscription){
+                            $c->whereSchoolId($school_subscription->school->id);
+                        });
+                    })->get();
+                if ($teachers->count() > 0)
+                {
+                    foreach ($teachers as $teacher)
+                    {
+                        $teacher->update([
+                            'active' => 'false'
+                        ]);
+                    }
+                }
+
             }
         }
     }

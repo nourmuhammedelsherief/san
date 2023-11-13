@@ -5,6 +5,7 @@ namespace App\Http\Controllers\AdminController;
 use App\Http\Controllers\Controller;
 use App\Models\History;
 use App\Models\School\SchoolSubscription;
+use App\Models\Teacher\Teacher;
 use App\Models\Teacher\TeacherSubscription;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -85,6 +86,23 @@ class TransferController extends Controller
             $subscription->school->update([
                 'status'  => 'active',
             ]);
+            // Active the teachers belongs to school
+            $teachers = Teacher::with('teacher_classrooms')
+                ->whereHas('teacher_classrooms', function ($q) use ($subscription){
+                    $q->with('classroom');
+                    $q->whereHas('classroom', function ($c) use ($subscription){
+                        $c->whereSchoolId($subscription->school->id);
+                    });
+                })->get();
+            if ($teachers->count() > 0)
+            {
+                foreach ($teachers as $teacher)
+                {
+                    $teacher->update([
+                        'active' => 'true'
+                    ]);
+                }
+            }
             // add operation to History
             History::create([
                 'school_id'  => $subscription->school->id,

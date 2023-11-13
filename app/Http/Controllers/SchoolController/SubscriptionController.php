@@ -8,6 +8,7 @@ use App\Models\School\School;
 use App\Models\School\SchoolSubscription;
 use App\Models\SellerCode;
 use App\Models\Setting;
+use App\Models\Teacher\Teacher;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -153,6 +154,23 @@ class SubscriptionController extends Controller
             $subscription->school->update([
                 'status' => 'active',
             ]);
+            // Active the teachers belongs to school
+            $teachers = Teacher::with('teacher_classrooms')
+                ->whereHas('teacher_classrooms', function ($q) use ($subscription){
+                    $q->with('classroom');
+                    $q->whereHas('classroom', function ($c) use ($subscription){
+                        $c->whereSchoolId($subscription->school->id);
+                    });
+                })->get();
+            if ($teachers->count() > 0)
+            {
+                foreach ($teachers as $teacher)
+                {
+                    $teacher->update([
+                        'active' => 'true'
+                    ]);
+                }
+            }
             // add operation to History
             History::create([
                 'school_id' => $subscription->school->id,
