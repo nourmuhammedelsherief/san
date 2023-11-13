@@ -66,12 +66,19 @@
                               enctype="multipart/form-data">
                             @csrf
                             <div class="card-body">
+                                @php
+                                    $setting = \App\Models\Setting::first();
+                                @endphp
                                 <div class="form-group">
                                     <label for="username">@lang('messages.payment_type')</label>
                                     <select name="payment_method" class="form-control" onchange="showDiv(this)">
                                         <option disabled selected> @lang('messages.choose_one') </option>
-                                        <option value="bank"> @lang('messages.bank_transfer') </option>
-                                        <option value="online"> @lang('messages.online_payment') </option>
+                                        @if($setting->payment_type == 'both' or $setting->payment_type == 'bank')
+                                            <option value="bank"> @lang('messages.bank_transfer') </option>
+                                        @endif
+                                        @if($setting->payment_type == 'both' or $setting->payment_type == 'online')
+                                            <option value="online"> @lang('messages.online_payment') </option>
+                                        @endif
                                     </select>
                                     @if ($errors->has('payment_method'))
                                         <span class="help-block">
@@ -83,10 +90,10 @@
                                 <div id="bank" style="display: none">
                                     <div class="form-group">
                                         <?php  $setting = \App\Models\Setting::first(); ?>
-                                        <p style="color: #ff224f"> Bank  : {{$setting->bank_name}} </p>
+                                        <p style="color: #ff224f"> Bank : {{$setting->bank_name}} </p>
                                         <hr>
                                         <p
-                                            style="color: #ff224f"> Account Number  : {{$setting->account_number}} </p>
+                                            style="color: #ff224f"> Account Number : {{$setting->account_number}} </p>
                                         <hr>
                                         <p style="color: #ff224f"> IBAN Number : {{$setting->Iban_number}} </p>
                                     </div>
@@ -123,7 +130,8 @@
                                 </div>
                                 <div class="form-group">
                                     <label for="username">@lang('messages.seller_code')</label>
-                                    <input type="text" name="seller_code" value="{{old('seller_code')}}" class="form-control" placeholder="@lang('messages.putSellerCodeHere')">
+                                    <input type="text" name="seller_code" value="{{old('seller_code')}}"
+                                           class="form-control" placeholder="@lang('messages.putSellerCodeHere')">
                                     @if ($errors->has('seller_code'))
                                         <span class="help-block">
                                        <strong style="color: red;">{{ $errors->first('seller_code') }}</strong>

@@ -501,3 +501,115 @@ function tamara_checkOut()
         return $response[2];
     }
 }
+
+function tamara_capture()
+{
+    $basURL = "https://api-sandbox.tamara.co/payments/capture";
+
+
+    $body = array(
+        "order_id" => "5384f20b-f9d8-4ae7-b280-86cb6863b899",
+        "total_amount" => array(
+            "amount" => 300,
+            "currency" => "SAR"
+        ),
+        "items" => array(
+            array(
+                "name" => "Lego City 8601",
+                "type" => "Digital",
+                "reference_id" => "123",
+                "sku" => "SA-12436",
+                "quantity" => 1,
+                "discount_amount" => array(
+                    "amount" => 100,
+                    "currency" => "SAR"
+                ),
+                "tax_amount" => array(
+                    "amount" => 10,
+                    "currency" => "SAR"
+                ),
+                "unit_price" => array(
+                    "amount" => 490,
+                    "currency" => "SAR"
+                ),
+                "total_amount" => array(
+                    "amount" => 100,
+                    "currency" => "SAR"
+                )
+            )
+        ),
+        "discount_amount" => array(
+            "amount" => 0,
+            "currency" => "SAR"
+        ),
+        "shipping_amount" => array(
+            "amount" => 0,
+            "currency" => "SAR"
+        ),
+        "shipping_info" => array(
+            "shipped_at" => "2020-03-31T19:19:52.677Z",
+            "shipping_company" => "DHL",
+            "tracking_number" => 100,
+            "tracking_url" => "https://shipping.com/tracking?id=123456"
+        ),
+        "tax_amount" => array(
+            "amount" => 100,
+            "currency" => "SAR"
+        )
+    );
+    $headers = array(
+        'Content-type: application/json',
+        'Accept: application/json',
+        'Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhY2NvdW50SWQiOiIyZmIyOWVjZC0yNWExLTQ5NTgtOTc5Yi0zZThkNTVlNzQwMmIiLCJ0eXBlIjoibWVyY2hhbnQiLCJzYWx0IjoiOWVlZDA1YmM0YTkxMDUzOWYyMjQ3NzU4NjkwNzZmMzMiLCJyb2xlcyI6WyJST0xFX01FUkNIQU5UIl0sImlhdCI6MTY5OTQ0OTMwMiwiaXNzIjoiVGFtYXJhIn0.dKtVudFsEcbOC1tOLRtGekgWB1VwFtnUaTDb5UfPGNaXFO91hcN7SW0nk98qaz3ybOE8IMYTIXSG2zJB7wWxhMdPDVKczre0wQzdngP24Ufzu5siZ-AQLuUvEB8Xi1v16T25hukVo-sMBmE2sIpReEl5XxNkJw5UHpCsGDhi5WuIFGruv7hFlCR9ZPNc7smMbNM0KfvBBJpmItIUlU_ZqVHh5loD07XY6lFd4l6XrhVP-AjQ1uK0TJ_3cKNFXPUPaPmmHFQkSroS6YsxHrCaoxoeOzdJtS8PDM3pALg_oT7-g_xutJlDeSX5cqszAUfwJpESr5ts0OpUvDza2h4JZg'
+    );
+    $body = json_encode($body);
+    $curl = curl_init();
+    curl_setopt_array($curl, array(
+        CURLOPT_URL => $basURL,
+        CURLOPT_CUSTOMREQUEST => "POST",
+        CURLOPT_POSTFIELDS => $body,
+        CURLOPT_HTTPHEADER => $headers,
+
+    ));
+    curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+    $response = curl_exec($curl);
+    $err = curl_error($curl);
+    curl_close($curl);
+    if ($err) {
+        return $err;
+    } else {
+        //Save the order_id and checkout_id in your DBs
+        $response = array_values(json_decode($response, true));
+        dd($response);
+        return $response[2];
+    }
+}
+
+function order_authorise($order_id)
+{
+    $basURL = 'https://api-sandbox.tamara.co/orders/' . $order_id . '/authorise';
+
+    $headers = array(
+        'Content-type: application/json',
+        'Accept: application/json',
+        'Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhY2NvdW50SWQiOiIyZmIyOWVjZC0yNWExLTQ5NTgtOTc5Yi0zZThkNTVlNzQwMmIiLCJ0eXBlIjoibWVyY2hhbnQiLCJzYWx0IjoiOWVlZDA1YmM0YTkxMDUzOWYyMjQ3NzU4NjkwNzZmMzMiLCJyb2xlcyI6WyJST0xFX01FUkNIQU5UIl0sImlhdCI6MTY5OTQ0OTMwMiwiaXNzIjoiVGFtYXJhIn0.dKtVudFsEcbOC1tOLRtGekgWB1VwFtnUaTDb5UfPGNaXFO91hcN7SW0nk98qaz3ybOE8IMYTIXSG2zJB7wWxhMdPDVKczre0wQzdngP24Ufzu5siZ-AQLuUvEB8Xi1v16T25hukVo-sMBmE2sIpReEl5XxNkJw5UHpCsGDhi5WuIFGruv7hFlCR9ZPNc7smMbNM0KfvBBJpmItIUlU_ZqVHh5loD07XY6lFd4l6XrhVP-AjQ1uK0TJ_3cKNFXPUPaPmmHFQkSroS6YsxHrCaoxoeOzdJtS8PDM3pALg_oT7-g_xutJlDeSX5cqszAUfwJpESr5ts0OpUvDza2h4JZg'
+    );
+    $curl = curl_init();
+    curl_setopt_array($curl, array(
+        CURLOPT_URL => $basURL,
+        CURLOPT_CUSTOMREQUEST => "POST",
+        CURLOPT_HTTPHEADER => $headers,
+
+    ));
+    curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+    $response = curl_exec($curl);
+    $err = curl_error($curl);
+    curl_close($curl);
+    if ($err) {
+        return $err;
+    } else {
+        //Save the order_id and checkout_id in your DBs
+        $response = array_values(json_decode($response, true));
+        return 0;
+    }
+}

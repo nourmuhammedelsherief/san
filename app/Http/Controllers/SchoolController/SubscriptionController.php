@@ -36,7 +36,6 @@ class SubscriptionController extends Controller
     public function submit_subscription(Request $request , $id)
     {
         $school = School::findOrFail($id);
-        $school = School::findOrFail($id);
         $this->validate($request, [
             'payment_method' => 'required|in:online,bank',
             'transfer_photo' => 'required_if:payment_method,bank|mimes:jpg,jpeg,webp,png,gif,tif,psd,pmp|max:5000',
