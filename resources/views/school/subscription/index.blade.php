@@ -158,9 +158,13 @@
                                             <th style="width:50%">@lang('messages.payment_status'):</th>
                                             <td>
                                                 @if($school->subscription->payment == 'true')
-                                                    @lang('messages.paid')
+                                                    <a class="btn btn-primary">
+                                                        @lang('messages.paid')
+                                                    </a>
                                                 @else
-                                                    @lang('messages.not_paid')
+                                                    <a class="btn btn-danger">
+                                                        @lang('messages.not_paid')
+                                                    </a>
                                                 @endif
                                             </td>
                                         </tr>
