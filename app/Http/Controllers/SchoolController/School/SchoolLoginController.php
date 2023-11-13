@@ -58,11 +58,16 @@ class SchoolLoginController extends Controller
         $credential = [
             'email' => $request->email,
             'password' => $request->password,
-            'status' => 'active'
+//            'status' => 'active'
         ];
 
         if (Auth::guard('school')->attempt($credential, $request->remember)) {
-            return redirect()->route('school.home');
+            if (Auth::guard('school')->user()->status == 'finished')
+            {
+                return redirect()->route('school.my_subscription');
+            }else{
+                return redirect()->route('school.home');
+            }
         }
         return redirect()->back()->withInput($request->only(['email', 'remember']))->with('warning_login', trans('messages.warning_login'));
     }
