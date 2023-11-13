@@ -48,8 +48,8 @@
         <div class="container-fluid">
             <div class="row">
                 <div class="col-12">
-                    @include('flash::message')
-                    <!-- Main content -->
+                @include('flash::message')
+                <!-- Main content -->
                     <div class="invoice p-3 mb-3" id="barcode-svg">
                         <!-- Table row -->
                         <div class="row">
@@ -213,14 +213,19 @@
                                     {{app()->getLocale() == 'ar' ? 'تحميل الفاتورة': 'Download Invoice'}}
                                 </a>
                                 @if($school->subscription->status == 'not_active' or $school->subscription->status == 'finished')
-                                    <a href="{{route('pay_subscription' , $school->id)}}" class="btn btn-success float-right">
+                                    <a href="{{route('pay_subscription' , $school->id)}}"
+                                       class="btn btn-success float-right">
                                         <i class="far fa-credit-card"></i>
-                                        @lang('messages.pay_subscription')
+                                        @if($school->subscription->status == 'finished')
+                                            {{app()->getLocale() == 'ar' ? 'تجديد الاشتراك': 'Renew Subscription'}}
+                                        @else
+                                            @lang('messages.pay_subscription')
+                                        @endif
                                     </a>
                                 @endif
-{{--                                <a href="{{url('school/print_subscription_pdf')}}" target="_blank" class="btn btn-primary float-right" style="margin-right: 5px;">--}}
-{{--                                    <i class="fas fa-download"></i> @lang('messages.generate_pdf')--}}
-{{--                                </a>--}}
+                                {{--                                <a href="{{url('school/print_subscription_pdf')}}" target="_blank" class="btn btn-primary float-right" style="margin-right: 5px;">--}}
+                                {{--                                    <i class="fas fa-download"></i> @lang('messages.generate_pdf')--}}
+                                {{--                                </a>--}}
                             </div>
                         </div>
                     </div>
@@ -235,7 +240,7 @@
 <script>
     $(document).ready(function () {
 
-        document.getElementById("printPage").addEventListener("click", function() {
+        document.getElementById("printPage").addEventListener("click", function () {
             html2canvas(document.getElementById("barcode-svg")).then(function (canvas) {
                 var anchorTag = document.createElement("a");
                 document.body.appendChild(anchorTag);
