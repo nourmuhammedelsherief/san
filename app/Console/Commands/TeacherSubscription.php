@@ -77,7 +77,8 @@ class TeacherSubscription extends Command
                     foreach ($teachers as $teacher)
                     {
                         $teacher->update([
-                            'active' => 'false'
+                            'active' => 'false',
+                            'api_token' => null
                         ]);
                     }
                 }
