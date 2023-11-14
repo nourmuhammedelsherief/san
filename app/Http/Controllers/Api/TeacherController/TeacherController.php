@@ -10,6 +10,7 @@ use App\Mail\NotifyMail;
 use App\Models\History;
 use App\Models\SellerCode;
 use App\Models\Setting;
+use App\Models\Student;
 use App\Models\Teacher\Teacher;
 use App\Models\Teacher\TeacherSubject;
 use App\Models\Teacher\TeacherSubscription;
@@ -398,6 +399,17 @@ class TeacherController extends Controller
     {
         $teacher = $request->user();
         return ApiController::respondWithSuccess(new TeacherResource($teacher));
+    }
+    public function get_teacher_by_id($id)
+    {
+        $teacher = Teacher::find($id);
+        if ($teacher)
+        {
+            return ApiController::respondWithSuccess(new TeacherResource($teacher));
+        }else{
+            $error = ['message' => trans('messages.not_found')];
+            return ApiController::respondWithErrorNOTFoundObject($error);
+        }
     }
 
     public function changePassword(Request $request)
