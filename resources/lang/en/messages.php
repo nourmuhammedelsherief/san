@@ -238,4 +238,6 @@ return [
     'studentMovedSuccessfully' => 'Student Moved Successfully',
     'school_transfers' => 'Schools Transfers',
     'childRemovedSuccessfully' => 'Child Removed Successfully',
+    'copy' => 'Copy',
+    'copiedSuccessfully' => 'Classroom Copied Successfully',
 ];

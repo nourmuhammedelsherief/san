@@ -204,6 +204,8 @@ Route::prefix('school')->group(function () {
         });
 
         Route::resource('/classrooms', ClassroomController::class);
+        Route::get('/classrooms/copy/{id}', [ClassroomController::class, 'copy'])->name('classrooms.copy');
+        Route::post('/classrooms/copy/{id}', [ClassroomController::class, 'submit_copy'])->name('classrooms.submit_copy');
         Route::get('/classrooms/delete/{id}', [ClassroomController::class, 'destroy']);
 
         Route::resource('/students', StudentController::class);

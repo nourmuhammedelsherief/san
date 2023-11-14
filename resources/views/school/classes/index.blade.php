@@ -78,6 +78,10 @@
                                     </td>
                                     <td>
 
+                                        <a class="btn btn-primary" href="{{route('classrooms.copy' , $class->id)}}">
+                                            <i class="fa fa-copy"></i> @lang('messages.copy')
+                                        </a>
+
                                         <a class="btn btn-info" href="{{route('classrooms.edit' , $class->id)}}">
                                             <i class="fa fa-user-edit"></i> @lang('messages.edit')
                                         </a>

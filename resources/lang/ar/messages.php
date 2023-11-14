@@ -223,4 +223,6 @@ return [
     'school_transfers' => 'التحويلات البنكية للمدارس',
     'send' => 'إرسال',
     'childRemovedSuccessfully' => 'تم حذف الطالب بنجاح',
+    'copy' => 'نسخ',
+    'copiedSuccessfully' => 'تم نسخ الفصل الدراسي بنجاح',
 ];
