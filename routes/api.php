@@ -82,7 +82,7 @@ Route::group(['middleware' => ['auth:teacher-api', 'cors', 'localization-api']],
     Route::prefix('teachers')->group(function () {
         Route::controller(TeacherController::class)->group(function () {
             Route::get('/profile', 'profile');
-            Route::get('/get_teacher_by_id/{id}', 'get_teacher_by_id');
+            Route::get('/get_teacher_by_integration_code/{code}', 'get_teacher_by_integration_code');
             Route::get('/my_subscription', 'my_subscription');
             Route::post('/change_password', 'changePassword');
             Route::post('/edit_account', 'edit_account');

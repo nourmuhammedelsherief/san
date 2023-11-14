@@ -400,9 +400,9 @@ class TeacherController extends Controller
         $teacher = $request->user();
         return ApiController::respondWithSuccess(new TeacherResource($teacher));
     }
-    public function get_teacher_by_id($id)
+    public function get_teacher_by_integration_code($code)
     {
-        $teacher = Teacher::find($id);
+        $teacher = Teacher::where('integration_code' , $code)->first();
         if ($teacher)
         {
             return ApiController::respondWithSuccess(new TeacherResource($teacher));
