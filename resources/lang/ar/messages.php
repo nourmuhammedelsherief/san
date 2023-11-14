@@ -222,4 +222,5 @@ return [
     'studentMovedSuccessfully' => 'تم نقل الطالب بنجاح',
     'school_transfers' => 'التحويلات البنكية للمدارس',
     'send' => 'إرسال',
+    'childRemovedSuccessfully' => 'تم حذف الطالب بنجاح',
 ];

@@ -63,6 +63,24 @@ class ParentChildController extends Controller
             return ApiController::respondWithErrorNOTFoundObject($error);
         endif;
     }
+    public function remove_child(Request $request , $id)
+    {
+        $parent = $request->user();
+        $child = FatherChild::whereFatherId($parent->id)
+            ->whereStudentId($id)
+            ->first();
+        if ($child)
+        {
+            $child->delete();
+            $success = [
+                'message' => trans('messages.childRemovedSuccessfully')
+            ];
+            return ApiController::respondWithSuccess($success);
+        }else{
+            $error = ['message' => trans('messages.not_found')];
+            return ApiController::respondWithErrorNOTFoundObject($error);
+        }
+    }
 
     public function my_children(Request $request)
     {

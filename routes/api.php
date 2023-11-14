@@ -203,6 +203,7 @@ Route::group(['middleware' => ['auth:father-api', 'cors', 'localization-api']], 
             Route::post('/get_child/{id}', 'get_child');
             Route::get('/my_child_arrange/{id}', 'my_child_arrange');
             Route::get('/my_child_teachers_list/{id}', 'my_child_teachers_list');
+            Route::get('/remove_child/{id}', 'remove_child');
         });
         Route::controller(NotificationController::class)->group(function () {
             Route::get('/notification_list', 'father_notification_list');
