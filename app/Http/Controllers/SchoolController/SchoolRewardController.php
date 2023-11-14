@@ -34,14 +34,14 @@ class SchoolRewardController extends Controller
     {
         $this->validate($request , [
             'name'    => 'required|string|max:191',
-            'photo'   => 'nullable|mimes:jpg,jpeg,png,gif,tif,psd,pmp,webp|max:5000',
+//            'photo'   => 'nullable|mimes:jpg,jpeg,png,gif,tif,psd,pmp,webp|max:5000',
             'points'  => 'required|numeric',
         ]);
         // create new reward
         SchoolReward::create([
             'school_id' => auth()->guard('school')->user()->id,
             'name'      => $request->name,
-            'photo'     => $request->file('photo') == null ? null : UploadImage($request->file('photo') , 'photo' , '/uploads/rewards'),
+//            'photo'     => $request->file('photo') == null ? null : UploadImage($request->file('photo') , 'photo' , '/uploads/rewards'),
             'points'    => $request->points,
         ]);
         flash(trans('messages.created'))->success();
@@ -73,12 +73,12 @@ class SchoolRewardController extends Controller
         $reward = SchoolReward::findOrFail($id);
         $this->validate($request , [
             'name'    => 'required|string|max:191',
-            'photo'   => 'nullable|mimes:jpg,jpeg,png,gif,tif,psd,pmp,webp|max:5000',
+//            'photo'   => 'nullable|mimes:jpg,jpeg,png,gif,tif,psd,pmp,webp|max:5000',
             'points'  => 'required|numeric',
         ]);
         $reward->update([
             'name'      => $request->name,
-            'photo'     => $request->file('photo') == null ? $reward->photo : UploadImageEdit($request->file('photo') , 'photo' , '/uploads/rewards' , $reward->photo),
+//            'photo'     => $request->file('photo') == null ? $reward->photo : UploadImageEdit($request->file('photo') , 'photo' , '/uploads/rewards' , $reward->photo),
             'points'    => $request->points,
         ]);
         // update school teacher rewards
@@ -104,10 +104,10 @@ class SchoolRewardController extends Controller
     public function destroy(string $id)
     {
         $reward = SchoolReward::findOrFail($id);
-        if ($reward->photo)
-        {
-            @unlink(public_path('/uploads/rewards/' . $reward->photo));
-        }
+//        if ($reward->photo)
+//        {
+//            @unlink(public_path('/uploads/rewards/' . $reward->photo));
+//        }
         $reward->delete();
         flash(trans('messages.updated'))->success();
         return redirect()->route('rewards.index');

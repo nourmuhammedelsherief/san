@@ -66,35 +66,35 @@
                                     @endif
                                 </div>
 
-                                <div class="form-group ">
-                                    <label class="control-label col-md-3"> @lang('messages.photo') </label>
-                                    <div class="col-md-9">
-                                        <div class="fileinput fileinput-new" data-provides="fileinput">
-                                            <div class="fileinput-preview thumbnail" data-trigger="fileinput"
-                                                 style="width: 200px; height: 150px; border: 1px solid black;">
-                                                {{--                                                @if($slider->photo != null)--}}
-                                                {{--                                                    <img src="{{asset('/uploads/sliders/' . $slider->photo)}}">--}}
-                                                {{--                                                @endif--}}
-                                            </div>
-                                            <div>
-                                                <span class="btn red btn-outline btn-file">
-                                                    <span
-                                                        class="fileinput-new btn btn-info"> @lang('messages.choose_photo') </span>
-                                                    <span
-                                                        class="fileinput-exists btn btn-primary"> @lang('messages.change') </span>
-                                                    <input type="file" name="photo"> </span>
-                                                <a href="javascript:;" class="btn btn-danger fileinput-exists"
-                                                   data-dismiss="fileinput"> @lang('messages.remove') </a>
-                                            </div>
-                                        </div>
-                                        @if ($errors->has('photo'))
-                                            <span class="help-block">
-                                                <strong style="color: red;">{{ $errors->first('photo') }}</strong>
-                                            </span>
-                                        @endif
-                                    </div>
+{{--                                <div class="form-group ">--}}
+{{--                                    <label class="control-label col-md-3"> @lang('messages.photo') </label>--}}
+{{--                                    <div class="col-md-9">--}}
+{{--                                        <div class="fileinput fileinput-new" data-provides="fileinput">--}}
+{{--                                            <div class="fileinput-preview thumbnail" data-trigger="fileinput"--}}
+{{--                                                 style="width: 200px; height: 150px; border: 1px solid black;">--}}
+{{--                                                --}}{{--                                                @if($slider->photo != null)--}}
+{{--                                                --}}{{--                                                    <img src="{{asset('/uploads/sliders/' . $slider->photo)}}">--}}
+{{--                                                --}}{{--                                                @endif--}}
+{{--                                            </div>--}}
+{{--                                            <div>--}}
+{{--                                                <span class="btn red btn-outline btn-file">--}}
+{{--                                                    <span--}}
+{{--                                                        class="fileinput-new btn btn-info"> @lang('messages.choose_photo') </span>--}}
+{{--                                                    <span--}}
+{{--                                                        class="fileinput-exists btn btn-primary"> @lang('messages.change') </span>--}}
+{{--                                                    <input type="file" name="photo"> </span>--}}
+{{--                                                <a href="javascript:;" class="btn btn-danger fileinput-exists"--}}
+{{--                                                   data-dismiss="fileinput"> @lang('messages.remove') </a>--}}
+{{--                                            </div>--}}
+{{--                                        </div>--}}
+{{--                                        @if ($errors->has('photo'))--}}
+{{--                                            <span class="help-block">--}}
+{{--                                                <strong style="color: red;">{{ $errors->first('photo') }}</strong>--}}
+{{--                                            </span>--}}
+{{--                                        @endif--}}
+{{--                                    </div>--}}
 
-                                </div>
+{{--                                </div>--}}
 
 
                             </div>

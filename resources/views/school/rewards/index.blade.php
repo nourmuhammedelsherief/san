@@ -60,7 +60,6 @@
                                 <th></th>
                                 <th> @lang('messages.name') </th>
                                 <th> @lang('messages.points') </th>
-                                <th> @lang('messages.photo') </th>
                                 <th> @lang('messages.operations') </th>
                             </tr>
                             </thead>
@@ -77,37 +76,37 @@
                                     <td><?php echo ++$i ?></td>
                                     <td>{{$reward->name}}</td>
                                     <td>{{$reward->points}}</td>
-                                    <td>
-                                        <button type="button" class="btn btn-success" data-toggle="modal"
-                                                data-target="#modal-success-{{$reward->id}}">
-                                            <i class="fa fa-eye"></i>
-                                        </button>
-                                        <div class="modal fade" id="modal-success-{{$reward->id}}">
-                                            <div class="modal-dialog">
-                                                <div class="modal-content bg-success">
-                                                    <div class="modal-header">
-                                                        <h4 class="modal-title">@lang('messages.photo')</h4>
-                                                        <button type="button" class="close" data-dismiss="modal"
-                                                                aria-label="Close">
-                                                            <span aria-hidden="true">&times;</span></button>
-                                                    </div>
-                                                    <div class="modal-body">
-                                                        <p>
-                                                            <img
-                                                                src="{{asset('/uploads/rewards/' . $reward->photo)}}"
-                                                                width="400" height="400">
-                                                        </p>
-                                                    </div>
-                                                    <div class="modal-footer justify-content-between">
-                                                        <button type="button" class="btn btn-outline-light"
-                                                                data-dismiss="modal">@lang('messages.close')</button>
-                                                    </div>
-                                                </div>
-                                                <!-- /.modal-content -->
-                                            </div>
-                                            <!-- /.modal-dialog -->
-                                        </div>
-                                    </td>
+{{--                                    <td>--}}
+{{--                                        <button type="button" class="btn btn-success" data-toggle="modal"--}}
+{{--                                                data-target="#modal-success-{{$reward->id}}">--}}
+{{--                                            <i class="fa fa-eye"></i>--}}
+{{--                                        </button>--}}
+{{--                                        <div class="modal fade" id="modal-success-{{$reward->id}}">--}}
+{{--                                            <div class="modal-dialog">--}}
+{{--                                                <div class="modal-content bg-success">--}}
+{{--                                                    <div class="modal-header">--}}
+{{--                                                        <h4 class="modal-title">@lang('messages.photo')</h4>--}}
+{{--                                                        <button type="button" class="close" data-dismiss="modal"--}}
+{{--                                                                aria-label="Close">--}}
+{{--                                                            <span aria-hidden="true">&times;</span></button>--}}
+{{--                                                    </div>--}}
+{{--                                                    <div class="modal-body">--}}
+{{--                                                        <p>--}}
+{{--                                                            <img--}}
+{{--                                                                src="{{asset('/uploads/rewards/' . $reward->photo)}}"--}}
+{{--                                                                width="400" height="400">--}}
+{{--                                                        </p>--}}
+{{--                                                    </div>--}}
+{{--                                                    <div class="modal-footer justify-content-between">--}}
+{{--                                                        <button type="button" class="btn btn-outline-light"--}}
+{{--                                                                data-dismiss="modal">@lang('messages.close')</button>--}}
+{{--                                                    </div>--}}
+{{--                                                </div>--}}
+{{--                                                <!-- /.modal-content -->--}}
+{{--                                            </div>--}}
+{{--                                            <!-- /.modal-dialog -->--}}
+{{--                                        </div>--}}
+{{--                                    </td>--}}
                                     <td>
 
                                         <a class="btn btn-info" href="{{route('rewards.edit' , $reward->id)}}">
