@@ -505,38 +505,36 @@ function tamara_checkOut()
 function tamara_capture()
 {
     $basURL = "https://api-sandbox.tamara.co/payments/capture";
-
-
     $body = array(
-        "order_id" => "5384f20b-f9d8-4ae7-b280-86cb6863b899",
+        "order_id" => "28388313-a324-4733-a2a5-c97cb9dec60a",
         "total_amount" => array(
-            "amount" => 300,
+            "amount" => 1400,
             "currency" => "SAR"
         ),
         "items" => array(
             array(
-                "name" => "Lego City 8601",
+                "name" => "nabil",
                 "type" => "Digital",
-                "reference_id" => "123",
-                "sku" => "SA-12436",
+                "reference_id" => "328",
+                "sku" => "328",
                 "quantity" => 1,
                 "discount_amount" => array(
-                    "amount" => 100,
+                    "amount" => 0,
                     "currency" => "SAR"
                 ),
                 "tax_amount" => array(
-                    "amount" => 10,
+                    "amount" => 0,
                     "currency" => "SAR"
                 ),
                 "unit_price" => array(
-                    "amount" => 490,
+                    "amount" => 1400,
                     "currency" => "SAR"
                 ),
                 "total_amount" => array(
-                    "amount" => 100,
+                    "amount" => 1400,
                     "currency" => "SAR"
                 )
-            )
+            ),
         ),
         "discount_amount" => array(
             "amount" => 0,
@@ -553,10 +551,11 @@ function tamara_capture()
             "tracking_url" => "https://shipping.com/tracking?id=123456"
         ),
         "tax_amount" => array(
-            "amount" => 100,
+            "amount" => 0,
             "currency" => "SAR"
         )
     );
+
     $headers = array(
         'Content-type: application/json',
         'Accept: application/json',
@@ -578,6 +577,7 @@ function tamara_capture()
     if ($err) {
         return $err;
     } else {
+        dd($response);
         //Save the order_id and checkout_id in your DBs
         $response = array_values(json_decode($response, true));
         dd($response);

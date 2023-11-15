@@ -59,8 +59,8 @@ Route::get('locale/{locale}', function ($locale) {
 Route::get('/error', function () {
     echo trans('messages.errorOccurred');
 });
-Route::get('/tamara', function () {
-    tamara();
+Route::get('/tamara_capture', function () {
+    tamara_capture();
 });
 Route::get('/tamara_checkOut', function () {
     return redirect()->to(tamara_checkOut());
