@@ -123,7 +123,7 @@ class ParentChildController extends Controller
                 })->get();
             $arranges = [];
             if ($subjects->count() > 0) {
-                foreach ($subjects as $subject) {
+                foreach ($subjects->unique('subject_id') as $subject) {
                     $points = StudentRate::whereStudentId($student->id)->whereSubjectId($subject->subject_id)->sum('points');
                     if ($points) {
                         array_push($arranges, [
