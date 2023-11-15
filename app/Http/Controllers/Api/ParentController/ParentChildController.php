@@ -138,7 +138,7 @@ class ParentChildController extends Controller
                 'student' => new StudentResource($student),
                 'arranges' => $arranges,
             ];
-            return ApiController::respondWithSuccess($all);
+            return ApiController::respondWithSuccess($arranges);
         } else {
             $error = ['message' => trans('messages.not_found')];
             return ApiController::respondWithErrorNOTFoundObject($error);
