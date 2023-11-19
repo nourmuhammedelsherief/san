@@ -88,9 +88,7 @@ class TeacherController extends Controller
         if ($request->seller_code != null) {
             // apply the seller code discount
             $seller_code = SellerCode::whereCode($request->seller_code)->first();
-            dd($seller_code);
             if ($seller_code and $seller_code->start_at <= Carbon::now() and $seller_code->end_at >= Carbon::now()) {
-                dd($seller_code);
                 $discount = ($amount * $seller_code->discount) / 100;
                 $amount = $amount - $discount;
             }
