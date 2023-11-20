@@ -206,7 +206,7 @@ class TeacherController extends Controller
             return ApiController::respondWithErrorArray(validateRules($validator->errors(), $rules));
 
         $teacher = Teacher::whereEmail($request->email)->first();
-        if (auth()->guard('teacher')->attempt(['email' => $request->email, 'password' => $request->password, 'active' => 'true'])) {
+        if ($teacher and auth()->guard('teacher')->attempt(['email' => $request->email, 'password' => $request->password, 'active' => 'true'])) {
             $teacher->update([
                 'api_token' => generateApiToken($teacher->id, 50),
             ]);
