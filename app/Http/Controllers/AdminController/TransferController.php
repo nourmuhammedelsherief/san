@@ -5,6 +5,7 @@ namespace App\Http\Controllers\AdminController;
 use App\Http\Controllers\Controller;
 use App\Models\History;
 use App\Models\School\SchoolSubscription;
+use App\Models\Setting;
 use App\Models\Teacher\Teacher;
 use App\Models\Teacher\TeacherSubscription;
 use Carbon\Carbon;
@@ -37,8 +38,11 @@ class TransferController extends Controller
             ]);
             if ($subscription->invitation_code_id != null)
             {
+                $setting = Setting::first();
+                $amount = $setting->teacher_subscribe_price;
+                $commission = ($amount * $setting->invitation_code_commission) / 100;
                 $subscription->invitation_code->update([
-                    'balance' => $subscription->invitation_code->balance + $subscription->invitation_discount
+                    'balance' => $subscription->invitation_code->balance + $commission
                 ]);
             }
             // add operation to History

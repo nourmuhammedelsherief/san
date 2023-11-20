@@ -225,4 +225,5 @@ return [
     'childRemovedSuccessfully' => 'تم حذف الطالب بنجاح',
     'copy' => 'نسخ',
     'copiedSuccessfully' => 'تم نسخ الفصل الدراسي بنجاح',
+    'invitation_code_commission' => 'قيمة العمولة لكواد دعوه المعلمين',
 ];

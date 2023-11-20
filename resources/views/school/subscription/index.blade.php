@@ -191,7 +191,7 @@
                                         @if($school->subscription->seller_code)
                                             <tr>
                                                 <th>@lang('messages.seller_code'):</th>
-                                                <td>{{$school->subscription->seller_code->seller_name}}</td>
+                                                <td>{{$school->subscription->seller_code->code}}</td>
                                             </tr>
                                         @endif
                                         <tr>

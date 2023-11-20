@@ -266,8 +266,11 @@ class TeacherController extends Controller
                 'active' => 'true',
             ]);
             if ($subscription->invitation_code_id != null) {
+                $setting = Setting::first();
+                $amount = $setting->teacher_subscribe_price;
+                $commission = ($amount * $setting->invitation_code_commission) / 100;
                 $subscription->invitation_code->update([
-                    'balance' => $subscription->invitation_code->balance + $subscription->invitation_discount
+                    'balance' => $subscription->invitation_code->balance + $commission
                 ]);
             }
             // add operation to History

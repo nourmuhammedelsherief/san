@@ -19,6 +19,7 @@ class Setting extends Model
         'school_subscribe_price',
         'teacher_subscribe_price',
         'invitation_code_discount',
+        'invitation_code_commission',
         'logo',
         'contact_number',
         'payment_type',

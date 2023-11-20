@@ -220,6 +220,20 @@
                                         <div class="col-sm-2">%</div>
                                     </div>
                                 </div>
+                                <div class="form-group">
+                                    <label class="control-label"> @lang('messages.invitation_code_commission') </label>
+                                    <div class="row">
+                                        <div class="col-sm-10">
+                                            <input name="invitation_code_commission" type="number" class="form-control" value="{{$setting->invitation_code_commission}}" placeholder="@lang('messages.invitation_code_discount')">
+                                            @if ($errors->has('invitation_code_commission'))
+                                                <span class="help-block">
+                                            <strong style="color: red;">{{ $errors->first('invitation_code_commission') }}</strong>
+                                        </span>
+                                            @endif
+                                        </div>
+                                        <div class="col-sm-2">%</div>
+                                    </div>
+                                </div>
 
                                 <hr>
                                 <div class="form-group ">

@@ -46,6 +46,7 @@ class SettingController extends Controller
             'school_subscribe_price' => $request->school_subscribe_price,
             'teacher_subscribe_price' => $request->teacher_subscribe_price,
             'invitation_code_discount' => $request->invitation_code_discount,
+            'invitation_code_commission' => $request->invitation_code_commission,
             'payment_type' => $request->payment_type,
             'contact_number' => $request->contact_number,
             'site_url' => $request->site_url,

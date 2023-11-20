@@ -94,6 +94,13 @@ class SchoolController extends Controller
     public function destroy(string $id)
     {
         $school = School::findOrFail($id);
+        $teachers = Teacher::with('teacher_classrooms')
+            ->whereHas('teacher_classrooms' , function ($q) use ($school){
+                $q->with('classroom');
+                $q->whereHas('classroom' , function ($t) use ($school){
+                    $t->whereSchoolId($school->id);
+                });
+            })->delete();
         $school->delete();
         flash(trans('messages.deleted'))->success();
         return redirect()->back();
