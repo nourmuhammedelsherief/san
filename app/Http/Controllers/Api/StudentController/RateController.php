@@ -91,11 +91,15 @@ class RateController extends Controller
             foreach ($subjects as $subject)
             {
                 $points = StudentRate::whereStudentId($student->id)->whereSubjectId($subject->subject_id)->sum('points');
-                array_push($arranges , [
-                    'arrange' => intval(getStudentArrange($subject->subject_id , $student->id , $points) + 1),
-                    'subject' => new SubjectResource($subject->subject),
-                    'points'  => intval($points),
-                ]);
+                if ($points > 0)
+                {
+                    array_push($arranges , [
+                        'arrange' => intval(getStudentArrange($subject->subject_id , $student->id , $points) + 1),
+                        'subject' => new SubjectResource($subject->subject),
+                        'points'  => intval($points),
+                    ]);
+                }
+
             }
         }
         $all = [
