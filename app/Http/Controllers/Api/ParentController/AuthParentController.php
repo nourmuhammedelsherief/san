@@ -13,6 +13,7 @@ use App\Models\Subject;
 use App\Models\Teacher\ClassRoomSubject;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Validator;
 use Mail;
@@ -303,7 +304,8 @@ class AuthParentController extends Controller
 
         $student = Student::find($request->student_id);
         $classroom = $student->classroom;
-        $subjects = ClassRoomSubject::with('class_room')
+        $subjects = DB::table('class_room_subjects')
+            ->with('class_room')
             ->whereHas('class_room', function ($q) use ($classroom) {
                 $q->with('classroom');
                 $q->whereHas('classroom', function ($c) use ($classroom) {
