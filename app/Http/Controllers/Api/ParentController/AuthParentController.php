@@ -309,7 +309,10 @@ class AuthParentController extends Controller
                 $q->whereHas('classroom', function ($c) use ($classroom) {
                     $c->where('id', $classroom->id);
                 });
-            })->get();
+            })
+            ->select('subject_id' , 'class_room_id')
+            ->groupBy('subject_id')
+            ->get();
 //        $subjects = Subject::all();
         return ApiController::respondWithSuccess(SubjectResource::collection($subjects));
     }
