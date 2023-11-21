@@ -310,6 +310,7 @@ class AuthParentController extends Controller
                     $c->where('id', $classroom->id);
                 });
             })
+            ->distinct()
             ->get();
 //        $subjects = Subject::all();
         return ApiController::respondWithSuccess(SubjectResource::collection($subjects));
