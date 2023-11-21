@@ -61,6 +61,7 @@ Route::middleware(['cors', 'localization-api'])->group(function () {
     Route::prefix('students')->group(function () {
         Route::controller(AuthStudentController::class)->group(function () {
             Route::post('/login', 'login');
+            Route::get('/get_student_by_identity_id/{id}', 'get_student_by_identity_id');
         });
     });
     Route::prefix('parents')->group(function () {

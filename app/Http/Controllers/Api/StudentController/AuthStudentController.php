@@ -78,4 +78,17 @@ class AuthStudentController extends Controller
             ->get();
         return ApiController::respondWithSuccess(SubjectResource::collection($subjects));
     }
+    public function get_student_by_identity_id($id)
+    {
+        $student  = Student::where('identity_id' , $id)->first();
+        if ($student)
+        {
+            return ApiController::respondWithSuccess(new StudentResource($student));
+        }else{
+            $errors = [
+                'message' => trans('messages.wrong_password'),
+            ];
+            return ApiController::respondWithErrorObject(array($errors));
+        }
+    }
 }
