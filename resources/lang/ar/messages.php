@@ -226,4 +226,5 @@ return [
     'copy' => 'نسخ',
     'copiedSuccessfully' => 'تم نسخ الفصل الدراسي بنجاح',
     'invitation_code_commission' => 'قيمة العمولة لكواد دعوه المعلمين',
+    'invitation_code' => 'كود الدعوة',
 ];

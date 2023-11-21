@@ -241,4 +241,5 @@ return [
     'copy' => 'Copy',
     'copiedSuccessfully' => 'Classroom Copied Successfully',
     'invitation_code_commission' => 'Invitation Code Commission',
+    'invitation_code' => 'Invitation Code',
 ];

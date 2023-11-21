@@ -55,6 +55,7 @@
                                 <th></th>
                                 <th> @lang('messages.teacher') </th>
                                 <th> @lang('messages.seller_code') </th>
+                                <th> @lang('messages.invitation_code') </th>
                                 <th> @lang('messages.discount') </th>
                                 <th> @lang('messages.price') </th>
                                 <th> @lang('messages.transfer_photo') </th>
@@ -77,6 +78,7 @@
                                         {{$transfer->teacher->name}}
                                     </td>
                                     <td> {{$transfer->seller_code_id == null ? '' : $transfer->seller_code->code}} </td>
+                                    <td> {{$transfer->invitation_code_id == null ? '' : $transfer->invitation_code->invitation_code}} </td>
                                     <td> {{$transfer->discount}} @lang('messages.SR')</td>
                                     <td>
                                         {{$transfer->paid_amount}} @lang('messages.SR')
