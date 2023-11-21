@@ -36,6 +36,7 @@ class StudentController extends Controller
         if ($classroom and $check)
         {
             $students = Student::whereClassroomId($id)
+                ->orderBy('name' , 'asc')
                 ->orderBy('points' , 'desc')
                 ->get();
 //            if ($request->subject_id == null)
