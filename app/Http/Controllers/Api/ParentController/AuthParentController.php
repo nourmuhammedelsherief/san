@@ -310,8 +310,8 @@ class AuthParentController extends Controller
                     $c->where('id', $classroom->id);
                 });
             })
-            ->select('subject_id')
-            ->groupBy('subject_id')
+//            ->select('subject_id')
+//            ->groupBy('subject_id')
             ->get();
 //        $subjects = Subject::all();
         return ApiController::respondWithSuccess(SubjectResource::collection($subjects));
