@@ -37,7 +37,7 @@ class StudentController extends Controller
         {
             $students = Student::whereClassroomId($id)
                 ->orderBy('name' , 'asc')
-                ->orderBy('points' , 'desc')
+//                ->orderBy('points' , 'desc')
                 ->get();
 //            if ($request->subject_id == null)
 //            {
