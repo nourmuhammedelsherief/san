@@ -88,6 +88,7 @@
                                 <th> @lang('messages.school') </th>
                                 <th> @lang('messages.payment_type') </th>
                                 <th> @lang('messages.end_subscription') </th>
+                                <th> @lang('messages.balance') </th>
                                 <th> @lang('messages.histories') </th>
                                 <th> @lang('messages.operations') </th>
                             </tr>
@@ -122,6 +123,9 @@
                                         @else
                                             @lang('messages.noSubscription')
                                         @endif
+                                    </td>
+                                    <td>
+                                        {{$teacher->balance}}
                                     </td>
                                     <td>
                                         <a class="btn btn-primary" href="{{route('teachers.teacher_history' , $teacher->id)}}">
