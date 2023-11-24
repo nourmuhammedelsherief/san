@@ -20,8 +20,9 @@ class StdRewardController extends Controller
         $std = Student::find($id);
         if ($std)
         {
+            $std_points = $std->rates()->sum('points') - $std->rewards()->sum('points');
             $rewards = Reward::whereTeacherId($request->user()->id)
-                ->where('points' , '<' , $std->points)
+                ->where('points' , '<' , $std_points)
                 ->get();
             return  ApiController::respondWithSuccess(RewardResource::collection($rewards));
         }else{
@@ -45,11 +46,9 @@ class StdRewardController extends Controller
 
         $std = Student::find($request->student_id);
         // get  the student rate at this subject
-        $student_rate = StudentRate::whereStudentId($std->id)
-            ->whereSubjectId($request->subject_id)
-            ->sum('points');
+        $std_points = $std->rates()->whereSubjectId($request->subject_id)->sum('points') - $std->rewards()->whereSubjectId($request->subject_id)->sum('points');
         $reward = Reward::find($request->reward_id);
-        if ($student_rate >= $reward->points)
+        if ($std_points >= $reward->points)
         {
             // add reward to student and remove its points from std points
             StudentReward::create([
