@@ -109,10 +109,8 @@ class StdRewardController extends Controller
             {
                 $reward = Reward::find($item->reward_id);
                 $student = Student::find($item->student_id);
-                $student_rate = StudentRate::whereStudentId($student->id)
-                    ->whereSubjectId($request->subject_id)
-                    ->sum('points');
-                if ($student_rate >= $reward->points)
+                $std_points = $student->rates()->whereSubjectId($request->subject_id)->sum('points') - $student->rewards()->whereSubjectId($request->subject_id)->sum('points');
+                if ($std_points >= $reward->points)
                 {
                     StudentReward::create([
                         'student_id' => $student->id,
