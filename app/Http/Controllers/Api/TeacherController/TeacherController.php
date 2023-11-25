@@ -280,7 +280,9 @@ class TeacherController extends Controller
                 'discount' => $subscription->discount,
                 'type' => 'teacher',
                 'invoice_id' => $InvoiceId,
-                'payment_type' => 'online'
+                'payment_type' => 'online',
+                'seller_code'   => $subscription->seller_code?->code,
+                'invitation_code' => $subscription->invitation_code?->invitation_code,
             ]);
             $success = [
                 'code' => 200,

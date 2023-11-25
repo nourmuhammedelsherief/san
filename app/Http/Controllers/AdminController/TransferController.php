@@ -52,7 +52,9 @@ class TransferController extends Controller
                 'discount'    => $subscription->discount,
                 'type'        => 'teacher',
                 'transfer_photo' => $subscription->transfer_photo,
-                'payment_type' => 'bank'
+                'payment_type' => 'bank',
+                'seller_code'   => $subscription->seller_code?->code,
+                'invitation_code' => $subscription->invitation_code?->invitation_code,
             ]);
             flash(trans('messages.payment_done_successfully'))->success();
             return redirect()->back();
@@ -114,7 +116,8 @@ class TransferController extends Controller
                 'discount'    => $subscription->discount,
                 'type'        => 'school',
                 'transfer_photo' => $subscription->transfer_photo,
-                'payment_type' => 'bank'
+                'payment_type' => 'bank',
+                'seller_code'   => $subscription->seller_code?->code,
             ]);
             flash(trans('messages.payment_done_successfully'))->success();
             return redirect()->back();

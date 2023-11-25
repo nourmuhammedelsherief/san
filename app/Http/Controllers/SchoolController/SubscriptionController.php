@@ -178,7 +178,8 @@ class SubscriptionController extends Controller
                 'discount' => $subscription->discount,
                 'type' => 'teacher',
                 'invoice_id' => $InvoiceId,
-                'payment_type' => 'online'
+                'payment_type' => 'online',
+                'seller_code'   => $subscription->seller_code?->code,
             ]);
             flash(trans('messages.payment_done_successfully'))->success();
             return redirect()->to(url('school/my_subscription'));

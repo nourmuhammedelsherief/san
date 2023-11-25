@@ -19,7 +19,9 @@ class History extends Model
         'transfer_photo',
         'invoice_id',
         'payment_type',
-        'school_id'
+        'school_id',
+        'seller_code',
+        'invitation_code'
     ];
 
     public function teacher()

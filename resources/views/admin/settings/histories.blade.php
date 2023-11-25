@@ -95,6 +95,8 @@
                                 <th> @lang('messages.price') </th>
                                 <th> @lang('messages.payment_type') </th>
                                 <th> @lang('messages.transfer_photo') </th>
+                                <th> @lang('messages.seller_code') </th>
+                                <th> @lang('messages.invitation_code') </th>
                                 <th> @lang('messages.operation_date') </th>
                                 <th> @lang('messages.operations') </th>
                             </tr>
@@ -162,6 +164,12 @@
                                                 <!-- /.modal-dialog -->
                                             </div>
                                         @endif
+                                    </td>
+                                    <td>
+                                        {{$history->seller_code}}
+                                    </td>
+                                    <td>
+                                        {{$history->invitation_code}}
                                     </td>
                                     <td>
                                         {{$history->created_at->format('Y-m-d')}}
