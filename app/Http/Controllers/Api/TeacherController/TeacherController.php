@@ -314,7 +314,7 @@ class TeacherController extends Controller
             $code = mt_rand(1000, 9999);
             $msg = trans('messages.verification_code_at_sanaidi_is') . $code;
             Mail::to($teacher->email)->send(new NotifyMail($msg));
-            Mail::raw('Hello World!', function($msg) {$msg->to('nourmuhammed20121994@gmail.com')->subject('Test Email'); });
+            \Illuminate\Support\Facades\Mail::raw('Hello World!', function($msg) {$msg->to('nourmuhammed20121994@gmail.com')->subject('Test Email'); });
             $teacher->update([
                 'verification_code' => $code,
             ]);
