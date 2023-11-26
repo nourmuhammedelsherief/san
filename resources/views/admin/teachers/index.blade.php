@@ -128,19 +128,22 @@
                                         {{$teacher->balance}}
                                     </td>
                                     <td>
-                                        <a class="btn btn-primary" href="{{route('teachers.teacher_history' , $teacher->id)}}">
+                                        <a class="btn btn-primary"
+                                           href="{{route('teachers.teacher_history' , $teacher->id)}}">
                                             <i class="fa fa-eye"></i>
                                         </a>
                                     </td>
                                     <td>
-
-                                        {{--                                        <a class="btn btn-info" href="{{route('teachers.edit' , $teacher->id)}}">--}}
-                                        {{--                                            <i class="fa fa-user-edit"></i> @lang('messages.edit')--}}
-                                        {{--                                        </a>--}}
+                                        @if($teacher->type == 'free')
+                                            <a class="btn btn-info"
+                                               href="{{route('teachers.adminEdit' , $teacher->id)}}">
+                                                <i class="fa fa-user-edit"></i>
+                                            </a>
+                                        @endif
 
                                         <a class="delete_data btn btn-danger" data="{{ $teacher->id }}"
                                            data_name="{{$teacher->name}}">
-                                            <i class="fa fa-key"></i> @lang('messages.delete')
+                                            <i class="fa fa-trash"></i>
                                         </a>
                                     </td>
                                 </tr>

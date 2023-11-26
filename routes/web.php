@@ -134,6 +134,8 @@ Route::prefix('admin')->group(function () {
             Route::get('/classroom_students/{id}', 'classroom_students')->name('classroom_students');
             Route::get('/students/delete/{id}', 'delete_student')->name('delete_student');
             Route::get('/teachers/delete/{id}', 'destroy')->name('teachers.delete');
+            Route::get('/teachers/{id}/edit', 'edit')->name('teachers.adminEdit');
+            Route::post('/teachers/{id}/update', 'update')->name('teachers.adminUpdate');
             Route::get('/parents', 'parents')->name('parents.index');
             Route::get('/parent_children/{id}', 'father_children')->name('parent_children');
             Route::get('/parents/delete/{id}', 'delete_parent')->name('delete_parent');

@@ -46,7 +46,8 @@ Route::middleware(['cors', 'localization-api'])->group(function () {
     Route::prefix('teachers')->group(function () {
         Route::controller(TeacherController::class)->group(function () {
             Route::post('/login', 'login');
-            Route::post('/register', 'register');
+            Route::post('/registe
+            r', 'register');
             Route::post('/forget_password', 'forgetPassword');
             Route::post('/confirm_reset_code', 'confirmResetCode');
             Route::post('/reset_password', 'resetPassword');
