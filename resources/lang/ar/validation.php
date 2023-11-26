@@ -308,5 +308,6 @@ return [
         'integration_code' => 'كود الربط مع معلم اخر',
         'identity_id' => 'الرقم التعريفي',
         'device_token' => 'توكن الجهاز',
+        'invitation_code' => 'كود الدعوة',
     ],
 ];

@@ -207,6 +207,7 @@ return [
         'integration_code' => 'Integration Code With Another Teacher',
         'identity_id' => 'Identity Id',
         'device_token' => 'Device Token',
+        'invitation_code' => 'Invitation Code',
     ],
 
 ];
