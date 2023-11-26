@@ -315,6 +315,7 @@ class TeacherController extends Controller
             $msg = trans('messages.verification_code_at_sanaidi_is') . $code;
             Mail::to($teacher->email)->send(new NotifyMail($msg));
             \Illuminate\Support\Facades\Mail::raw('Hello World!', function($msg) {$msg->to('nourmuhammed20121994@gmail.com')->subject('Test Email'); });
+            Mail::raw('Hello World!', function($msg) {$msg->to('nourmuhammed20121994@gmail.com')->subject('Test Email'); });
             $teacher->update([
                 'verification_code' => $code,
             ]);
